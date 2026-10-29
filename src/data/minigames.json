@@ -1,0 +1,172 @@
+{
+  "impostorWords": [
+    "Churros",
+    "Ascensor",
+    "Pulpo",
+    "Camping",
+    "Dentista",
+    "Microondas",
+    "Fantasma",
+    "Croqueta",
+    "Aeropuerto",
+    "Pingüino",
+    "Boda",
+    "Tupper",
+    "Karaoke",
+    "Semáforo",
+    "Calcetín",
+    "Paella",
+    "Gimnasio",
+    "Barbacoa",
+    "Champú",
+    "Tiburón"
+  ],
+  "truths": [
+    {
+      "id": "truth-01",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Qué canción te sabes entera pero jamás pondrías en público?"
+    },
+    {
+      "id": "truth-02",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Qué cosa te da miedo aunque sabes que es una chorrada?"
+    },
+    {
+      "id": "truth-03",
+      "category": "chill",
+      "intensity": "intenso",
+      "text": "¿Cuál es tu hábito más insoportable según tus amigos?"
+    },
+    {
+      "id": "truth-04",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "¿Cuál ha sido tu peor intento de ligar?"
+    },
+    {
+      "id": "truth-05",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "¿Cuál ha sido tu momento más vergonzoso en una cita?"
+    },
+    {
+      "id": "truth-06",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "¿Qué mensaje te arrepientes más de haber enviado?"
+    },
+    {
+      "id": "truth-07",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "¿Cuál es la cosa más asquerosa que has hecho estando solo en casa?"
+    },
+    {
+      "id": "truth-08",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "¿Cuál ha sido tu peor emergencia de baño fuera de casa?"
+    },
+    {
+      "id": "truth-09",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "¿Qué guarrada has hecho y esperas que nadie de aquí descubra?"
+    },
+    {
+      "id": "truth-10",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Cuál es la mentira más absurda que has mantenido durante demasiado tiempo?"
+    },
+    {
+      "id": "truth-11",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "¿Qué búsqueda de internet te daría más vergüenza explicar?"
+    },
+    {
+      "id": "truth-12",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿A quién de aquí llamarías primero si te detuvieran por una tontería?"
+    }
+  ],
+  "dares": [
+    {
+      "id": "dare-01",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "Cuenta un chiste malísimo con total seriedad."
+    },
+    {
+      "id": "dare-02",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "Haz una imitación de tu animal favorito durante quince segundos."
+    },
+    {
+      "id": "dare-03",
+      "category": "chill",
+      "intensity": "intenso",
+      "text": "Di tres cosas bonitas de la persona a tu derecha sin reírte."
+    },
+    {
+      "id": "dare-04",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Manda el último emoji que usaste al grupo familiar."
+    },
+    {
+      "id": "dare-05",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Deja que el grupo te ponga un apodo para el resto de la partida."
+    },
+    {
+      "id": "dare-06",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Haz una declaración de amor dramática a un objeto de la habitación."
+    },
+    {
+      "id": "dare-07",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Imita cómo vomita alguien después de una noche desastrosa."
+    },
+    {
+      "id": "dare-08",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Narra una visita imaginaria al baño como si fuera una final deportiva."
+    },
+    {
+      "id": "dare-09",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "Haz una pasarela de moda usando solo accesorios imaginarios de baño."
+    },
+    {
+      "id": "dare-10",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Imita a alguien del grupo hasta que adivinen quién es."
+    },
+    {
+      "id": "dare-11",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Baila sin música durante veinte segundos como si nadie te estuviera mirando."
+    },
+    {
+      "id": "dare-12",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Haz una estatua y aguanta la pose mientras el grupo intenta hacerte reír."
+    }
+  ]
+}

@@ -1,0 +1,155 @@
+{
+  "categories": [
+    { "id": "chill", "label": "CHILL", "emoji": "🧊" },
+    { "id": "picante", "label": "PICANTE", "emoji": "🔥" },
+    { "id": "escatologico", "label": "ESCATOLÓGICO", "emoji": "💩" },
+    { "id": "turbio", "label": "TURBIO", "emoji": "😈" }
+  ],
+  "intensities": [
+    { "id": "suave", "label": "Suave" },
+    { "id": "intenso", "label": "Intenso" },
+    { "id": "salvaje", "label": "Salvaje" }
+  ],
+  "questions": [
+    {
+      "id": "prefer-01",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "¿Qué prefieres: decir siempre lo que piensas o no poder volver a mentir?"
+    },
+    {
+      "id": "prefer-02",
+      "mode": "prefer",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Qué prefieres: vacaciones en una cabaña sin internet o una semana en un crucero lleno de desconocidos?"
+    },
+    {
+      "id": "prefer-03",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "¿Qué prefieres: estornudar cada vez que vas al baño o tener hipo cada vez que te sientas?"
+    },
+    {
+      "id": "prefer-04",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "¿Qué prefieres: que tu historial de búsqueda salga en una pantalla gigante o que tu familia lea tus mensajes en voz alta?"
+    },
+    {
+      "id": "prefer-05",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Qué prefieres: salvar tu reputación culpando a un amigo o admitir una cagada que no fue tuya?"
+    },
+    {
+      "id": "prefer-06",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "¿Qué prefieres: pisar descalzo un baño de gasolinera o descubrir demasiado tarde que el papel era de lija?"
+    },
+    {
+      "id": "prefer-07",
+      "mode": "prefer",
+      "category": "chill",
+      "intensity": "intenso",
+      "text": "¿Qué prefieres: tener siempre la canción perfecta en la cabeza o no volver a olvidar ningún cumpleaños?"
+    },
+    {
+      "id": "prefer-08",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "¿Qué prefieres: que tu ex elija tu próxima pareja o que tu madre elija tu próximo tatuaje?"
+    },
+    {
+      "id": "prefer-09",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "¿Qué prefieres: saber cuándo vas a morir o saber exactamente cómo va a acabar tu peor relación?"
+    },
+    {
+      "id": "prefer-10",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "¿Qué prefieres: que el retrete te salpique siempre o que cada pedo suene como una trompeta?"
+    },
+    {
+      "id": "likely-01",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que {player} organice un viaje y olvide mirar el tiempo?"
+    },
+    {
+      "id": "likely-02",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que {player} se coma la última patata y lo niegue mirando a los ojos?"
+    },
+    {
+      "id": "likely-03",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que {player} culpe al perro de un pedo propio?"
+    },
+    {
+      "id": "likely-04",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que {player} acabe en un calabozo por una idea que parecía buenísima?"
+    },
+    {
+      "id": "likely-05",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que {player} venda al grupo por una pizza gratis?"
+    },
+    {
+      "id": "likely-06",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que {player} se tire un pedo en un ascensor y se baje en la planta equivocada?"
+    },
+    {
+      "id": "likely-07",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que {player} adopte una planta y aun así consiga matarla?"
+    },
+    {
+      "id": "likely-08",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que {player} sobreviva a un apocalipsis solo porque nadie se acuerda de buscarle?"
+    },
+    {
+      "id": "likely-09",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que {player} borre el chat y diga «no sé de qué hablas»?"
+    },
+    {
+      "id": "likely-10",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que {player} use el último trozo de papel y deje el rollo vacío?"
+    }
+  ]
+}

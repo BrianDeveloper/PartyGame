@@ -1,0 +1,148 @@
+{
+  "categories": [
+    {
+      "id": "peliculas",
+      "name": "🎬 Películas",
+      "subcategories": [
+        {
+          "id": "personajes-clasicos",
+          "name": "Personajes y criaturas",
+          "icon": "🧙",
+          "words": [
+            "Drácula",
+            "Sherlock Holmes",
+            "Frankenstein",
+            "un pirata buscando un tesoro",
+            "un detective siguiendo huellas",
+            "un astronauta perdido en el espacio",
+            "un monstruo escondido bajo la cama",
+            "un mago al que le sale mal un truco"
+          ]
+        },
+        {
+          "id": "escenas-de-cine",
+          "name": "Escenas de película",
+          "icon": "🎬",
+          "words": [
+            "una persecución a cámara lenta",
+            "una invasión extraterrestre",
+            "una boda interrumpida",
+            "un héroe desactivando una bomba",
+            "una persona atrapada en una isla",
+            "un villano revelando su plan",
+            "un barco en medio de una tormenta",
+            "alguien escapando de una momia"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "series",
+      "name": "📺 Series de TV",
+      "subcategories": [
+        {
+          "id": "comedias",
+          "name": "Comedias y situaciones",
+          "icon": "😂",
+          "words": [
+            "un jefe intentando parecer ocupado",
+            "una reunión que pudo ser un mensaje",
+            "un vecino que aparece sin avisar",
+            "alguien contando un chiste malísimo",
+            "una persona que habla con su planta",
+            "un grupo de amigos discutiendo por la cena",
+            "un personaje que entra con una noticia dramática",
+            "alguien intentando ocultar que se ha dormido"
+          ]
+        },
+        {
+          "id": "drama-y-misterio",
+          "name": "Drama y misterio",
+          "icon": "🕵️",
+          "words": [
+            "un detective interrogando a una lámpara",
+            "alguien descubriendo una puerta secreta",
+            "una persona que sospecha de todo el mundo",
+            "un testigo que no recuerda nada",
+            "una persecución por un pasillo",
+            "alguien leyendo una carta misteriosa",
+            "un científico cuyo experimento sale mal",
+            "una persona huyendo de una alarma"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cultura-pop",
+      "name": "🔥 Cultura Pop y Memes",
+      "subcategories": [
+        {
+          "id": "internet-y-redes",
+          "name": "Internet y redes",
+          "icon": "📱",
+          "words": [
+            "un streamer al que se le cae el internet",
+            "un gato haciéndose influencer",
+            "alguien grabando un tutorial imposible",
+            "una persona leyendo comentarios tóxicos",
+            "un baile viral que nadie entiende",
+            "un influencer posando con un café",
+            "alguien intentando hacerse un selfie perfecto",
+            "un móvil con un uno por ciento de batería"
+          ]
+        },
+        {
+          "id": "musica-y-espectaculo",
+          "name": "Música y espectáculo",
+          "icon": "🎤",
+          "words": [
+            "una estrella de rock rompiendo una guitarra imaginaria",
+            "un cantante que olvida la letra",
+            "un DJ pinchando música en una boda",
+            "alguien haciendo playback a escondidas",
+            "una diva saludando a sus fans",
+            "un bailarín que llega tarde al escenario",
+            "un presentador anunciando un premio",
+            "una persona intentando cantar ópera"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vida-cotidiana",
+      "name": "🧦 Vida cotidiana",
+      "subcategories": [
+        {
+          "id": "oficios",
+          "name": "Oficios y personajes",
+          "icon": "🧑‍🍳",
+          "words": [
+            "un peluquero con mucho trabajo",
+            "una persona repartiendo pizzas bajo la lluvia",
+            "un profesor intentando recuperar el silencio",
+            "un camarero llevando demasiados platos",
+            "un astronauta reparando un cohete",
+            "un entrenador dando instrucciones",
+            "un fotógrafo buscando la mejor pose",
+            "un médico escuchando un corazón"
+          ]
+        },
+        {
+          "id": "acciones",
+          "name": "Acciones absurdas",
+          "icon": "🤹",
+          "words": [
+            "buscar las llaves que tienes en la mano",
+            "caminar con zapatos demasiado grandes",
+            "intentar abrir un frasco imposible",
+            "esquivar un charco enorme",
+            "montar un mueble sin instrucciones",
+            "hacer yoga por primera vez",
+            "pelear con una sábana bajera",
+            "intentar no estornudar"
+          ]
+        }
+      ]
+    }
+  ]
+}
