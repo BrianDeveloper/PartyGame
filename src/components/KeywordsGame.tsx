@@ -37,6 +37,7 @@ type Member = {
 };
 type DeviceRole = { type: "board" } | { type: "cluegiver"; team: TeamIndex; name: string };
 type View = "home" | "setup" | "join" | "room";
+type ConnectionNotice = { type: "reconnecting" | "reconnected"; message: string };
 
 const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const typedWordBank = wordBank as string[];
@@ -212,7 +213,11 @@ function parseMembers(value: unknown): Member[] {
 }
 
 function getErrorMessage(error: unknown) {
-  return error instanceof Error ? error.message : "Ha ocurrido un error inesperado.";
+  if (error instanceof Error) return error.message;
+  if (isRecord(error) && typeof error.message === "string") {
+    return error.message;
+  }
+  return "Ha ocurrido un error inesperado.";
 }
 
 export default function KeywordsGame({
@@ -238,6 +243,8 @@ export default function KeywordsGame({
   const [busy, setBusy] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [notice, setNotice] = useState("");
+  const [connectionNotice, setConnectionNotice] =
+    useState<ConnectionNotice | null>(null);
 
   const supabase = useMemo(
     () => (isSupabaseConfigured() ? getSupabaseClient() : null),
@@ -258,7 +265,51 @@ export default function KeywordsGame({
     deviceRole?.type === "cluegiver" &&
     room?.public_state.activeTeam === deviceRole.team &&
     room.public_state.phase === "clue";
-  const visibleSecretKey = isActiveGuide ? secretKey : null;
+  const visibleSecretKey =
+    deviceRole?.type === "cluegiver" && room?.status === "playing"
+      ? secretKey
+      : null;
+  const publicBoard = (
+    <div
+      aria-label="Tablero público de palabras"
+      className="grid grid-cols-5 gap-2 sm:gap-3"
+    >
+      {room?.public_state.board.map((card, index) => (
+        <button
+          aria-label={
+            card.revealed
+              ? `${card.word}, revelada`
+              : `Revelar ${card.word}`
+          }
+          className={`flex min-h-16 items-center justify-center rounded-xl border-2 border-ink px-1 py-2 text-center text-xs font-extrabold shadow-comic-sm transition-transform sm:min-h-20 sm:rounded-2xl sm:px-2 sm:text-sm ${
+            card.revealed
+              ? card.owner === 0
+                ? "bg-bubblegum"
+                : card.owner === 1
+                  ? "bg-sky"
+                  : card.owner === 2
+                    ? "bg-stone-300"
+                    : "bg-ink text-white"
+              : room.public_state.phase === "guessing" &&
+                  deviceRole?.type === "board"
+                ? "bg-white active:translate-y-0.5 active:shadow-none"
+                : "bg-white"
+          }`}
+          disabled={
+            card.revealed ||
+            busy ||
+            room.public_state.phase !== "guessing" ||
+            deviceRole?.type !== "board"
+          }
+          key={`${card.word}-${index}`}
+          onClick={() => revealCard(index)}
+          type="button"
+        >
+          {card.word}
+        </button>
+      ))}
+    </div>
+  );
 
   const loadRoom = useCallback(
     async (roomId: string) => {
@@ -321,6 +372,7 @@ export default function KeywordsGame({
   useEffect(() => {
     if (!room || !supabase) return;
 
+    let hadConnectionIssue = false;
     const channel = supabase
       .channel(`keyword-room-${room.id}`)
       .on(
@@ -353,9 +405,17 @@ export default function KeywordsGame({
       )
       .subscribe((status) => {
         if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") {
-          setErrorMessage(
-            "Se perdió la conexión en tiempo real. Comprueba la red para sincronizar la sala.",
-          );
+          hadConnectionIssue = true;
+          setConnectionNotice({
+            type: "reconnecting",
+            message: "Conexión interrumpida. Intentando reconectar…",
+          });
+        } else if (status === "SUBSCRIBED" && hadConnectionIssue) {
+          hadConnectionIssue = false;
+          setConnectionNotice({
+            type: "reconnected",
+            message: "Conexión recuperada.",
+          });
         }
       });
 
@@ -369,9 +429,7 @@ export default function KeywordsGame({
       !room ||
       !supabase ||
       deviceRole?.type !== "cluegiver" ||
-      room.status !== "playing" ||
-      room.public_state.phase !== "clue" ||
-      room.public_state.activeTeam !== deviceRole.team
+      room.status !== "playing"
     ) {
       setSecretKey(null);
       return;
@@ -405,11 +463,15 @@ export default function KeywordsGame({
   }, [
     deviceRole,
     room?.id,
-    room?.public_state.activeTeam,
-    room?.public_state.phase,
     room?.status,
     supabase,
   ]);
+
+  useEffect(() => {
+    if (connectionNotice?.type !== "reconnected") return;
+    const timeout = window.setTimeout(() => setConnectionNotice(null), 3000);
+    return () => window.clearTimeout(timeout);
+  }, [connectionNotice]);
 
   function runAction(action: () => Promise<void>) {
     setBusy(true);
@@ -624,6 +686,16 @@ export default function KeywordsGame({
             Falta configurar Supabase. Define VITE_SUPABASE_URL y
             VITE_SUPABASE_ANON_KEY en tu archivo .env local y aplica la
             migración incluida en supabase/migrations.
+          </p>
+        )}
+        {connectionNotice && (
+          <p
+            aria-live="polite"
+            className={`mb-5 rounded-2xl border-2 border-ink p-4 font-bold ${
+              connectionNotice.type === "reconnected" ? "bg-mint" : "bg-coral"
+            }`}
+          >
+            {connectionNotice.message}
           </p>
         )}
         {errorMessage && (
@@ -937,45 +1009,19 @@ export default function KeywordsGame({
                     </p>
                   )}
 
-                  <div
-                    aria-label="Tablero público de palabras"
-                    className="grid grid-cols-5 gap-2 sm:gap-3"
-                  >
-                    {room.public_state.board.map((card, index) => (
-                      <button
-                        aria-label={
-                          card.revealed
-                            ? `${card.word}, revelada`
-                            : `Revelar ${card.word}`
-                        }
-                        className={`flex min-h-16 items-center justify-center rounded-xl border-2 border-ink px-1 py-2 text-center text-xs font-extrabold shadow-comic-sm transition-transform sm:min-h-20 sm:rounded-2xl sm:px-2 sm:text-sm ${
-                          card.revealed
-                            ? card.owner === 0
-                              ? "bg-bubblegum"
-                              : card.owner === 1
-                                ? "bg-sky"
-                                : card.owner === 2
-                                  ? "bg-stone-300"
-                                  : "bg-ink text-white"
-                            : room.public_state.phase === "guessing" &&
-                                deviceRole.type === "board"
-                              ? "bg-white active:translate-y-0.5 active:shadow-none"
-                              : "bg-white"
-                        }`}
-                        disabled={
-                          card.revealed ||
-                          busy ||
-                          room.public_state.phase !== "guessing" ||
-                          deviceRole.type !== "board"
-                        }
-                        key={`${card.word}-${index}`}
-                        onClick={() => revealCard(index)}
-                        type="button"
-                      >
-                        {card.word}
-                      </button>
-                    ))}
-                  </div>
+                  {deviceRole.type === "board" ? (
+                    publicBoard
+                  ) : (
+                    <details className="rounded-3xl border-2 border-ink bg-white p-4 shadow-comic-sm">
+                      <summary className="cursor-pointer font-extrabold">
+                        Consultar tablero público
+                      </summary>
+                      <p className="mb-3 mt-2 text-xs font-bold text-ink/60">
+                        Este tablero es visible para todos y no muestra la clave.
+                      </p>
+                      {publicBoard}
+                    </details>
+                  )}
                   {deviceRole.type === "board" &&
                     room.public_state.phase === "guessing" && (
                       <button
@@ -1022,41 +1068,47 @@ export default function KeywordsGame({
                               );
                             })}
                           </div>
-                          <form className="mt-4 space-y-3" onSubmit={sendClue}>
-                            <label className="block text-sm font-extrabold" htmlFor="keyword-clue">
-                              Pista de una palabra
-                              <input
-                                autoComplete="off"
-                                className="mt-1 w-full rounded-xl border-2 border-ink bg-cream px-3 py-2 font-bold"
-                                id="keyword-clue"
-                                maxLength={40}
-                                onChange={(event) => setClueInput(event.target.value)}
-                                required
-                                value={clueInput}
-                              />
-                            </label>
-                            <label className="block text-sm font-extrabold" htmlFor="keyword-clue-count">
-                              Número de palabras
-                              <input
-                                className="mt-1 w-full rounded-xl border-2 border-ink bg-cream px-3 py-2 font-bold"
-                                id="keyword-clue-count"
-                                max={Math.max(activeTeamRemaining, 1)}
-                                min={1}
-                                onChange={(event) =>
-                                  setClueCount(Number(event.target.value))
-                                }
-                                type="number"
-                                value={clueCount}
-                              />
-                            </label>
-                            <button
-                              className="w-full rounded-full border-2 border-ink bg-mint px-4 py-3 font-extrabold shadow-comic-sm disabled:opacity-45"
-                              disabled={busy || !isActiveGuide}
-                              type="submit"
-                            >
-                              Enviar pista al tablero
-                            </button>
-                          </form>
+                          {isActiveGuide ? (
+                            <form className="mt-4 space-y-3" onSubmit={sendClue}>
+                              <label className="block text-sm font-extrabold" htmlFor="keyword-clue">
+                                Pista de una palabra
+                                <input
+                                  autoComplete="off"
+                                  className="mt-1 w-full rounded-xl border-2 border-ink bg-cream px-3 py-2 font-bold"
+                                  id="keyword-clue"
+                                  maxLength={40}
+                                  onChange={(event) => setClueInput(event.target.value)}
+                                  required
+                                  value={clueInput}
+                                />
+                              </label>
+                              <label className="block text-sm font-extrabold" htmlFor="keyword-clue-count">
+                                Número de palabras
+                                <input
+                                  className="mt-1 w-full rounded-xl border-2 border-ink bg-cream px-3 py-2 font-bold"
+                                  id="keyword-clue-count"
+                                  max={Math.max(activeTeamRemaining, 1)}
+                                  min={1}
+                                  onChange={(event) =>
+                                    setClueCount(Number(event.target.value))
+                                  }
+                                  type="number"
+                                  value={clueCount}
+                                />
+                              </label>
+                              <button
+                                className="w-full rounded-full border-2 border-ink bg-mint px-4 py-3 font-extrabold shadow-comic-sm disabled:opacity-45"
+                                disabled={busy || !isActiveGuide}
+                                type="submit"
+                              >
+                                Enviar pista al tablero
+                              </button>
+                            </form>
+                          ) : (
+                            <p className="mt-4 rounded-2xl bg-cream p-3 text-center text-sm font-bold">
+                              Espera el turno de tu equipo para enviar una pista.
+                            </p>
+                          )}
                         </>
                       ) : (
                         <p className="text-center font-bold">

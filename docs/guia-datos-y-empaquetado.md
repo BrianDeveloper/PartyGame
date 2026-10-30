@@ -77,10 +77,28 @@ nueve objetivos para el equipo inicial, ocho para el rival, siete neutrales y
 una asesina. La guía da una pista de una palabra y un número; el equipo puede
 hacer hasta ese número más una conjetura. Las claves no se incluyen en el estado
 público ni se leen directamente desde las tablas: una función SQL solo entrega
-la clave a la guía autenticada del equipo activo. Configura
+la clave en privado a las guías registradas mientras la partida está activa.
+Cada guía conserva su clave fuera de turno, como en el juego de mesa; el tablero
+público de referencia en los teléfonos guía se muestra plegado. Configura
 `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `.env`, activa el acceso
-anónimo en Supabase y aplica la migración de `supabase/migrations/` antes de
-crear una sala.
+anónimo en Supabase y aplica las migraciones de `supabase/migrations/` antes de
+crear una sala. Si ya aplicaste la migración inicial, ejecuta también
+`supabase/migrations/20261030155000_keep_keyword_key_available_to_guides.sql`
+para mantener visible la clave privada de ambas guías durante la partida.
+
+La función `cleanup_expired_keyword_rooms()` elimina salas y sus datos asociados
+cuando tienen más de 12 horas. Para automatizarlo, aplica también
+`supabase/migrations/20261030150900_cleanup_expired_keyword_rooms.sql`. Después,
+en **Integrations → Cron**, crea un trabajo llamado `cleanup-keyword-rooms`,
+con programación `17 * * * *` y este comando:
+
+```sql
+select public.cleanup_expired_keyword_rooms();
+```
+
+Así se revisan las salas cada hora; los datos de las salas y sus claves secretas
+se eliminan en cascada. El rol `anon` y los usuarios autenticados de la app no
+pueden ejecutar esta función.
 
 ### Preparar el proyecto de Supabase
 
