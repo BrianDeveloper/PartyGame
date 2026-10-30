@@ -43,6 +43,36 @@ const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const typedWordBank = wordBank as string[];
 const DEVICE_SESSION_KEY = "la-ultima-ronda.keywords-room";
 
+function saveDeviceSession(roomId: string, role: DeviceRole) {
+  try {
+    window.localStorage.setItem(
+      DEVICE_SESSION_KEY,
+      JSON.stringify({ roomId, role }),
+    );
+    window.sessionStorage.removeItem(DEVICE_SESSION_KEY);
+    return null;
+  } catch (error) {
+    return getErrorMessage(error);
+  }
+}
+
+function readDeviceSession() {
+  const saved = window.localStorage.getItem(DEVICE_SESSION_KEY);
+  if (saved) return saved;
+
+  const legacySaved = window.sessionStorage.getItem(DEVICE_SESSION_KEY);
+  if (legacySaved) {
+    window.localStorage.setItem(DEVICE_SESSION_KEY, legacySaved);
+    window.sessionStorage.removeItem(DEVICE_SESSION_KEY);
+  }
+  return legacySaved;
+}
+
+function removeDeviceSession() {
+  window.localStorage.removeItem(DEVICE_SESSION_KEY);
+  window.sessionStorage.removeItem(DEVICE_SESSION_KEY);
+}
+
 function shuffle<T>(items: readonly T[]): T[] {
   const shuffled = [...items];
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
@@ -245,6 +275,7 @@ export default function KeywordsGame({
   const [notice, setNotice] = useState("");
   const [connectionNotice, setConnectionNotice] =
     useState<ConnectionNotice | null>(null);
+  const [confirmCloseRoom, setConfirmCloseRoom] = useState(false);
 
   const supabase = useMemo(
     () => (isSupabaseConfigured() ? getSupabaseClient() : null),
@@ -336,10 +367,10 @@ export default function KeywordsGame({
     if (!supabase) return;
     let saved: string | null;
     try {
-      saved = window.sessionStorage.getItem(DEVICE_SESSION_KEY);
+      saved = readDeviceSession();
     } catch (error) {
       setErrorMessage(
-        `No se pudo acceder al almacenamiento de sesión: ${getErrorMessage(error)}`,
+        `No se pudo acceder al almacenamiento persistente de la sala: ${getErrorMessage(error)}`,
       );
       return;
     }
@@ -361,6 +392,12 @@ export default function KeywordsGame({
 
     void loadRoom(restored.roomId)
       .then(() => {
+        const storageError = saveDeviceSession(restored.roomId, restored.role);
+        if (storageError) {
+          setErrorMessage(
+            `La sala se restauró, pero no se pudo guardar para la próxima apertura: ${storageError}`,
+          );
+        }
         setDeviceRole(restored.role);
         setView("room");
       })
@@ -521,10 +558,12 @@ export default function KeywordsGame({
         throw new Error("Supabase no devolvió el identificador de la sala.");
       }
       const role: DeviceRole = { type: "board" };
-      window.sessionStorage.setItem(
-        DEVICE_SESSION_KEY,
-        JSON.stringify({ roomId: data, role }),
-      );
+      const storageError = saveDeviceSession(data, role);
+      if (storageError) {
+        setErrorMessage(
+          `La sala se creó, pero no se pudo guardar para la próxima apertura: ${storageError}`,
+        );
+      }
       setDeviceRole(role);
       await loadRoom(data);
       setView("room");
@@ -550,10 +589,12 @@ export default function KeywordsGame({
         team: joinTeam,
         name: joinName.trim(),
       };
-      window.sessionStorage.setItem(
-        DEVICE_SESSION_KEY,
-        JSON.stringify({ roomId: data, role }),
-      );
+      const storageError = saveDeviceSession(data, role);
+      if (storageError) {
+        setErrorMessage(
+          `La sala se conectó, pero no se pudo guardar para la próxima apertura: ${storageError}`,
+        );
+      }
       setDeviceRole(role);
       await loadRoom(data);
       setView("room");
@@ -629,7 +670,7 @@ export default function KeywordsGame({
     setSecretKey(null);
     setView("home");
     try {
-      window.sessionStorage.removeItem(DEVICE_SESSION_KEY);
+      removeDeviceSession();
     } catch (error) {
       setErrorMessage(
         `No se pudo limpiar la sala de este dispositivo: ${getErrorMessage(error)}`,
@@ -647,7 +688,8 @@ export default function KeywordsGame({
         p_room_id: room.id,
       });
       if (error) throw error;
-      window.sessionStorage.removeItem(DEVICE_SESSION_KEY);
+      setConfirmCloseRoom(false);
+      removeDeviceSession();
       backToHome();
     });
   }
@@ -746,7 +788,7 @@ export default function KeywordsGame({
                 onClick={() => setView("join")}
                 type="button"
               >
-                Unirme como guía
+                Conectar / reconectar como guía
               </button>
             </div>
             {players.length < 4 && (
@@ -817,7 +859,8 @@ export default function KeywordsGame({
             </h2>
             <p className="mt-2 font-semibold text-ink/65">
               Elige el equipo y escribe el mismo nombre que figura en su
-              plantilla. La guía permanecerá fija durante la partida.
+              plantilla. Para reconectarte a una partida iniciada, usa el mismo
+              dispositivo o perfil donde te conectaste originalmente.
             </p>
             <form
               className="mt-5 space-y-4"
@@ -1033,6 +1076,51 @@ export default function KeywordsGame({
                         Terminar turno
                       </button>
                     )}
+                  {deviceRole.type === "board" && (
+                    <div className="mt-4">
+                      {confirmCloseRoom ? (
+                        <div
+                          aria-labelledby="confirm-end-game-title"
+                          className="rounded-2xl border-2 border-ink bg-coral p-4 shadow-comic-sm"
+                          role="alert"
+                        >
+                          <p
+                            className="font-extrabold"
+                            id="confirm-end-game-title"
+                          >
+                            ¿Terminar la partida para todos los dispositivos?
+                          </p>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            <button
+                              className="rounded-full border-2 border-ink bg-white px-4 py-2 font-extrabold"
+                              disabled={busy}
+                              onClick={() => setConfirmCloseRoom(false)}
+                              type="button"
+                            >
+                              Seguir jugando
+                            </button>
+                            <button
+                              className="rounded-full border-2 border-ink bg-ink px-4 py-2 font-extrabold text-white"
+                              disabled={busy}
+                              onClick={closeRoom}
+                              type="button"
+                            >
+                              {busy ? "Terminando…" : "Sí, terminar partida"}
+                            </button>
+                          </div>
+                        </div>
+                      ) : (
+                        <button
+                          className="w-full rounded-full border-2 border-ink bg-coral px-5 py-3 font-extrabold shadow-comic-sm"
+                          disabled={busy}
+                          onClick={() => setConfirmCloseRoom(true)}
+                          type="button"
+                        >
+                          Terminar partida para todos
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <aside>

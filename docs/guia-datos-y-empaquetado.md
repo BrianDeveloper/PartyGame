@@ -85,6 +85,13 @@ anónimo en Supabase y aplica las migraciones de `supabase/migrations/` antes de
 crear una sala. Si ya aplicaste la migración inicial, ejecuta también
 `supabase/migrations/20261030155000_keep_keyword_key_available_to_guides.sql`
 para mantener visible la clave privada de ambas guías durante la partida.
+El estado de sala del dispositivo se guarda en `localStorage` para sobrevivir
+al cierre de la app. Si hace falta conectarse manualmente a una partida en
+curso, usa el mismo dispositivo/perfil y la misma sesión anónima de la guía;
+aplica también
+`supabase/migrations/20261030160300_reconnect_keyword_guides_during_game.sql`.
+El tablero incluye **Terminar partida para todos**, que finaliza la sala y
+sincroniza ese resultado con las otras pantallas.
 
 La función `cleanup_expired_keyword_rooms()` elimina salas y sus datos asociados
 cuando tienen más de 12 horas. Para automatizarlo, aplica también
