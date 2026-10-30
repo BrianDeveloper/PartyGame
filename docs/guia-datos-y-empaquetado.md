@@ -15,6 +15,12 @@ lugares:
 | Turno, votos y partida actual | Estado React en memoria | No se guardan; una nueva sesión empieza de cero |
 | Verdades consecutivas por jugador | Estado React durante la partida | No se guardan; elegir reto reinicia el contador |
 | Puntos de Charadas | Estado React de la partida | Temporales; se reinician al salir del modo |
+| Frases y partida de Yo nunca nunca | JSON y estado React | El mazo viene con la app; el progreso es temporal |
+| Baraja y partida de King's Cup | Baraja aleatoria de 52 cartas y estado React | Progreso temporal; se reinicia al salir |
+| Roscos y marcador de Pasapalabra | JSON local y estado React | Las pistas vienen con la app; la partida es temporal |
+| Frases y cadena de Teléfono descompuesto | JSON local y estado React | Las frases vienen con la app; la partida es temporal |
+| Tarjetas y marcador de Tabú | JSON local y estado React | Las tarjetas vienen con la app; la partida es temporal |
+| Salas de Palabras clave | Supabase Realtime y funciones SQL | Estado sincronizado entre dispositivos; la clave queda protegida en el servidor |
 
 ## Categorías y regla de Verdad o Reto
 
@@ -26,6 +32,91 @@ salvaje) se aplica de forma independiente.
 En Verdad o Reto, cada jugador puede elegir Verdad dos veces seguidas. En su
 turno siguiente, Verdad queda bloqueada y debe elegir Reto. El contador es
 temporal y se reinicia al elegir Reto; no se guarda en `localStorage`.
+
+En «Yo nunca nunca», cada persona empieza con cinco dedos levantados y baja uno
+si la frase le aplica. Se puede elegir entre tres intensidades y partidas de 5,
+10 o 12 frases. El juego también se puede terminar cuando alguien se queda sin
+dedos; al final, el grupo cuenta los dedos restantes para decidir quién gana.
+Compartir anécdotas es opcional, y el juego no asigna puntos por beber ni
+impone castigos.
+
+En King's Cup, la app mezcla una baraja estándar de 52 cartas y asigna los
+turnos entre los jugadores. Cada valor propone una dinámica grupal; al salir
+cada Rey, se puede proponer una regla colectiva y el cuarto Rey cierra la
+partida con un reto final acordado. No hay copa compartida ni penalizaciones
+por beber: todas las dinámicas se pueden hacer sin alcohol y cualquier persona
+puede pasar o proponer una alternativa.
+
+En Pasapalabra se enfrentan dos jugadores, cada uno con su rosco circular local
+de 27 letras y dos minutos de tiempo activo. Un narrador externo lee las
+pistas y juzga las respuestas; la app muestra el rosco, revela la respuesta
+solo cuando se solicita y registra aciertos, fallos y letras pasadas. Al decir
+«Pasapalabra», el reloj del jugador se pausa y empieza el turno del rival; al
+volver a jugar, retoma con el tiempo restante y puede continuar el rosco. El
+turno termina cuando se agota el tiempo o se completa el rosco. Al acabar los
+dos jugadores, gana quien tenga más aciertos; si empatan, la partida termina
+en empate. El modo necesita solo dos jugadores.
+
+En Teléfono descompuesto, la app muestra una frase a la primera persona, que
+la memoriza y la pasa de boca en boca con las reglas tradicionales. Cuando la
+frase completa la vuelta, el grupo revela la frase original en la app y compara
+el resultado. La app no registra respuestas ni dirige la cadena. El inicio
+rota entre rondas, se puede jugar una, tres o cinco rondas y no hay puntuación.
+
+En Tabú se forman dos equipos con al menos cuatro jugadores. En cada turno, una
+persona tiene 60 segundos para conseguir que su equipo adivine palabras sin
+decir ninguna de las cinco prohibidas. Un acierto suma un punto, pasar no suma
+y una infracción resta uno. Los equipos alternan turnos; se puede jugar uno,
+dos o tres turnos por equipo.
+
+Palabras clave requiere conexión a internet y un proyecto Supabase. Se juega
+desde tres dispositivos: un tablero público y un teléfono privado por equipo
+para la persona guía fija. Los equipos se asignan manualmente; se necesitan al
+menos dos integrantes por equipo. La partida usa 25 palabras, una clave con
+nueve objetivos para el equipo inicial, ocho para el rival, siete neutrales y
+una asesina. La guía da una pista de una palabra y un número; el equipo puede
+hacer hasta ese número más una conjetura. Las claves no se incluyen en el estado
+público ni se leen directamente desde las tablas: una función SQL solo entrega
+la clave a la guía autenticada del equipo activo. Configura
+`VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `.env`, activa el acceso
+anónimo en Supabase y aplica la migración de `supabase/migrations/` antes de
+crear una sala.
+
+### Preparar el proyecto de Supabase
+
+1. Crea un proyecto en el Dashboard de Supabase. Elige una región cercana a
+   quienes jugarán y guarda la contraseña de la base de datos en un gestor de
+   contraseñas; la app no la necesita.
+2. En la configuración del proyecto, copia el **Project URL** y la clave
+   pública **anon** (o **publishable**, si el Dashboard ofrece esa opción).
+   No uses ni compartas la clave `service_role`/secreta.
+3. En Authentication, abre los proveedores o métodos de inicio de sesión y
+   activa **Anonymous Sign-Ins**. La app usa una sesión anónima independiente
+   por dispositivo.
+4. Abre **SQL Editor**, crea una consulta nueva, pega el contenido completo de
+   `supabase/migrations/20261030000000_create_keywords_rooms.sql` y ejecútala.
+   La migración crea las tablas y funciones, protege la clave con RLS y añade
+   las tablas de sala a la publicación de Realtime.
+5. En la raíz del proyecto, crea `.env` a partir de `.env.example` si todavía
+   no existe y completa las variables:
+
+   ```dotenv
+   VITE_SUPABASE_URL=https://tu-proyecto.supabase.co
+   VITE_SUPABASE_ANON_KEY=tu-clave-publica
+   ```
+
+   `.env` está excluido de Git. No pegues aquí la contraseña de la base de
+   datos ni una clave `service_role`/secreta. Reinicia `npm run dev` si ya
+   estaba ejecutándose para que Vite cargue las variables.
+6. Para una primera prueba, abre la app en tres sesiones/dispositivos con
+   internet: crea la sala en el tablero y conecta una guía por equipo. Cada
+   equipo necesita al menos dos nombres asignados. En escritorio, usa perfiles
+   de navegador distintos; dos pestañas del mismo perfil comparten la sesión
+   anónima.
+7. Para probar en Android, configura las variables antes de ejecutar
+   `npm run cap:sync` y abrir el proyecto con `npm run cap:open`. Las variables
+   Vite quedan incorporadas en el bundle al compilar; cualquier cambio requiere
+   volver a compilar y sincronizar.
 
 En los mazos de «¿Qué prefieres?» y «¿Quién es más probable que...?», se avanza
 solo deslizando la tarjeta horizontalmente; no hay botones inferiores de

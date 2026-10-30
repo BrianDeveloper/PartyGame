@@ -3,11 +3,26 @@ import AssassinGame from "./components/AssassinGame";
 import CharadesGame from "./components/CharadesGame";
 import GameScreen from "./components/GameScreen";
 import ImpostorGame from "./components/ImpostorGame";
+import KingsCupGame from "./components/KingsCupGame";
+import KeywordsGame from "./components/KeywordsGame";
+import NeverHaveIEverGame from "./components/NeverHaveIEverGame";
+import PassapalabraGame from "./components/PassapalabraGame";
 import PlayersModal from "./components/PlayersModal";
+import TelephoneGame from "./components/TelephoneGame";
+import TabooGame from "./components/TabooGame";
 import TruthDareGame from "./components/TruthDareGame";
 import { usePlayers } from "./state/PlayersContext";
 
-const gameModes = [
+type GameMode = {
+  title: string;
+  description: string;
+  emoji: string;
+  color: string;
+  tilt: string;
+  status?: "upcoming";
+};
+
+const gameModes: GameMode[] = [
   {
     title: "¿Qué prefieres?",
     description: "Dilemas imposibles y decisiones cuestionables.",
@@ -52,11 +67,10 @@ const gameModes = [
   },
   {
     title: "Pasapalabra",
-    description: "Adivina palabras antes de completar el rosco.",
+    description: "Rosco circular para dos, con narrador externo.",
     emoji: "🔤",
     color: "bg-sky",
     tilt: "rotate-[1deg]",
-    status: "upcoming",
   },
   {
     title: "Palabras clave",
@@ -64,7 +78,6 @@ const gameModes = [
     emoji: "🗝️",
     color: "bg-mustard",
     tilt: "-rotate-[1deg]",
-    status: "upcoming",
   },
   {
     title: "Teléfono descompuesto",
@@ -72,15 +85,13 @@ const gameModes = [
     emoji: "📞",
     color: "bg-mint",
     tilt: "rotate-[1deg]",
-    status: "upcoming",
   },
   {
     title: "Yo nunca nunca",
-    description: "Confesiones, anécdotas y dedos acusadores.",
+    description: "Confesiones y dedos acusadores. ¿Quién cae primero?",
     emoji: "🙈",
     color: "bg-bubblegum",
     tilt: "-rotate-[1deg]",
-    status: "upcoming",
   },
   {
     title: "Tabú (Taboo)",
@@ -88,15 +99,13 @@ const gameModes = [
     emoji: "🤐",
     color: "bg-coral",
     tilt: "rotate-[1deg]",
-    status: "upcoming",
   },
   {
     title: "King's Cup",
-    description: "Una baraja, reglas de grupo y una copa en el centro.",
+    description: "Una baraja virtual, reglas de grupo y el cuarto Rey.",
     emoji: "👑",
     color: "bg-mustard",
     tilt: "-rotate-[1deg]",
-    status: "upcoming",
   },
 ];
 
@@ -108,7 +117,13 @@ export default function App() {
 
   function selectMode(mode: string) {
     setSelectedMode(null);
-    if (players.length < 3) {
+    const minimumPlayers =
+      mode === "Palabras clave" || mode === "Tabú (Taboo)"
+        ? 4
+        : mode === "Pasapalabra"
+          ? 2
+          : 3;
+    if (players.length < minimumPlayers) {
       setPendingMode(mode);
       setIsPlayersOpen(true);
       return;
@@ -117,7 +132,13 @@ export default function App() {
   }
 
   function continueToMode() {
-    if (!pendingMode || players.length < 3) return;
+    const minimumPlayers =
+      pendingMode === "Palabras clave" || pendingMode === "Tabú (Taboo)"
+        ? 4
+        : pendingMode === "Pasapalabra"
+          ? 2
+          : 3;
+    if (!pendingMode || players.length < minimumPlayers) return;
     setSelectedMode(pendingMode);
     setPendingMode(null);
     setIsPlayersOpen(false);
@@ -152,6 +173,120 @@ export default function App() {
         <AssassinGame
           onBack={() => setSelectedMode(null)}
           onManagePlayers={openPlayers}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "Yo nunca nunca") {
+    return (
+      <>
+        <NeverHaveIEverGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          playerCount={players.length}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "King's Cup") {
+    return (
+      <>
+        <KingsCupGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          players={players}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "Pasapalabra") {
+    return (
+      <>
+        <PassapalabraGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          players={players}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "Palabras clave") {
+    return (
+      <>
+        <KeywordsGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          players={players}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "Teléfono descompuesto") {
+    return (
+      <>
+        <TelephoneGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          players={players}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "Tabú (Taboo)") {
+    return (
+      <>
+        <TabooGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+          players={players}
         />
         {isPlayersOpen && (
           <PlayersModal
@@ -367,6 +502,14 @@ export default function App() {
           }}
           onContinue={continueToMode}
           pendingMode={pendingMode}
+          minimumPlayers={
+            pendingMode === "Palabras clave" ||
+            pendingMode === "Tabú (Taboo)"
+              ? 4
+              : pendingMode === "Pasapalabra"
+                ? 2
+                : 3
+          }
         />
       )}
     </main>

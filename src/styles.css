@@ -36,3 +36,49 @@ button {
   color: #1e1e1e;
   background: #ff9fcb;
 }
+
+@keyframes turn-handoff-flash {
+  0% {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.turn-handoff {
+  animation: turn-handoff-flash 450ms ease-out both;
+}
+
+.turn-handoff-icon {
+  animation: turn-handoff-icon-pop 450ms ease-out both;
+}
+
+@keyframes turn-handoff-icon-pop {
+  0% {
+    transform: rotate(-12deg) scale(0.75);
+  }
+
+  60% {
+    transform: rotate(8deg) scale(1.12);
+  }
+
+  100% {
+    transform: rotate(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .turn-handoff,
+  .turn-handoff-icon {
+    animation-duration: 1ms;
+  }
+}

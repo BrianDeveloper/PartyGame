@@ -13,17 +13,19 @@ type PlayersModalProps = {
   onClose: () => void;
   pendingMode: string | null;
   onContinue: () => void;
+  minimumPlayers?: number;
 };
 
 export default function PlayersModal({
   onClose,
   pendingMode,
   onContinue,
+  minimumPlayers = 3,
 }: PlayersModalProps) {
   const { players, addPlayer, removePlayer } = usePlayers();
   const [name, setName] = useState("");
   const [feedback, setFeedback] = useState("");
-  const canStart = players.length >= 3;
+  const canStart = players.length >= minimumPlayers;
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -136,8 +138,10 @@ export default function PlayersModal({
           <p className="mt-1 text-sm font-medium text-ink/70">
             {canStart
               ? "Ya podéis montar una buena."
-              : `Necesitáis ${3 - players.length} ${
-                  3 - players.length === 1 ? "jugador más" : "jugadores más"
+              : `Necesitáis ${minimumPlayers - players.length} ${
+                  minimumPlayers - players.length === 1
+                    ? "jugador más"
+                    : "jugadores más"
                 } para jugar.`}
           </p>
         </div>
@@ -151,7 +155,7 @@ export default function PlayersModal({
           {pendingMode
             ? canStart
               ? `Continuar con ${pendingMode}`
-              : "Añade al menos 3 jugadores"
+              : `Añade al menos ${minimumPlayers} jugadores`
             : "Listo, volver al menú"}
         </button>
       </section>

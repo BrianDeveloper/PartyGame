@@ -1,0 +1,122 @@
+[
+  {
+    "word": "PIZZA",
+    "forbidden": ["Queso", "Tomate", "Masa", "Italia", "Porción"]
+  },
+  {
+    "word": "AVIÓN",
+    "forbidden": ["Volar", "Aeropuerto", "Alas", "Piloto", "Pasajeros"]
+  },
+  {
+    "word": "PLAYA",
+    "forbidden": ["Arena", "Mar", "Verano", "Toalla", "Olas"]
+  },
+  {
+    "word": "DENTISTA",
+    "forbidden": ["Dientes", "Boca", "Muela", "Caries", "Consulta"]
+  },
+  {
+    "word": "ELEFANTE",
+    "forbidden": ["Trompa", "Grande", "Gris", "Africa", "Colmillos"]
+  },
+  {
+    "word": "HELADO",
+    "forbidden": ["Frío", "Verano", "Cono", "Postre", "Sabores"]
+  },
+  {
+    "word": "CUMPLEAÑOS",
+    "forbidden": ["Tarta", "Velas", "Regalo", "Fiesta", "Edad"]
+  },
+  {
+    "word": "FÚTBOL",
+    "forbidden": ["Pelota", "Gol", "Portería", "Equipo", "Cancha"]
+  },
+  {
+    "word": "CAMA",
+    "forbidden": ["Dormir", "Almohada", "Colchón", "Sábanas", "Noche"]
+  },
+  {
+    "word": "PARAGUAS",
+    "forbidden": ["Lluvia", "Agua", "Abrir", "Mojarse", "Tormenta"]
+  },
+  {
+    "word": "BIBLIOTECA",
+    "forbidden": ["Libros", "Leer", "Silencio", "Estudiar", "Préstamo"]
+  },
+  {
+    "word": "DINOSAURIO",
+    "forbidden": ["Extinto", "Fósil", "Jurásico", "Tiranosaurio", "Prehistoria"]
+  },
+  {
+    "word": "ESPEJO",
+    "forbidden": ["Reflejo", "Mirar", "Cristal", "Imagen", "Baño"]
+  },
+  {
+    "word": "MICROONDAS",
+    "forbidden": ["Calentar", "Comida", "Cocina", "Minuto", "Plato"]
+  },
+  {
+    "word": "FANTASMA",
+    "forbidden": ["Espíritu", "Miedo", "Casa", "Sábana", "Aparecer"]
+  },
+  {
+    "word": "SEMÁFORO",
+    "forbidden": ["Rojo", "Verde", "Amarillo", "Coche", "Cruzar"]
+  },
+  {
+    "word": "CHOCOLATE",
+    "forbidden": ["Dulce", "Cacao", "Tableta", "Postre", "Negro"]
+  },
+  {
+    "word": "GAFAS",
+    "forbidden": ["Ver", "Ojos", "Lentes", "Sol", "Graduación"]
+  },
+  {
+    "word": "ASCENSOR",
+    "forbidden": ["Subir", "Bajar", "Piso", "Botón", "Edificio"]
+  },
+  {
+    "word": "GUITARRA",
+    "forbidden": ["Cuerda", "Música", "Tocar", "Instrumento", "Púa"]
+  },
+  {
+    "word": "PIRATA",
+    "forbidden": ["Barco", "Tesoro", "Parche", "Mar", "Garfio"]
+  },
+  {
+    "word": "SANDÍA",
+    "forbidden": ["Fruta", "Roja", "Verano", "Pepitas", "Cáscara"]
+  },
+  {
+    "word": "LUNES",
+    "forbidden": ["Semana", "Trabajo", "Día", "Oficina", "Madrugar"]
+  },
+  {
+    "word": "CINE",
+    "forbidden": ["Película", "Pantalla", "Palomitas", "Entrada", "Sala"]
+  },
+  {
+    "word": "ROBOT",
+    "forbidden": ["Máquina", "Metal", "Tecnología", "Automático", "Android"]
+  },
+  {
+    "word": "COCINERO",
+    "forbidden": ["Comida", "Restaurante", "Chef", "Cocina", "Receta"]
+  },
+  {
+    "word": "VOLCÁN",
+    "forbidden": ["Lava", "Erupción", "Montaña", "Fuego", "Ceniza"]
+  },
+  {
+    "word": "DENTÍFRICO",
+    "forbidden": ["Pasta", "Dientes", "Cepillo", "Baño", "Menta"]
+  },
+  {
+    "word": "CANGURO",
+    "forbidden": ["Australia", "Salto", "Bolsa", "Cría", "Animal"]
+  },
+  {
+    "word": "FOTOGRAFÍA",
+    "forbidden": ["Foto", "Cámara", "Imagen", "Retrato", "Capturar"]
+  }
+]

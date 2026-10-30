@@ -1,0 +1,137 @@
+[
+  {
+    "letter": "A",
+    "clue": "Empieza por A: vehículo que vuela y transporta pasajeros.",
+    "answer": "avión"
+  },
+  {
+    "letter": "B",
+    "clue": "Empieza por B: instrumento para orientarse que señala el norte.",
+    "answer": "brújula"
+  },
+  {
+    "letter": "C",
+    "clue": "Empieza por C: animal australiano que lleva a sus crías en una bolsa.",
+    "answer": "canguro"
+  },
+  {
+    "letter": "D",
+    "clue": "Empieza por D: piedra preciosa muy dura que se usa en joyería.",
+    "answer": "diamante"
+  },
+  {
+    "letter": "E",
+    "clue": "Empieza por E: objeto de cristal en el que puedes ver tu reflejo.",
+    "answer": "espejo"
+  },
+  {
+    "letter": "F",
+    "clue": "Empieza por F: torre con una luz que guía a los barcos.",
+    "answer": "faro"
+  },
+  {
+    "letter": "G",
+    "clue": "Empieza por G: instrumento musical de cuerda que suele tocarse rasgueando.",
+    "answer": "guitarra"
+  },
+  {
+    "letter": "H",
+    "clue": "Empieza por H: aeronave con hélices que puede despegar verticalmente.",
+    "answer": "helicóptero"
+  },
+  {
+    "letter": "I",
+    "clue": "Empieza por I: porción de tierra rodeada completamente de agua.",
+    "answer": "isla"
+  },
+  {
+    "letter": "J",
+    "clue": "Empieza por J: producto que se usa con agua para lavar las manos.",
+    "answer": "jabón"
+  },
+  {
+    "letter": "K",
+    "clue": "Empieza por K: mamífero australiano que se alimenta principalmente de eucalipto.",
+    "answer": "koala"
+  },
+  {
+    "letter": "L",
+    "clue": "Empieza por L: objeto que ilumina una habitación y suele ponerse sobre una mesa.",
+    "answer": "lámpara"
+  },
+  {
+    "letter": "M",
+    "clue": "Empieza por M: roca que cae del espacio y llega a la superficie terrestre.",
+    "answer": "meteorito"
+  },
+  {
+    "letter": "N",
+    "clue": "Empieza por N: estructura de ramas que construyen algunas aves para poner huevos.",
+    "answer": "nido"
+  },
+  {
+    "letter": "Ñ",
+    "clue": "Empieza por Ñ: ave sudamericana corredora, parecida al avestruz.",
+    "answer": "ñandú"
+  },
+  {
+    "letter": "O",
+    "clue": "Empieza por O: gran extensión de agua salada que cubre buena parte del planeta.",
+    "answer": "océano"
+  },
+  {
+    "letter": "P",
+    "clue": "Empieza por P: construcción de base cuadrada y lados triangulares que termina en punta.",
+    "answer": "pirámide"
+  },
+  {
+    "letter": "Q",
+    "clue": "Empieza por Q: alimento hecho normalmente con leche cuajada.",
+    "answer": "queso"
+  },
+  {
+    "letter": "R",
+    "clue": "Empieza por R: instrumento que sirve para medir el tiempo y suele llevar manecillas.",
+    "answer": "reloj"
+  },
+  {
+    "letter": "S",
+    "clue": "Empieza por S: aparato con luces de colores que regula el tráfico.",
+    "answer": "semáforo"
+  },
+  {
+    "letter": "T",
+    "clue": "Empieza por T: aparato que sirve para medir la temperatura.",
+    "answer": "termómetro"
+  },
+  {
+    "letter": "U",
+    "clue": "Empieza por U: conjunto de todo lo que existe, incluidos planetas y estrellas.",
+    "answer": "universo"
+  },
+  {
+    "letter": "V",
+    "clue": "Empieza por V: montaña que puede expulsar lava, ceniza y gases.",
+    "answer": "volcán"
+  },
+  {
+    "letter": "W",
+    "clue": "Empieza por W: tecnología inalámbrica que permite conectar dispositivos a internet.",
+    "answer": "wifi"
+  },
+  {
+    "letter": "X",
+    "clue": "Empieza por X: instrumento musical de láminas que se golpean con baquetas.",
+    "answer": "xilófono"
+  },
+  {
+    "letter": "Y",
+    "clue": "Empieza por Y: embarcación de recreo, generalmente lujosa.",
+    "answer": "yate"
+  },
+  {
+    "letter": "Z",
+    "clue": "Empieza por Z: animal salvaje parecido al perro, conocido por aullar.",
+    "answer": "zorro"
+  }
+]
