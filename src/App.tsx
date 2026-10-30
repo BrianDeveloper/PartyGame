@@ -50,6 +50,54 @@ const gameModes = [
     color: "bg-coral",
     tilt: "-rotate-[1deg]",
   },
+  {
+    title: "Pasapalabra",
+    description: "Adivina palabras antes de completar el rosco.",
+    emoji: "🔤",
+    color: "bg-sky",
+    tilt: "rotate-[1deg]",
+    status: "upcoming",
+  },
+  {
+    title: "Palabras clave",
+    description: "Da pistas y conecta palabras sin revelar demasiado.",
+    emoji: "🗝️",
+    color: "bg-mustard",
+    tilt: "-rotate-[1deg]",
+    status: "upcoming",
+  },
+  {
+    title: "Teléfono descompuesto",
+    description: "Pasa el mensaje y descubre cómo termina la historia.",
+    emoji: "📞",
+    color: "bg-mint",
+    tilt: "rotate-[1deg]",
+    status: "upcoming",
+  },
+  {
+    title: "Yo nunca nunca",
+    description: "Confesiones, anécdotas y dedos acusadores.",
+    emoji: "🙈",
+    color: "bg-bubblegum",
+    tilt: "-rotate-[1deg]",
+    status: "upcoming",
+  },
+  {
+    title: "Tabú (Taboo)",
+    description: "Haz que adivinen la palabra sin decir lo prohibido.",
+    emoji: "🤐",
+    color: "bg-coral",
+    tilt: "rotate-[1deg]",
+    status: "upcoming",
+  },
+  {
+    title: "King's Cup",
+    description: "Una baraja, reglas de grupo y una copa en el centro.",
+    emoji: "👑",
+    color: "bg-mustard",
+    tilt: "-rotate-[1deg]",
+    status: "upcoming",
+  },
 ];
 
 export default function App() {
@@ -239,19 +287,36 @@ export default function App() {
           <div className="grid gap-4 sm:grid-cols-2">
             {gameModes.map((mode) => (
               <button
-                aria-label={`Seleccionar ${mode.title}`}
-                className={`group flex min-h-40 flex-col items-start rounded-3xl border-2 border-ink p-5 text-left shadow-comic transition duration-150 hover:-translate-y-1 hover:rotate-0 hover:shadow-[6px_6px_0px_0px_rgba(30,30,30,1)] active:translate-x-1 active:translate-y-1 active:shadow-none ${mode.color} ${mode.tilt}`}
+                aria-label={
+                  mode.status === "upcoming"
+                    ? `${mode.title}, en desarrollo`
+                    : `Seleccionar ${mode.title}`
+                }
+                className={`group flex min-h-40 flex-col items-start rounded-3xl border-2 border-ink p-5 text-left shadow-comic transition duration-150 ${
+                  mode.status === "upcoming"
+                    ? "cursor-not-allowed opacity-75"
+                    : "hover:-translate-y-1 hover:rotate-0 hover:shadow-[6px_6px_0px_0px_rgba(30,30,30,1)] active:translate-x-1 active:translate-y-1 active:shadow-none"
+                } ${mode.color} ${mode.tilt}`}
+                disabled={mode.status === "upcoming"}
                 key={mode.title}
-                onClick={() => selectMode(mode.title)}
+                onClick={() => {
+                  if (mode.status !== "upcoming") selectMode(mode.title);
+                }}
                 type="button"
               >
                 <span className="mb-3 flex w-full items-center justify-between">
                   <span className="grid h-12 w-12 place-items-center rounded-2xl border-2 border-ink bg-white text-2xl">
                     {mode.emoji}
                   </span>
-                  <span aria-hidden="true" className="text-2xl font-black transition-transform group-hover:translate-x-1">
-                    ↗
-                  </span>
+                  {mode.status === "upcoming" ? (
+                    <span className="rounded-full border-2 border-ink bg-white px-3 py-1 text-xs font-extrabold uppercase tracking-wide shadow-comic-sm">
+                      En desarrollo
+                    </span>
+                  ) : (
+                    <span aria-hidden="true" className="text-2xl font-black transition-transform group-hover:translate-x-1">
+                      ↗
+                    </span>
+                  )}
                 </span>
                 <span className="font-display text-2xl font-semibold leading-tight">
                   {mode.title}
