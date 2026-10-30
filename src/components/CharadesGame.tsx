@@ -31,11 +31,18 @@ type CharadesData = {
   categories: Category[];
 };
 
-type Phase = "setup" | "playing" | "summary";
+type Phase = "setup" | "countdown" | "playing" | "summary";
+type ControlMode = "sensors" | "touch";
 type Feedback = CharadesAction | null;
+type PendingWord = {
+  word: string;
+  remainingWords: string[];
+};
 
 const turnDuration = 60;
 const turnDurationOptions = [30, 60, 90, 120];
+const preparationCountdown = 5;
+const feedbackDuration = 800;
 const categories = (charadesData as CharadesData).categories;
 const categoryColors = ["bg-bubblegum", "bg-mustard", "bg-mint", "bg-sky"];
 
@@ -80,9 +87,14 @@ export default function CharadesGame({
   const [subcategorySearch, setSubcategorySearch] = useState("");
   const [selectedTurnDuration, setSelectedTurnDuration] =
     useState(turnDuration);
+  const [controlMode, setControlMode] = useState<ControlMode>("sensors");
   const [isStartingTurn, setIsStartingTurn] = useState(false);
   const [playerIndex, setPlayerIndex] = useState(0);
   const [secondsLeft, setSecondsLeft] = useState(turnDuration);
+  const [countdownSeconds, setCountdownSeconds] = useState(
+    preparationCountdown,
+  );
+  const [countdownEndsAt, setCountdownEndsAt] = useState<number | null>(null);
   const [turnEndsAt, setTurnEndsAt] = useState<number | null>(null);
   const [currentWord, setCurrentWord] = useState("");
   const [remainingWords, setRemainingWords] = useState<string[]>([]);
@@ -90,7 +102,9 @@ export default function CharadesGame({
   const [skippedWords, setSkippedWords] = useState<string[]>([]);
   const [scores, setScores] = useState<Record<string, number>>({});
   const [feedback, setFeedback] = useState<Feedback>(null);
+  const pendingWord = useRef<PendingWord | null>(null);
   const [orientationMessage, setOrientationMessage] = useState("");
+  const actionInProgress = useRef(false);
   const originalOrientation = useRef<OrientationLockType | null>(null);
   const orientationWasLocked = useRef(false);
   const systemBarsWereHidden = useRef(false);
@@ -118,6 +132,29 @@ export default function CharadesGame({
         .sort((left, right) => right.score - left.score),
     [players, scores],
   );
+
+  useEffect(() => {
+    if (phase !== "countdown" || countdownEndsAt === null) return;
+
+    let timer = 0;
+    const updateCountdown = () => {
+      const remaining = Math.max(
+        0,
+        Math.ceil((countdownEndsAt - Date.now()) / 1000),
+      );
+      setCountdownSeconds(remaining);
+      if (remaining === 0) {
+        setSecondsLeft(selectedTurnDuration);
+        setTurnEndsAt(Date.now() + selectedTurnDuration * 1000);
+        setPhase("playing");
+      } else {
+        timer = window.setTimeout(updateCountdown, 100);
+      }
+    };
+
+    updateCountdown();
+    return () => window.clearTimeout(timer);
+  }, [countdownEndsAt, phase, selectedTurnDuration]);
 
   useEffect(() => {
     if (phase !== "playing" || turnEndsAt === null) return;
@@ -150,14 +187,32 @@ export default function CharadesGame({
   }, [activePlayer, correctWords.length, phase, secondsLeft]);
 
   useEffect(() => {
-    if (!feedback) return;
-    const timeout = window.setTimeout(() => setFeedback(null), 450);
+    if (!feedback || phase !== "playing") return;
+    const timeout = window.setTimeout(() => {
+      if (pendingWord.current) {
+        setCurrentWord(pendingWord.current.word);
+        setRemainingWords(pendingWord.current.remainingWords);
+        pendingWord.current = null;
+      }
+      setFeedback(null);
+      actionInProgress.current = false;
+    }, feedbackDuration);
     return () => window.clearTimeout(timeout);
-  }, [feedback]);
+  }, [feedback, phase]);
+
+  useEffect(() => {
+    if (phase === "playing") return;
+    actionInProgress.current = false;
+    setFeedback(null);
+    pendingWord.current = null;
+  }, [phase]);
 
   const handleAction = useCallback(
     (action: CharadesAction) => {
-      if (phase !== "playing" || !currentWord) return;
+      if (phase !== "playing" || !currentWord || actionInProgress.current) {
+        return;
+      }
+      actionInProgress.current = true;
 
       if (action === "correct") {
         setCorrectWords((current) => [...current, currentWord]);
@@ -165,7 +220,9 @@ export default function CharadesGame({
         setSkippedWords((current) => [...current, currentWord]);
       }
       setFeedback(action);
-      if ("vibrate" in navigator) navigator.vibrate(140);
+      if (typeof navigator.vibrate === "function") {
+        navigator.vibrate(action === "correct" ? [80, 50, 80] : 150);
+      }
 
       let nextWord = remainingWords[0];
       let nextRemaining = remainingWords.slice(1);
@@ -176,14 +233,22 @@ export default function CharadesGame({
         }
         [nextWord, ...nextRemaining] = nextDeck;
       }
-      setCurrentWord(nextWord ?? "");
-      setRemainingWords(nextRemaining);
+      pendingWord.current = {
+        word: nextWord ?? "",
+        remainingWords: nextRemaining,
+      };
     },
     [currentWord, phase, remainingWords, selectedSubcategory],
   );
 
-  const { message: sensorMessage, requestSensorAccess, status: sensorStatus } =
-    useCharadesSensors(phase === "playing", handleAction);
+  const {
+    message: sensorMessage,
+    requestSensorAccess,
+    status: sensorStatus,
+  } = useCharadesSensors(
+    phase === "playing" && controlMode === "sensors",
+    handleAction,
+  );
 
   const leaveImmersiveMode = useCallback(async () => {
     immersiveModeRequested.current = false;
@@ -228,7 +293,11 @@ export default function CharadesGame({
   }, []);
 
   useEffect(() => {
-    if (phase !== "playing" && immersiveModeRequested.current) {
+    if (
+      phase !== "playing" &&
+      phase !== "countdown" &&
+      immersiveModeRequested.current
+    ) {
       void leaveImmersiveMode();
     }
   }, [leaveImmersiveMode, phase]);
@@ -329,7 +398,8 @@ export default function CharadesGame({
     setIsStartingTurn(true);
     try {
       const immersiveTask = enterImmersiveMode();
-      const sensorTask = requestSensorAccess();
+      const sensorTask =
+        controlMode === "sensors" ? requestSensorAccess() : Promise.resolve();
       await Promise.all([immersiveTask, sensorTask]);
       const deck = shuffle(selectedSubcategory.words);
       setPlayerIndex(nextPlayerIndex);
@@ -337,10 +407,12 @@ export default function CharadesGame({
       setCurrentWord(deck[0] ?? "");
       setCorrectWords([]);
       setSkippedWords([]);
-      setSecondsLeft(selectedTurnDuration);
-      setTurnEndsAt(Date.now() + selectedTurnDuration * 1000);
+      setCountdownSeconds(preparationCountdown);
+      setCountdownEndsAt(Date.now() + preparationCountdown * 1000);
+      setTurnEndsAt(null);
       setFeedback(null);
-      setPhase("playing");
+      pendingWord.current = null;
+      setPhase("countdown");
     } finally {
       setIsStartingTurn(false);
     }
@@ -368,21 +440,31 @@ export default function CharadesGame({
   return (
     <main
       className={`relative min-h-screen overflow-hidden bg-cream px-4 pb-8 pt-4 sm:px-7 sm:pt-6 ${
-        phase === "playing" ? "charades-active" : ""
+        phase === "playing" || phase === "countdown" ? "charades-active" : ""
       }`}
     >
       {feedback && (
         <div
           aria-live="assertive"
-          className={`pointer-events-none fixed inset-0 z-30 grid place-items-center font-display text-5xl font-bold text-ink/90 ${
-            feedback === "correct" ? "bg-mint/80" : "bg-mustard/80"
+          className={`pointer-events-none fixed inset-0 z-50 grid place-items-center px-4 text-center text-ink transition-colors duration-150 ${
+            feedback === "correct" ? "bg-mint" : "bg-coral"
           }`}
         >
-          {feedback === "correct" ? "¡ACERTADA! +1" : "¡PASAMOS!"}
+          <div className="animate-bounce">
+            <p aria-hidden="true" className="text-6xl sm:text-8xl">
+              {feedback === "correct" ? "✅" : "⏭️"}
+            </p>
+            <p className="mt-3 font-display text-5xl font-bold sm:text-7xl">
+              {feedback === "correct" ? "¡ACIERTO! +1" : "¡PASAMOS!"}
+            </p>
+            <p className="mt-4 text-sm font-extrabold uppercase tracking-widest sm:text-lg">
+              Siguiente palabra…
+            </p>
+          </div>
         </div>
       )}
 
-      {phase !== "playing" && (
+      {phase !== "playing" && phase !== "countdown" && (
         <div className="mx-auto max-w-5xl">
         <header className="mb-5 flex items-center justify-between gap-3">
           <button
@@ -549,8 +631,46 @@ export default function CharadesGame({
               </div>
 
               <div className="rounded-3xl border-2 border-ink bg-mint p-5 shadow-comic sm:p-6">
+                <fieldset className="mb-5">
+                  <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
+                    4. Elige cómo jugar
+                  </legend>
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <button
+                      aria-pressed={controlMode === "sensors"}
+                      className={`rounded-2xl border-2 border-ink p-3 text-left font-extrabold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none ${
+                        controlMode === "sensors"
+                          ? "bg-bubblegum ring-2 ring-ink/20"
+                          : "bg-white"
+                      }`}
+                      onClick={() => setControlMode("sensors")}
+                      type="button"
+                    >
+                      <span className="block">📳 Modo Sensores</span>
+                      <span className="mt-1 block text-xs font-semibold">
+                        Inclina el teléfono para acertar o pasar.
+                      </span>
+                    </button>
+                    <button
+                      aria-pressed={controlMode === "touch"}
+                      className={`rounded-2xl border-2 border-ink p-3 text-left font-extrabold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none ${
+                        controlMode === "touch"
+                          ? "bg-sky ring-2 ring-ink/20"
+                          : "bg-white"
+                      }`}
+                      onClick={() => setControlMode("touch")}
+                      type="button"
+                    >
+                      <span className="block">👆 Modo Táctil</span>
+                      <span className="mt-1 block text-xs font-semibold">
+                        Izquierda: pasar · Derecha: acierto.
+                      </span>
+                    </button>
+                  </div>
+                </fieldset>
+
                 <p className="mb-3 text-sm font-extrabold uppercase tracking-wide text-ink/60">
-                  4. ¿Quién se pone la pantalla?
+                  5. ¿Quién se pone la pantalla?
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {players.map((player, index) => (
@@ -590,8 +710,9 @@ export default function CharadesGame({
                     : `¡Jugar (${selectedTurnDuration}s)! 🚀`}
                 </button>
                 <p className="mt-3 text-center text-sm font-semibold text-ink/70">
-                  Inclina arriba para acertar y abajo para pasar. También hay
-                  botones por si el sensor no coopera.
+                  {controlMode === "sensors"
+                    ? "Inclina hacia atrás/arriba para acertar y hacia delante/abajo para pasar. Si el sensor falla, aparecerán botones."
+                    : "En horizontal, toca la mitad izquierda para acertar o la derecha para pasar."}
                 </p>
               </div>
             </div>
@@ -652,13 +773,72 @@ export default function CharadesGame({
         </div>
       )}
 
+      {phase === "countdown" && (
+        <section
+          aria-label="Preparación de la ronda"
+          aria-live="assertive"
+          className="fixed inset-0 z-40 grid h-[100dvh] w-full place-items-center bg-cream p-5 text-center"
+        >
+          <div className="w-full max-w-xl rounded-3xl border-4 border-ink bg-white p-6 shadow-comic sm:p-10">
+            <p className="text-sm font-extrabold uppercase tracking-widest text-ink/60 sm:text-base">
+              ¡Prepárense para la mímica!
+            </p>
+            <p className="mt-2 font-display text-2xl font-semibold sm:text-3xl">
+              {activePlayer}, coloca el teléfono en tu frente
+            </p>
+            <p
+              aria-label={`${countdownSeconds} segundos para empezar`}
+              className="mx-auto mt-5 grid h-36 w-36 place-items-center rounded-full border-4 border-ink bg-mustard font-display text-7xl font-bold shadow-comic sm:h-48 sm:w-48 sm:text-8xl"
+              role="timer"
+            >
+              {countdownSeconds}
+            </p>
+            <p className="mt-5 text-base font-bold text-ink/70 sm:text-lg">
+              Quien haga la mímica, ¡listo para actuar!
+            </p>
+            <button
+              aria-label="Cancelar cuenta regresiva"
+              className="mt-6 rounded-full border-2 border-ink bg-white px-6 py-3 font-extrabold shadow-comic-sm"
+              onClick={() => setPhase("setup")}
+              type="button"
+            >
+              Cancelar
+            </button>
+          </div>
+        </section>
+      )}
+
       {phase === "playing" && (
         <section
           aria-label={`Turno de ${activePlayer}`}
           aria-live="polite"
           className="fixed inset-0 z-40 flex h-[100dvh] w-full select-none flex-col overflow-hidden bg-cream p-3 sm:p-5"
         >
-          <div className="flex min-h-0 flex-1 flex-col gap-3">
+          {controlMode === "touch" && (
+            <div
+              aria-label="Controles táctiles"
+              className="absolute inset-0 z-10 grid grid-cols-2"
+            >
+              <button
+                aria-label="Marcar palabra como acertada"
+                className="touch-manipulation bg-transparent active:bg-mint/20 focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-mint"
+                onClick={() => handleAction("correct")}
+                type="button"
+              />
+              <button
+                aria-label="Pasar esta palabra"
+                className="touch-manipulation bg-transparent active:bg-coral/20 focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-coral"
+                onClick={() => handleAction("skip")}
+                type="button"
+              />
+            </div>
+          )}
+
+          <div
+            className={`relative z-20 flex min-h-0 flex-1 flex-col gap-3 ${
+              controlMode === "touch" ? "pointer-events-none" : ""
+            }`}
+          >
             <header className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <p className="truncate font-display text-lg font-semibold sm:text-2xl">
@@ -683,7 +863,7 @@ export default function CharadesGame({
                 </div>
                 <button
                   aria-label="Salir de la ronda"
-                  className="grid h-10 w-10 place-items-center rounded-full border-2 border-ink bg-white text-xl font-black shadow-comic-sm sm:h-12 sm:w-12"
+                  className="pointer-events-auto grid h-10 w-10 place-items-center rounded-full border-2 border-ink bg-white text-xl font-black shadow-comic-sm sm:h-12 sm:w-12"
                   onClick={() => setPhase("setup")}
                   type="button"
                 >
@@ -708,7 +888,11 @@ export default function CharadesGame({
             </div>
 
             <div className="flex min-h-8 items-center justify-center gap-3">
-              {sensorStatus === "manual" ? (
+              {controlMode === "touch" ? (
+                <p className="text-center text-xs font-extrabold uppercase tracking-widest text-ink/55 sm:text-sm">
+                  👈 Acierto <span className="px-2">·</span> Pasar 👉
+                </p>
+              ) : sensorStatus === "manual" ? (
                 <div className="w-full">
                   <div className="flex items-center justify-center gap-3">
                     <button
@@ -739,7 +923,7 @@ export default function CharadesGame({
                   role="status"
                 >
                   {sensorStatus === "ready"
-                    ? "👆 Arriba: acierto · Abajo: pasar 👇"
+                    ? "👆 Atrás/arriba: acierto · Adelante/abajo: pasar 👇"
                     : `${sensorStatusText[sensorStatus]} · Coloca el móvil neutro`}
                 </p>
               )}

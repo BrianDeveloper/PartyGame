@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AssassinGame from "./components/AssassinGame";
 import CharadesGame from "./components/CharadesGame";
 import GameScreen from "./components/GameScreen";
 import ImpostorGame from "./components/ImpostorGame";
@@ -20,6 +21,13 @@ const gameModes = [
     emoji: "🕵️",
     color: "bg-mustard",
     tilt: "rotate-[1deg]",
+  },
+  {
+    title: "El Asesino",
+    description: "Reparte roles secretos y juega la partida con narrador.",
+    emoji: "🔪",
+    color: "bg-coral",
+    tilt: "-rotate-[1deg]",
   },
   {
     title: "¿Quién es más probable que...?",
@@ -76,6 +84,24 @@ export default function App() {
     return (
       <>
         <ImpostorGame
+          onBack={() => setSelectedMode(null)}
+          onManagePlayers={openPlayers}
+        />
+        {isPlayersOpen && (
+          <PlayersModal
+            onClose={() => setIsPlayersOpen(false)}
+            onContinue={() => setIsPlayersOpen(false)}
+            pendingMode={null}
+          />
+        )}
+      </>
+    );
+  }
+
+  if (selectedMode === "El Asesino") {
+    return (
+      <>
+        <AssassinGame
           onBack={() => setSelectedMode(null)}
           onManagePlayers={openPlayers}
         />

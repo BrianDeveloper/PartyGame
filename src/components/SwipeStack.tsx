@@ -158,7 +158,7 @@ export default function SwipeStack({
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full min-w-0">
       <div className="mb-5 space-y-3">
         <div>
           <p className="mb-2 text-xs font-extrabold uppercase tracking-wider text-ink/60">
@@ -252,7 +252,7 @@ export default function SwipeStack({
         {generationMessage}
       </p>}
 
-      <div className="relative mx-auto flex min-h-[25rem] max-w-lg items-center justify-center px-2">
+      <div className="relative mx-auto flex h-[25rem] max-w-lg items-center justify-center overflow-hidden px-2">
         {categoryFilter === null ? (
           <div className="z-10 w-full rounded-3xl border-2 border-ink bg-white p-8 text-center shadow-comic">
             <span className="text-5xl" role="img" aria-label="Elige categoría">
@@ -315,24 +315,6 @@ export default function SwipeStack({
         )}
       </div>
 
-      {currentQuestion && (
-        <div className="mx-auto mt-5 flex max-w-lg items-center justify-center gap-4">
-          <button
-            className="rounded-full border-2 border-ink bg-bubblegum px-6 py-3 font-extrabold shadow-comic-sm transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none"
-            onClick={() => advance(-1)}
-            type="button"
-          >
-            👈 Omitir
-          </button>
-          <button
-            className="rounded-full border-2 border-ink bg-mint px-6 py-3 font-extrabold shadow-comic-sm transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none"
-            onClick={() => advance(1)}
-            type="button"
-          >
-            Siguiente 👉
-          </button>
-        </div>
-      )}
       <p aria-live="polite" className="mt-4 text-center text-sm font-bold text-ink/55">
         {currentQuestion
           ? `Carta ${cardIndex + 1} de ${activeQuestions.length} · Desliza para pasar`
@@ -373,8 +355,8 @@ function SwipeCard({
 
   return (
     <motion.article
-      animate={{ opacity: 1, scale: 1, x: 0, rotate: 0 }}
-      className="absolute z-10 flex min-h-[21rem] w-full cursor-grab flex-col rounded-3xl border-2 border-gray-900 bg-white p-6 shadow-comic active:cursor-grabbing sm:p-8"
+      animate={{ opacity: 1, scale: 1, x: 0, y: 0, rotate: 0 }}
+      className="absolute inset-0 z-10 flex h-full min-h-0 w-full cursor-grab flex-col overflow-hidden rounded-3xl border-2 border-gray-900 bg-white p-6 shadow-comic active:cursor-grabbing sm:p-8"
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       dragElastic={0.75}
@@ -401,7 +383,7 @@ function SwipeCard({
         </span>
       </div>
 
-      <div className="flex flex-1 items-center justify-center py-8">
+      <div className="flex min-h-0 flex-1 items-center justify-center overflow-y-auto overscroll-contain py-8">
         <p className="font-display text-center text-3xl font-semibold leading-snug sm:text-4xl">
           {question.text}
         </p>

@@ -4,12 +4,30 @@ import { Motion } from "@capacitor/motion";
 export type CharadesAction = "correct" | "skip";
 type SensorStatus = "idle" | "connecting" | "calibrating" | "ready" | "manual";
 
-type MotionPermissionConstructor = typeof DeviceMotionEvent & {
+type SensorPermissionConstructor = {
   requestPermission?: () => Promise<"granted" | "denied" | "default">;
 };
 
+const correctTiltThreshold = 70;
+const skipTiltThreshold = -30;
+const neutralTiltThreshold = 14;
+const sensorCooldown = 800;
+const tiltHoldDuration = 250;
+
 function normalizeAngle(angle: number) {
   return ((angle + 180) % 360 + 360) % 360 - 180;
+}
+
+function averageAngles(angles: number[]) {
+  const sineTotal = angles.reduce(
+    (total, angle) => total + Math.sin((angle * Math.PI) / 180),
+    0,
+  );
+  const cosineTotal = angles.reduce(
+    (total, angle) => total + Math.cos((angle * Math.PI) / 180),
+    0,
+  );
+  return (Math.atan2(sineTotal, cosineTotal) * 180) / Math.PI;
 }
 
 export function useCharadesSensors(
@@ -28,7 +46,10 @@ export function useCharadesSensors(
   const requestSensorAccess = useCallback(async () => {
     setMessage("");
     try {
-      if (typeof window.DeviceMotionEvent === "undefined") {
+      if (
+        typeof window.DeviceMotionEvent === "undefined" &&
+        typeof window.DeviceOrientationEvent === "undefined"
+      ) {
         setSensorEnabled(false);
         setStatus("manual");
         setMessage("Este dispositivo no ofrece sensor de movimiento; usa los botones.");
@@ -36,9 +57,16 @@ export function useCharadesSensors(
       }
 
       const motionConstructor =
-        window.DeviceMotionEvent as MotionPermissionConstructor;
-      if (motionConstructor.requestPermission) {
-        const permission = await motionConstructor.requestPermission();
+        window.DeviceMotionEvent as SensorPermissionConstructor | undefined;
+      const orientationConstructor =
+        window.DeviceOrientationEvent as
+          | SensorPermissionConstructor
+          | undefined;
+      const permissionConstructor = motionConstructor?.requestPermission
+        ? motionConstructor
+        : orientationConstructor;
+      if (permissionConstructor?.requestPermission) {
+        const permission = await permissionConstructor.requestPermission();
         if (permission !== "granted") {
           setSensorEnabled(false);
           setStatus("manual");
@@ -71,6 +99,10 @@ export function useCharadesSensors(
     let armed = true;
     let cooldownUntil = 0;
     let neutralSamples = 0;
+    let sensorSource: "orientation" | "acceleration" | null = null;
+    let accelerationSamples: number[] = [];
+    let pendingAction: CharadesAction | null = null;
+    let holdTimeout = 0;
     let listener: { remove: () => Promise<void> } | undefined;
 
     setStatus("connecting");
@@ -81,8 +113,95 @@ export function useCharadesSensors(
       }
     }, 2500);
 
+    const processAngle = (currentAngle: number) => {
+      if (baselineAngle === null) {
+        calibrationSamples.push(currentAngle);
+        setStatus("calibrating");
+        if (calibrationSamples.length >= 8) {
+          baselineAngle = averageAngles(calibrationSamples);
+          calibrationSamples = [];
+          setStatus("ready");
+          setMessage(
+            "¡Sensor listo! Inclina hacia atrás para acertar y hacia delante para pasar.",
+          );
+        }
+        return;
+      }
+
+      const tilt = normalizeAngle(currentAngle - baselineAngle);
+      if (pendingAction) {
+        const stillBeyondThreshold =
+          pendingAction === "correct"
+            ? tilt > correctTiltThreshold
+            : tilt < skipTiltThreshold;
+        if (!stillBeyondThreshold) {
+          window.clearTimeout(holdTimeout);
+          pendingAction = null;
+        }
+        return;
+      }
+
+      if (!armed) {
+        if (
+          Date.now() >= cooldownUntil &&
+          Math.abs(tilt) < neutralTiltThreshold
+        ) {
+          neutralSamples += 1;
+          if (neutralSamples >= 3) {
+            armed = true;
+            neutralSamples = 0;
+            baselineAngle = currentAngle;
+          }
+        } else {
+          neutralSamples = 0;
+        }
+        return;
+      }
+
+      const action =
+        tilt > correctTiltThreshold
+          ? "correct"
+          : tilt < skipTiltThreshold
+            ? "skip"
+            : null;
+      if (!action) return;
+
+      pendingAction = action;
+      holdTimeout = window.setTimeout(() => {
+        if (disposed || !armed || pendingAction !== action) return;
+        pendingAction = null;
+        armed = false;
+        cooldownUntil = Date.now() + sensorCooldown;
+        onActionRef.current(action);
+      }, tiltHoldDuration);
+    };
+
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      if (
+        disposed ||
+        sensorSource === "acceleration" ||
+        typeof event.beta !== "number" ||
+        !Number.isFinite(event.beta)
+      ) {
+        return;
+      }
+
+      sensorSource = "orientation";
+      hasReceivedMotion = true;
+      window.clearTimeout(noMotionTimer);
+      processAngle(event.beta);
+    };
+    window.addEventListener("deviceorientation", handleOrientation);
+
+    const accelerationFallbackTimer = window.setTimeout(() => {
+      if (sensorSource !== null) return;
+      sensorSource = "acceleration";
+      accelerationSamples.forEach(processAngle);
+      accelerationSamples = [];
+    }, 750);
+
     void Motion.addListener("accel", (event) => {
-      if (disposed) return;
+      if (disposed || sensorSource === "orientation") return;
 
       const { x, y, z } = event.accelerationIncludingGravity;
       const orientationAngle = window.screen.orientation?.angle ?? 0;
@@ -101,43 +220,11 @@ export function useCharadesSensors(
       window.clearTimeout(noMotionTimer);
 
       const currentAngle = (Math.atan2(pitchAxis, z) * 180) / Math.PI;
-      if (baselineAngle === null) {
-        calibrationSamples.push(currentAngle);
-        setStatus("calibrating");
-        if (calibrationSamples.length >= 8) {
-          baselineAngle =
-            calibrationSamples.reduce((sum, sample) => sum + sample, 0) /
-            calibrationSamples.length;
-          calibrationSamples = [];
-          setStatus("ready");
-          setMessage("¡Sensor listo! Inclina hacia arriba para acertar y abajo para pasar.");
-        }
-        return;
-      }
-
-      const tilt = normalizeAngle(currentAngle - baselineAngle);
-      if (!armed) {
-        if (Date.now() >= cooldownUntil && Math.abs(tilt) < 18) {
-          neutralSamples += 1;
-          if (neutralSamples >= 3) {
-            armed = true;
-            neutralSamples = 0;
-            baselineAngle = currentAngle;
-          }
-        } else {
-          neutralSamples = 0;
-        }
-        return;
-      }
-
-      if (tilt >= 45) {
-        armed = false;
-        cooldownUntil = Date.now() + 1200;
-        onActionRef.current("correct");
-      } else if (tilt <= -45) {
-        armed = false;
-        cooldownUntil = Date.now() + 1200;
-        onActionRef.current("skip");
+      if (sensorSource === "acceleration") {
+        processAngle(currentAngle);
+      } else {
+        accelerationSamples.push(currentAngle);
+        if (accelerationSamples.length > 8) accelerationSamples.shift();
       }
     }).then((handle) => {
       if (disposed) {
@@ -147,6 +234,7 @@ export function useCharadesSensors(
       }
     }).catch((error: unknown) => {
       if (disposed) return;
+      if (sensorSource === "orientation") return;
       setStatus("manual");
       setMessage(
         error instanceof Error
@@ -158,6 +246,9 @@ export function useCharadesSensors(
     return () => {
       disposed = true;
       window.clearTimeout(noMotionTimer);
+      window.clearTimeout(accelerationFallbackTimer);
+      window.clearTimeout(holdTimeout);
+      window.removeEventListener("deviceorientation", handleOrientation);
       if (listener) {
         void listener.remove().catch((error: unknown) => {
           console.error("No se pudo detener el sensor de Charadas.", error);

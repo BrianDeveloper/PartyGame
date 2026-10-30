@@ -27,6 +27,12 @@ En Verdad o Reto, cada jugador puede elegir Verdad dos veces seguidas. En su
 turno siguiente, Verdad queda bloqueada y debe elegir Reto. El contador es
 temporal y se reinicia al elegir Reto; no se guarda en `localStorage`.
 
+En los mazos de «¿Qué prefieres?» y «¿Quién es más probable que...?», se avanza
+solo deslizando la tarjeta horizontalmente; no hay botones inferiores de
+omitir/siguiente. El área de la carta mantiene una altura fija para que el
+contenido no empuje la página al cambiar de pregunta, y el texto largo se puede
+desplazar dentro de la propia tarjeta.
+
 Charadas incluye categorías y subcategorías locales. Cada turno dura 60
 segundos por defecto; antes de cada ronda se puede elegir 30, 60, 90 o 120
 segundos. Los aciertos suman un punto al jugador activo, mientras que las
@@ -36,13 +42,38 @@ la app solicita orientación horizontal y pantalla completa. En Android oculta
 las barras de estado y navegación con el plugin de barras del sistema incluido
 en Capacitor 8. Al acabar o salir de la ronda, restaura la orientación y vuelve
 a mostrar las barras. En navegador usa las APIs de pantalla completa y
-orientación disponibles, y muestra un aviso si no están soportadas. Los
-sensores requieren permiso cuando la plataforma lo solicita; mientras el
-sensor funciona, la ronda se controla inclinando el teléfono. Si el sensor no
-está disponible, se puede jugar con los botones táctiles **Acierto** y
-**Pasar**. La selección de mazo incluye búsqueda por nombre, sin distinguir
-acentos ni mayúsculas, y una cuadrícula de dos columnas desplazable con
-tarjetas compactas, iconos y número de palabras.
+orientación disponibles, y muestra un aviso si no están soportadas. Antes de
+empezar se puede elegir entre **Modo Sensores** y **Modo Táctil**. En Sensores,
+coloca el móvil neutro en la frente durante la calibración; inclínalo hacia
+atrás más de 70° para acertar o hacia delante más de 30° para pasar. Estos
+ángulos se miden desde la posición calibrada y el gesto debe mantenerse durante
+250 ms; volver antes a la posición neutral cancela la acción. Se usa el ángulo
+beta del evento de orientación cuando está disponible, con el acelerómetro de
+Capacitor como alternativa. Si el sensor no está disponible o no tiene
+permiso, se muestran botones táctiles de respaldo. En Modo Táctil, ya en
+horizontal, toca la mitad izquierda de la pantalla para acertar y la derecha
+para pasar. Al comenzar cada turno, una cuenta regresiva de cinco segundos da
+tiempo para colocar el teléfono y prepararse; la duración elegida empieza al
+terminar la cuenta. Ambos controles muestran una señal grande con icono y fondo
+verde para acierto o coral para pasar, vibran cuando el dispositivo lo admite
+y avanzan de palabra después de 800 ms. La selección de mazo incluye búsqueda
+por nombre, sin distinguir acentos ni mayúsculas, y una cuadrícula de dos
+columnas desplazable con tarjetas compactas, iconos y número de palabras.
+
+## El Asesino
+
+El modo de El Asesino funciona como repartidor local de roles para 4 a 8
+participantes seleccionados de la lista de jugadores. Los roles se asignan al
+azar y se revelan uno por uno manteniendo pulsado el teléfono: un Asesino, un
+Detective y el resto Civiles. El Médico es opcional, requiere al menos 5
+participantes y puede proteger a alguien cada noche, pero no a la misma persona
+en noches consecutivas.
+
+La app no narra ni gestiona la partida. El grupo necesita un narrador externo
+que dirija las noches y el debate; idealmente, alguien que no juegue. El botón
+«Ver resumen de reglas» muestra voluntariamente las funciones de cada rol y las
+condiciones de victoria. La información de la partida no se guarda al salir del
+modo.
 
 En Android, `localStorage` pertenece al WebView de la aplicación y permanece
 local al teléfono. No se sincroniza entre dispositivos ni se comparte con otros
