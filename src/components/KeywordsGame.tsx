@@ -276,6 +276,7 @@ export default function KeywordsGame({
   const [connectionNotice, setConnectionNotice] =
     useState<ConnectionNotice | null>(null);
   const [confirmCloseRoom, setConfirmCloseRoom] = useState(false);
+  const [confirmLeaveRoom, setConfirmLeaveRoom] = useState(false);
 
   const supabase = useMemo(
     () => (isSupabaseConfigured() ? getSupabaseClient() : null),
@@ -623,7 +624,6 @@ export default function KeywordsGame({
       });
       if (error) throw error;
       setClueInput("");
-      setSecretKey(null);
       await loadRoom(room.id);
     });
   }
@@ -691,6 +691,24 @@ export default function KeywordsGame({
       setConfirmCloseRoom(false);
       removeDeviceSession();
       backToHome();
+    });
+  }
+
+  function leaveRoom() {
+    if (!room || !supabase || deviceRole?.type !== "cluegiver") return;
+    runAction(async () => {
+      const { error } = await supabase.rpc("leave_keyword_room", {
+        p_room_id: room.id,
+      });
+      if (error) throw error;
+
+      removeDeviceSession();
+      setConfirmLeaveRoom(false);
+      setRoom(null);
+      setMembers([]);
+      setDeviceRole(null);
+      setSecretKey(null);
+      setView("home");
     });
   }
 
@@ -993,7 +1011,7 @@ export default function KeywordsGame({
             )}
 
             {room.status === "waiting" && deviceRole.type === "cluegiver" && (
-              <div className="rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic">
+              <section className="rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic">
                 <span aria-hidden="true" className="text-6xl">🔐</span>
                 <h2 className="mt-3 font-display text-3xl font-semibold">
                   Guía del Equipo {deviceRole.team + 1}
@@ -1002,7 +1020,40 @@ export default function KeywordsGame({
                   La clave aparecerá aquí cuando el anfitrión inicie la partida.
                   No compartas esta pantalla con el otro equipo.
                 </p>
-              </div>
+                <button
+                  className="mt-6 rounded-full border-2 border-ink bg-coral px-5 py-3 font-extrabold shadow-comic-sm"
+                  disabled={busy}
+                  onClick={() => setConfirmLeaveRoom(true)}
+                  type="button"
+                >
+                  Salir de la sala
+                </button>
+                {confirmLeaveRoom && (
+                  <div className="mt-4 rounded-2xl border-2 border-ink bg-cream p-4">
+                    <p className="font-bold">
+                      ¿Quieres desconectar esta guía y liberar su puesto?
+                    </p>
+                    <div className="mt-3 flex justify-center gap-2">
+                      <button
+                        className="rounded-full border-2 border-ink bg-white px-4 py-2 font-bold"
+                        disabled={busy}
+                        onClick={() => setConfirmLeaveRoom(false)}
+                        type="button"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        className="rounded-full border-2 border-ink bg-coral px-4 py-2 font-extrabold"
+                        disabled={busy}
+                        onClick={leaveRoom}
+                        type="button"
+                      >
+                        {busy ? "Saliendo…" : "Salir"}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </section>
             )}
 
             {room.status === "playing" && (
@@ -1125,9 +1176,10 @@ export default function KeywordsGame({
 
                 <aside>
                   {deviceRole.type === "cluegiver" && (
-                    <div className="rounded-3xl border-2 border-ink bg-white p-4 shadow-comic-sm">
-                      {visibleSecretKey ? (
-                        <>
+                    <div className="space-y-3">
+                      <div className="rounded-3xl border-2 border-ink bg-white p-4 shadow-comic-sm">
+                        {visibleSecretKey ? (
+                          <>
                           <h2 className="font-display text-2xl font-semibold">
                             Clave secreta · Equipo {deviceRole.team + 1}
                           </h2>
@@ -1197,13 +1249,56 @@ export default function KeywordsGame({
                               Espera el turno de tu equipo para enviar una pista.
                             </p>
                           )}
-                        </>
+                          </>
+                        ) : (
+                          <p className="text-center font-bold">
+                            {room.public_state.phase === "guessing"
+                              ? "El equipo está debatiendo la pista."
+                              : "Espera el turno de tu equipo."}
+                          </p>
+                        )}
+                      </div>
+                      {confirmLeaveRoom ? (
+                        <div
+                          aria-labelledby="confirm-leave-room-title"
+                          className="rounded-2xl border-2 border-ink bg-coral p-4 shadow-comic-sm"
+                          role="alert"
+                        >
+                          <p
+                            className="font-extrabold"
+                            id="confirm-leave-room-title"
+                          >
+                            Salir desconecta esta guía. Durante una partida no
+                            podrás volver a ocupar este puesto.
+                          </p>
+                          <div className="mt-3 flex flex-wrap gap-2">
+                            <button
+                              className="rounded-full border-2 border-ink bg-white px-4 py-2 font-extrabold"
+                              disabled={busy}
+                              onClick={() => setConfirmLeaveRoom(false)}
+                              type="button"
+                            >
+                              Seguir en la sala
+                            </button>
+                            <button
+                              className="rounded-full border-2 border-ink bg-ink px-4 py-2 font-extrabold text-white"
+                              disabled={busy}
+                              onClick={leaveRoom}
+                              type="button"
+                            >
+                              {busy ? "Saliendo…" : "Salir de la sala"}
+                            </button>
+                          </div>
+                        </div>
                       ) : (
-                        <p className="text-center font-bold">
-                          {room.public_state.phase === "guessing"
-                            ? "El equipo está debatiendo la pista."
-                            : "Espera el turno de tu equipo."}
-                        </p>
+                        <button
+                          className="w-full rounded-full border-2 border-ink bg-coral px-5 py-3 font-extrabold shadow-comic-sm"
+                          disabled={busy}
+                          onClick={() => setConfirmLeaveRoom(true)}
+                          type="button"
+                        >
+                          Salir de la sala
+                        </button>
                       )}
                     </div>
                   )}
@@ -1249,7 +1344,7 @@ export default function KeywordsGame({
                 </p>
                 <button
                   className="mt-6 rounded-full border-2 border-ink bg-mint px-6 py-4 font-extrabold shadow-comic-sm"
-                  onClick={deviceRole.type === "board" ? closeRoom : backToHome}
+                  onClick={deviceRole.type === "board" ? closeRoom : leaveRoom}
                   type="button"
                 >
                   {deviceRole.type === "board" ? "Cerrar sala" : "Salir"}

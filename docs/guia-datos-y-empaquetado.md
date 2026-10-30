@@ -90,6 +90,10 @@ al cierre de la app. Si hace falta conectarse manualmente a una partida en
 curso, usa el mismo dispositivo/perfil y la misma sesión anónima de la guía;
 aplica también
 `supabase/migrations/20261030160300_reconnect_keyword_guides_during_game.sql`.
+Las guías pueden salir de una sala desde su dispositivo; esto elimina su
+registro de miembro y libera el puesto. En una partida iniciada, salir es
+definitivo para esa guía. Aplica
+`supabase/migrations/20261030162400_leave_keyword_room.sql` para habilitarlo.
 El tablero incluye **Terminar partida para todos**, que finaliza la sala y
 sincroniza ese resultado con las otras pantallas.
 
