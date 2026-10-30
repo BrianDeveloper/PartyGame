@@ -37,7 +37,8 @@ const categoryColors: Record<string, string> = {
   turbio: "bg-mustard",
 };
 
-const exitThreshold = 110;
+const exitThreshold = 55;
+const swipeVelocityThreshold = 250;
 
 export default function SwipeStack({
   questions,
@@ -49,6 +50,7 @@ export default function SwipeStack({
   const [categoryFilter, setCategoryFilter] = useState<string | null>(null);
   const [intensityFilter, setIntensityFilter] = useState("todas");
   const [cardIndex, setCardIndex] = useState(0);
+  const [focusQuestionId, setFocusQuestionId] = useState("");
   const [exitDirection, setExitDirection] = useState(1);
   const [generatedQuestions, setGeneratedQuestions] = useState<GameQuestion[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -69,8 +71,17 @@ export default function SwipeStack({
     [categoryFilter, deckQuestions, intensityFilter],
   );
   useEffect(() => {
+    if (focusQuestionId) {
+      const focusedIndex = activeQuestions.findIndex(
+        (question) => question.id === focusQuestionId,
+      );
+      if (focusedIndex >= 0) {
+        setCardIndex(focusedIndex);
+        return;
+      }
+    }
     setCardIndex(0);
-  }, [questions]);
+  }, [activeQuestions, focusQuestionId, questions]);
   const currentQuestion = activeQuestions[cardIndex];
 
   async function generateMoreQuestions() {
@@ -146,9 +157,15 @@ export default function SwipeStack({
     _event: MouseEvent | TouchEvent | PointerEvent,
     info: PanInfo,
   ) {
-    if (info.offset.x > exitThreshold || info.velocity.x > 500) {
+    if (
+      info.offset.x > exitThreshold ||
+      info.velocity.x > swipeVelocityThreshold
+    ) {
       advance(1);
-    } else if (info.offset.x < -exitThreshold || info.velocity.x < -500) {
+    } else if (
+      info.offset.x < -exitThreshold ||
+      info.velocity.x < -swipeVelocityThreshold
+    ) {
       advance(-1);
     }
   }
@@ -252,6 +269,19 @@ export default function SwipeStack({
         {generationMessage}
       </p>}
 
+      <details className="mb-4 rounded-2xl border-2 border-ink bg-white p-4 shadow-comic-sm">
+        <summary className="cursor-pointer font-extrabold">
+          📖 Cómo se juega
+        </summary>
+        <p className="mt-3 text-sm font-semibold text-ink/70">
+          «¿Qué prefieres?» plantea dos opciones: el grupo elige una y puede
+          defender su decisión. En «¿Quién es más probable que...?» lean la
+          tarjeta y señalen a quien encaje mejor. Desliza la carta a cualquier
+          lado o usa los botones para pasarla; categoría e intensidad filtran
+          el mazo.
+        </p>
+      </details>
+
       <div className="relative mx-auto flex h-[25rem] max-w-lg items-center justify-center overflow-hidden px-2">
         {categoryFilter === null ? (
           <div className="z-10 w-full rounded-3xl border-2 border-ink bg-white p-8 text-center shadow-comic">
@@ -322,11 +352,34 @@ export default function SwipeStack({
             ? ""
             : ""}
       </p>
+      {currentQuestion && (
+        <div className="mx-auto mt-3 flex max-w-lg gap-3">
+          <button
+            className="flex-1 rounded-full border-2 border-ink bg-white px-4 py-3 font-extrabold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none"
+            onClick={() => advance(-1)}
+            type="button"
+          >
+            👈 Omitir
+          </button>
+          <button
+            className="flex-1 rounded-full border-2 border-ink bg-mint px-4 py-3 font-extrabold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none"
+            onClick={() => advance(1)}
+            type="button"
+          >
+            Siguiente 👉
+          </button>
+        </div>
+      )}
       {isCustomModalOpen && (
         <CustomQuestionModal
           categories={categories}
           intensities={intensities}
           mode={mode}
+          onQuestionAdded={(question) => {
+            setCategoryFilter(question.category);
+            setIntensityFilter(question.intensity);
+            setFocusQuestionId(question.id);
+          }}
           onClose={() => setIsCustomModalOpen(false)}
         />
       )}
@@ -359,7 +412,9 @@ function SwipeCard({
       className="absolute inset-0 z-10 flex h-full min-h-0 w-full cursor-grab flex-col overflow-hidden rounded-3xl border-2 border-gray-900 bg-white p-6 shadow-comic active:cursor-grabbing sm:p-8"
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
-      dragElastic={0.75}
+      dragDirectionLock
+      dragElastic={0.9}
+      dragMomentum={false}
       exit={{
         opacity: 0,
         x: direction * 360,

@@ -1,12 +1,27 @@
 import { useEffect, useState } from "react";
-import roscoData from "../data/pasapalabra.json";
+import bank from "../data/pasapalabra.json";
+import CustomContentForm from "./CustomContentForm";
+import {
+  useCustomGameContent,
+  type CustomGameContentEntry,
+} from "../state/CustomGameContentContext";
 
 type RoscoCell = {
   letter: string;
   clue: string;
   answer: string;
+  id: string;
+  clueType: "startsWith" | "contains";
   status: "pending" | "correct" | "incorrect";
   passed: boolean;
+};
+
+type BankEntry = {
+  id: string;
+  letter: string;
+  clue: string;
+  answer: string;
+  clueType: "startsWith" | "contains";
 };
 
 type PlayerRosco = {
@@ -17,17 +32,104 @@ type PlayerRosco = {
 };
 
 type Stage = "setup" | "playing" | "handoff" | "results";
-const TURN_TIME_SECONDS = 120;
+const TURN_TIME_OPTIONS = [60, 90, 120, 180];
+const DEFAULT_TURN_TIME_SECONDS = 120;
 const HANDOFF_DELAY_MS = 450;
+const RECENT_CLUES_KEY = "la-ultima-ronda.pasapalabra.recent-clues";
+const RECENT_CLUES_PER_LETTER = 8;
+const letters = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ".split("");
 
-function createRosco(player: string): PlayerRosco {
+function shuffle<T>(items: readonly T[]): T[] {
+  const shuffled = [...items];
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const swapIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[swapIndex]] = [
+      shuffled[swapIndex]!,
+      shuffled[index]!,
+    ];
+  }
+  return shuffled;
+}
+
+function isRecentClueMap(value: unknown): value is Record<string, string[]> {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    Object.values(value).every(
+      (ids) => Array.isArray(ids) && ids.every((id) => typeof id === "string"),
+    )
+  );
+}
+
+function createMatchRoscos(customEntries: BankEntry[]) {
+  let recentClues: Record<string, string[]> = {};
+  let historyWarning = "";
+
+  try {
+    const saved = window.localStorage.getItem(RECENT_CLUES_KEY);
+    if (saved) {
+      const parsed: unknown = JSON.parse(saved);
+      if (!isRecentClueMap(parsed)) {
+        throw new Error("El historial de pistas guardado tiene un formato inválido.");
+      }
+      recentClues = parsed;
+    }
+  } catch (error) {
+    historyWarning =
+      `No se pudo leer el historial de pistas; esta partida evitará duplicados entre roscos, pero no entre partidas. ${
+        error instanceof Error ? error.message : "Error de almacenamiento."
+      }`;
+  }
+
+  const pickedEntries: BankEntry[][] = [[], []];
+  for (const letter of letters) {
+    const entries = [
+      ...((bank as Record<string, BankEntry[]>)[letter] ?? []),
+      ...customEntries.filter((entry) => entry.letter === letter),
+    ];
+    if (!entries || entries.length < 2) {
+      throw new Error(`El banco necesita al menos dos pistas para la letra ${letter}.`);
+    }
+    const previouslyUsed = recentClues[letter] ?? [];
+    const freshEntries = shuffle(
+      entries.filter((entry) => !previouslyUsed.includes(entry.id)),
+    );
+    const availableEntries =
+      freshEntries.length >= 2 ? freshEntries : shuffle(entries);
+    const pair = availableEntries.slice(0, 2);
+    pickedEntries[0]!.push(pair[0]!);
+    pickedEntries[1]!.push(pair[1]!);
+    recentClues[letter] = [
+      ...previouslyUsed,
+      ...pair.map((entry) => entry.id),
+    ].slice(-RECENT_CLUES_PER_LETTER);
+  }
+
+  try {
+    window.localStorage.setItem(RECENT_CLUES_KEY, JSON.stringify(recentClues));
+  } catch (error) {
+    historyWarning =
+      `No se pudo guardar el historial de pistas; podrían repetirse en próximas partidas. ${
+        error instanceof Error ? error.message : "Error de almacenamiento."
+      }`;
+  }
+
+  return {
+    roscos: pickedEntries.map((entries) =>
+      entries.map((entry) => ({
+        ...entry,
+        status: "pending" as const,
+        passed: false,
+      })),
+    ),
+    historyWarning,
+  };
+}
+
+function createRosco(player: string, cells: RoscoCell[]): PlayerRosco {
   return {
     player,
-    cells: roscoData.map((item) => ({
-      ...item,
-      status: "pending" as const,
-      passed: false,
-    })),
+    cells,
     currentIndex: 0,
     finished: false,
   };
@@ -64,13 +166,31 @@ export default function PassapalabraGame({
 }) {
   const [stage, setStage] = useState<Stage>("setup");
   const [selectedPlayers, setSelectedPlayers] = useState<string[]>([]);
+  const [selectedTurnTime, setSelectedTurnTime] = useState(
+    DEFAULT_TURN_TIME_SECONDS,
+  );
   const [activeTurn, setActiveTurn] = useState(0);
   const [remainingTimes, setRemainingTimes] = useState([
-    TURN_TIME_SECONDS,
-    TURN_TIME_SECONDS,
+    DEFAULT_TURN_TIME_SECONDS,
+    DEFAULT_TURN_TIME_SECONDS,
   ]);
   const [roscos, setRoscos] = useState<PlayerRosco[]>([]);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [historyWarning, setHistoryWarning] = useState("");
+  const [startError, setStartError] = useState("");
+  const { entries: customContent } = useCustomGameContent();
+  const customEntries = customContent
+    .filter(
+      (entry): entry is Extract<CustomGameContentEntry, { game: "passapalabra" }> =>
+        entry.game === "passapalabra",
+    )
+    .map(({ id, letter, clue, answer, clueType }) => ({
+      id,
+      letter,
+      clue,
+      answer,
+      clueType,
+    }));
 
   const activeRosco = roscos[activeTurn];
   const currentCell = activeRosco?.cells[activeRosco.currentIndex];
@@ -118,11 +238,27 @@ export default function PassapalabraGame({
 
   function startMatch() {
     if (selectedPlayers.length !== 2) return;
-    setRoscos(selectedPlayers.map(createRosco));
-    setActiveTurn(0);
-    setRemainingTimes([TURN_TIME_SECONDS, TURN_TIME_SECONDS]);
-    setShowAnswer(false);
-    setStage("playing");
+    setStartError("");
+    try {
+      const { roscos: selectedRoscos, historyWarning: warning } =
+        createMatchRoscos(customEntries);
+      setRoscos(
+        selectedPlayers.map((player, index) =>
+          createRosco(player, selectedRoscos[index] ?? []),
+        ),
+      );
+      setHistoryWarning(warning);
+      setActiveTurn(0);
+      setRemainingTimes([selectedTurnTime, selectedTurnTime]);
+      setShowAnswer(false);
+      setStage("playing");
+    } catch (error) {
+      setStartError(
+        error instanceof Error
+          ? error.message
+          : "No se pudo preparar el banco de pistas.",
+      );
+    }
   }
 
   function finishPlayerTurn(
@@ -252,10 +388,30 @@ export default function PassapalabraGame({
             <div className="rounded-3xl border-2 border-ink bg-white p-5 shadow-comic sm:p-8">
               <p className="font-semibold text-ink/70">
                 Selecciona dos jugadores. Un narrador externo lee las pistas y
-                decide si la respuesta es correcta. Cada persona tiene dos
-                minutos de juego efectivo; al decir «Pasapalabra», su reloj se
+                decide si la respuesta es correcta. Cada persona tiene el tiempo
+                configurado de juego efectivo; al decir «Pasapalabra», su reloj se
                 pausa y entra el otro jugador.
               </p>
+              <fieldset className="mt-5">
+                <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
+                  Tiempo por jugador
+                </legend>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  {TURN_TIME_OPTIONS.map((duration) => (
+                    <button
+                      aria-pressed={selectedTurnTime === duration}
+                      className={`rounded-xl border-2 border-ink py-3 font-extrabold shadow-comic-sm ${
+                        selectedTurnTime === duration ? "bg-mustard" : "bg-white"
+                      }`}
+                      key={duration}
+                      onClick={() => setSelectedTurnTime(duration)}
+                      type="button"
+                    >
+                      {duration < 120 ? `${duration}s` : `${duration / 60} min`}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
               <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
                 {players.map((player) => {
                   const selected = selectedPlayers.includes(player);
@@ -284,12 +440,29 @@ export default function PassapalabraGame({
                   Añade al menos dos jugadores para enfrentarse.
                 </p>
               )}
+              {startError && (
+                <p
+                  aria-live="assertive"
+                  className="mt-4 rounded-2xl border-2 border-ink bg-bubblegum p-4 font-bold"
+                  role="alert"
+                >
+                  No se pudo iniciar la partida: {startError}
+                </p>
+              )}
 
-              <div className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4 text-sm font-semibold">
-                La persona que narra lee las pistas y juzga las respuestas. La
-                app controla los dos minutos individuales y alterna jugadores
-                al pulsar «Pasapalabra».
-              </div>
+              <details className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4">
+                <summary className="cursor-pointer font-extrabold">
+                  📖 Cómo se juega
+                </summary>
+                <p className="mt-2 text-sm font-semibold">
+                  Cada jugador resuelve su rosco de 27 letras con el narrador
+                  leyendo las pistas. Decidid en voz alta si la respuesta es
+                  correcta; «Pasapalabra» deja esa letra para después. Al
+                  acabar un turno, juega la otra persona con su propio reloj.
+                  Gana quien consiga más aciertos.
+                </p>
+              </details>
+              <CustomContentForm game="passapalabra" />
               <button
                 className="mt-6 w-full rounded-full border-2 border-ink bg-bubblegum px-6 py-4 font-display text-2xl font-semibold shadow-comic disabled:cursor-not-allowed disabled:opacity-45"
                 disabled={selectedPlayers.length !== 2}
@@ -321,6 +494,14 @@ export default function PassapalabraGame({
 
         {stage === "playing" && activeRosco && currentCell && (
           <section aria-label={`Rosco de ${activeRosco.player}`}>
+            {historyWarning && (
+              <p
+                aria-live="polite"
+                className="mb-4 rounded-2xl border-2 border-ink bg-mustard p-3 text-sm font-bold"
+              >
+                {historyWarning}
+              </p>
+            )}
             <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="font-display text-xl font-semibold">
@@ -414,6 +595,11 @@ export default function PassapalabraGame({
                   {currentCell.letter}
                 </span>
                 <p className="font-display text-xl font-semibold leading-snug sm:text-2xl">
+                  <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-ink/55">
+                    {currentCell.clueType === "startsWith"
+                      ? "Empieza por"
+                      : "Contiene"}
+                  </span>
                   {currentCell.clue}
                 </p>
               </div>

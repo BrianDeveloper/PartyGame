@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import questionData from "../data/questions.json";
+import preferData from "../data/what-would-you-rather.json";
+import likelyData from "../data/most-likely.json";
 import { useCustomQuestions } from "../state/CustomQuestionsContext";
 import { usePlayers } from "../state/PlayersContext";
 import SwipeStack, { type GameQuestion } from "./SwipeStack";
@@ -16,7 +17,8 @@ type QuestionData = {
   questions: GameQuestion[];
 };
 
-const data = questionData as QuestionData;
+const preferQuestions = preferData as QuestionData;
+const likelyQuestions = likelyData as QuestionData;
 
 function shuffle<T>(items: T[]): T[] {
   const shuffled = [...items];
@@ -32,35 +34,16 @@ function shuffle<T>(items: T[]): T[] {
 
 function makeDeck(
   questions: GameQuestion[],
-  players: string[],
   mode: GameQuestion["mode"],
 ) {
-  const matchingQuestions = shuffle(
-    questions.filter((question) => question.mode === mode),
+  return shuffle(
+    questions
+      .filter((question) => question.mode === mode)
+      .map((question) => ({
+        ...question,
+        text: question.text.replace(/\{player\}\s*/gi, ""),
+      })),
   );
-  if (mode !== "likely" || players.length === 0) return matchingQuestions;
-
-  let playerQueue: string[] = [];
-  let previousPlayer = "";
-
-  return matchingQuestions.map((question) => {
-    if (playerQueue.length === 0) {
-      playerQueue = shuffle(players);
-      const lastIndex = playerQueue.length - 1;
-      if (lastIndex > 0 && playerQueue[lastIndex] === previousPlayer) {
-        [playerQueue[lastIndex], playerQueue[lastIndex - 1]] = [
-          playerQueue[lastIndex - 1],
-          playerQueue[lastIndex],
-        ];
-      }
-    }
-    const player = playerQueue.pop() ?? players[0];
-    previousPlayer = player;
-    return {
-      ...question,
-      text: question.text.replace(/\{player\}/g, player),
-    };
-  });
 }
 
 export default function GameScreen({
@@ -74,13 +57,14 @@ export default function GameScreen({
   const questions = useMemo(
     () => {
       const questionMode = isLikelyMode ? "likely" : "prefer";
+      const questionData = isLikelyMode ? likelyQuestions : preferQuestions;
       const questionsForMode = [
-        ...data.questions,
+        ...questionData.questions,
         ...customQuestions.filter((question) => question.mode === questionMode),
       ];
-      return makeDeck(questionsForMode, players, questionMode);
+      return makeDeck(questionsForMode, questionMode);
     },
-    [customQuestions, isLikelyMode, players],
+    [customQuestions, isLikelyMode],
   );
 
   return (
@@ -118,8 +102,12 @@ export default function GameScreen({
             {mode}
           </h1>
           <SwipeStack
-            categories={data.categories}
-            intensities={data.intensities}
+            categories={
+              isLikelyMode ? likelyQuestions.categories : preferQuestions.categories
+            }
+            intensities={
+              isLikelyMode ? likelyQuestions.intensities : preferQuestions.intensities
+            }
             mode={isLikelyMode ? "likely" : "prefer"}
             players={players}
             questions={questions}

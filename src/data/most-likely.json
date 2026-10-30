@@ -1,0 +1,85 @@
+{
+  "categories": [
+    { "id": "chill", "label": "CHILL", "emoji": "🧊" },
+    { "id": "picante", "label": "PICANTE", "emoji": "🔥" },
+    { "id": "escatologico", "label": "ESCATOLÓGICO", "emoji": "💩" },
+    { "id": "turbio", "label": "TURBIO", "emoji": "😈" }
+  ],
+  "intensities": [
+    { "id": "suave", "label": "Suave" },
+    { "id": "intenso", "label": "Intenso" },
+    { "id": "salvaje", "label": "Salvaje" }
+  ],
+  "questions": [
+    {
+      "id": "likely-01",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que organice un viaje y olvide mirar el tiempo?"
+    },
+    {
+      "id": "likely-02",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que se coma la última patata y lo niegue mirando a los ojos?"
+    },
+    {
+      "id": "likely-03",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "¿Quién es más probable que culpe al perro de un pedo propio?"
+    },
+    {
+      "id": "likely-04",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que acabe en un calabozo por una idea que parecía buenísima?"
+    },
+    {
+      "id": "likely-05",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que venda al grupo por una pizza gratis?"
+    },
+    {
+      "id": "likely-06",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que se tire un pedo en un ascensor y se baje en la planta equivocada?"
+    },
+    {
+      "id": "likely-07",
+      "mode": "likely",
+      "category": "chill",
+      "intensity": "intenso",
+      "text": "¿Quién es más probable que adopte una planta y aun así consiga matarla?"
+    },
+    {
+      "id": "likely-08",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que sobreviva a un apocalipsis solo porque nadie se acuerda de buscarle?"
+    },
+    {
+      "id": "likely-09",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que borre el chat y diga «no sé de qué hablas»?"
+    },
+    {
+      "id": "likely-10",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "¿Quién es más probable que use el último trozo de papel y deje el rollo vacío?"
+    }
+  ]
+}

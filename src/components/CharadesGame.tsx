@@ -8,6 +8,8 @@ import {
   type OrientationLockType,
 } from "@capacitor/screen-orientation";
 import charadesData from "../data/charades.json";
+import CustomContentForm from "./CustomContentForm";
+import { useCustomGameContent } from "../state/CustomGameContentContext";
 import { usePlayers } from "../state/PlayersContext";
 import {
   useCharadesSensors,
@@ -24,11 +26,8 @@ type Subcategory = {
 type Category = {
   id: string;
   name: string;
+  icon?: string;
   subcategories: Subcategory[];
-};
-
-type CharadesData = {
-  categories: Category[];
 };
 
 type Phase = "setup" | "countdown" | "playing" | "summary";
@@ -43,7 +42,6 @@ const turnDuration = 60;
 const turnDurationOptions = [30, 60, 90, 120];
 const preparationCountdown = 5;
 const feedbackDuration = 800;
-const categories = (charadesData as CharadesData).categories;
 const categoryColors = ["bg-bubblegum", "bg-mustard", "bg-mint", "bg-sky"];
 
 type FullscreenDocument = Document & {
@@ -81,6 +79,49 @@ export default function CharadesGame({
   onManagePlayers: () => void;
 }) {
   const { players } = usePlayers();
+  const { entries: customContent } = useCustomGameContent();
+  const categories = useMemo(() => {
+    const merged = (charadesData.categories as Category[]).map((category) => ({
+      ...category,
+      subcategories: category.subcategories.map((subcategory) => ({
+        ...subcategory,
+        words: [...subcategory.words],
+      })),
+    }));
+    const customEntries = customContent.filter(
+      (entry): entry is Extract<typeof entry, { game: "charades" }> =>
+        entry.game === "charades",
+    );
+
+    customEntries.forEach((entry) => {
+      let category = merged.find((item) => item.id === entry.categoryId);
+      if (!category) {
+        category = {
+          id: entry.categoryId,
+          name: entry.categoryName,
+          subcategories: [],
+        };
+        merged.push(category);
+      }
+
+      let subcategory = category.subcategories.find(
+        (item) => item.id === entry.subcategoryId,
+      );
+      if (!subcategory) {
+        subcategory = {
+          id: entry.subcategoryId,
+          name: entry.subcategoryName,
+          icon: entry.icon,
+          words: [],
+        };
+        category.subcategories.push(subcategory);
+      }
+      if (!subcategory.words.includes(entry.word)) {
+        subcategory.words.push(entry.word);
+      }
+    });
+    return merged;
+  }, [customContent]);
   const [phase, setPhase] = useState<Phase>("setup");
   const [categoryId, setCategoryId] = useState<string | null>(null);
   const [subcategoryId, setSubcategoryId] = useState<string | null>(null);
@@ -517,30 +558,54 @@ export default function CharadesGame({
               </span>
             </div>
 
+            <details className="mb-5 rounded-2xl border-2 border-ink bg-white p-4 shadow-comic-sm">
+              <summary className="cursor-pointer font-extrabold">
+                📖 Cómo se juega
+              </summary>
+              <p className="mt-3 text-sm font-semibold text-ink/70">
+                Por turnos, una persona representa las palabras sin hablar y su
+                equipo intenta adivinarlas antes de que acabe el tiempo. Cada
+                acierto suma un punto; puedes pasar una palabra. Elige categoría,
+                mazo, duración y control por sensores o botones táctiles.
+              </p>
+            </details>
+
             <div className="grid gap-5 lg:grid-cols-[1.2fr_0.8fr]">
               <div className="rounded-3xl border-2 border-ink bg-white p-5 shadow-comic sm:p-6">
                 <p className="mb-3 text-sm font-extrabold uppercase tracking-wide text-ink/60">
                   1. Categoría
                 </p>
-                <div className="grid grid-cols-2 gap-3">
-                  {categories.map((category, index) => (
-                    <button
-                      aria-pressed={categoryId === category.id}
-                      className={`min-h-16 rounded-2xl border-2 border-ink px-3 py-3 text-left font-display text-lg font-semibold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none ${
-                        categoryColors[index % categoryColors.length]
-                      } ${categoryId === category.id ? "ring-4 ring-ink/20" : ""}`}
-                      key={category.id}
-                      onClick={() => {
-                        setCategoryId(category.id);
-                        setSubcategoryId(null);
-                        setSubcategorySearch("");
-                      }}
-                      type="button"
-                    >
-                      {category.name}
-                    </button>
-                  ))}
-                </div>
+                {categories.length > 0 ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    {categories.map((category, index) => (
+                      <button
+                        aria-pressed={categoryId === category.id}
+                        className={`min-h-16 rounded-2xl border-2 border-ink px-3 py-3 text-left font-display text-lg font-semibold shadow-comic-sm transition-transform active:translate-y-0.5 active:shadow-none ${
+                          categoryColors[index % categoryColors.length]
+                        } ${categoryId === category.id ? "ring-4 ring-ink/20" : ""}`}
+                        key={category.id}
+                        onClick={() => {
+                          setCategoryId(category.id);
+                          setSubcategoryId(null);
+                          setSubcategorySearch("");
+                        }}
+                        type="button"
+                      >
+                        {category.icon && (
+                          <span aria-hidden="true" className="mr-1">
+                            {category.icon}
+                          </span>
+                        )}
+                        {category.name}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="rounded-2xl border-2 border-ink bg-mustard p-4 text-sm font-bold">
+                    No hay categorías en el banco. Añade categorías en
+                    `src/data/charades.json`.
+                  </p>
+                )}
 
                 <fieldset className="mt-5">
                   <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
@@ -588,7 +653,7 @@ export default function CharadesGame({
                       onChange={(event) =>
                         setSubcategorySearch(event.target.value)
                       }
-                      placeholder="🔎 Buscar serie, película..."
+                      placeholder="🔎 Buscar un mazo..."
                       type="search"
                       value={subcategorySearch}
                     />
@@ -622,13 +687,17 @@ export default function CharadesGame({
                         ))
                       ) : (
                         <p className="col-span-full rounded-2xl border-2 border-ink bg-white px-4 py-5 text-center font-semibold text-ink/60">
-                          No encontramos ese mazo. Prueba con otra búsqueda 😢
+                          {selectedCategory.subcategories.length === 0
+                            ? "Esta categoría aún no tiene subcategorías."
+                            : "No encontramos ese mazo. Prueba con otra búsqueda 😢"}
                         </p>
                       )}
                     </div>
                   </div>
                 )}
               </div>
+
+              <CustomContentForm game="charades" categories={categories} />
 
               <div className="rounded-3xl border-2 border-ink bg-mint p-5 shadow-comic sm:p-6">
                 <fieldset className="mb-5">

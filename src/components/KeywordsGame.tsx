@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import wordBank from "../data/keywords.json";
+import CustomContentForm from "./CustomContentForm";
+import { useCustomGameContent } from "../state/CustomGameContentContext";
 import {
   ensureAnonymousSession,
   getSupabaseClient,
@@ -267,6 +269,7 @@ export default function KeywordsGame({
   const [roomCodeInput, setRoomCodeInput] = useState("");
   const [joinTeam, setJoinTeam] = useState<TeamIndex>(0);
   const [joinName, setJoinName] = useState("");
+  const [joinTeamMembers, setJoinTeamMembers] = useState<string[]>([]);
   const [clueInput, setClueInput] = useState("");
   const [clueCount, setClueCount] = useState(1);
   const [secretKey, setSecretKey] = useState<number[] | null>(null);
@@ -277,6 +280,11 @@ export default function KeywordsGame({
     useState<ConnectionNotice | null>(null);
   const [confirmCloseRoom, setConfirmCloseRoom] = useState(false);
   const [confirmLeaveRoom, setConfirmLeaveRoom] = useState(false);
+  const { entries: customContent } = useCustomGameContent();
+  const customWords = customContent
+    .filter((entry) => entry.game === "keywords")
+    .map((entry) => entry.word);
+  const availableWords = Array.from(new Set([...typedWordBank, ...customWords]));
 
   const supabase = useMemo(
     () => (isSupabaseConfigured() ? getSupabaseClient() : null),
@@ -542,7 +550,7 @@ export default function KeywordsGame({
         throw new Error("Asigna a todos los jugadores a uno de los equipos.");
       }
       await ensureAnonymousSession();
-      const board = shuffle(typedWordBank).slice(0, 25);
+      const board = shuffle(availableWords).slice(0, 25);
       if (new Set(board).size !== 25) {
         throw new Error("El banco local no contiene 25 palabras únicas.");
       }
@@ -574,12 +582,12 @@ export default function KeywordsGame({
   function joinRoom() {
     runAction(async () => {
       if (!supabase) throw new Error("Configura Supabase antes de unirte a una sala.");
-      if (!joinName.trim()) throw new Error("Escribe tu nombre de guía.");
+      if (!joinName) throw new Error("Selecciona tu nombre de la lista del equipo.");
       await ensureAnonymousSession();
       const { data, error } = await supabase.rpc("join_keyword_room", {
         p_code: roomCodeInput.trim().toUpperCase(),
         p_team: joinTeam,
-        p_display_name: joinName.trim(),
+        p_display_name: joinName,
       });
       if (error) throw error;
       if (typeof data !== "string") {
@@ -588,7 +596,7 @@ export default function KeywordsGame({
       const role: DeviceRole = {
         type: "cluegiver",
         team: joinTeam,
-        name: joinName.trim(),
+        name: joinName,
       };
       const storageError = saveDeviceSession(data, role);
       if (storageError) {
@@ -599,6 +607,27 @@ export default function KeywordsGame({
       setDeviceRole(role);
       await loadRoom(data);
       setView("room");
+    });
+  }
+
+  function loadJoinTeamMembers() {
+    runAction(async () => {
+      if (!supabase) throw new Error("Configura Supabase antes de unirte a una sala.");
+      if (roomCodeInput.trim().length !== 8) {
+        throw new Error("Escribe primero el código de ocho caracteres.");
+      }
+      await ensureAnonymousSession();
+      const { data, error } = await supabase.rpc("get_keyword_team_roster", {
+        p_code: roomCodeInput.trim().toUpperCase(),
+        p_team: joinTeam,
+      });
+      if (error) throw error;
+      if (!isStringArray(data)) {
+        throw new Error("La lista del equipo recibida no tiene un formato válido.");
+      }
+      setJoinTeamMembers(data);
+      setJoinName("");
+      if (data.length === 0) setNotice("Este equipo no tiene nombres asignados.");
     });
   }
 
@@ -772,6 +801,58 @@ export default function KeywordsGame({
           </p>
         )}
 
+        <details className="mb-5 rounded-3xl border-2 border-ink bg-white p-4 shadow-comic-sm">
+          <summary className="cursor-pointer font-extrabold">
+            Cómo se juega · reglas rápidas
+          </summary>
+          <div className="mt-4 space-y-4 text-sm font-semibold text-ink/75">
+            <section>
+              <h2 className="font-display text-lg font-semibold text-ink">
+                Objetivo y equipos
+              </h2>
+              <p>
+                Dos equipos compiten por encontrar todas sus palabras antes que
+                el rival. Cada tablero tiene 25 palabras: 9 del equipo que
+                empieza, 8 del otro, 7 neutrales y 1 asesina.
+              </p>
+            </section>
+            <section>
+              <h2 className="font-display text-lg font-semibold text-ink">
+                Pistas y turnos
+              </h2>
+              <p>
+                La guía del equipo activo da una sola palabra y un número. El
+                equipo puede elegir hasta ese número más una casilla. Si acierta
+                una palabra propia, puede seguir mientras le queden intentos;
+                una palabra neutral o rival termina el turno.
+              </p>
+            </section>
+            <section>
+              <h2 className="font-display text-lg font-semibold text-ink">
+                Casillas especiales y victoria
+              </h2>
+              <p>
+                La asesina termina la partida y gana el rival. Gana el primer
+                equipo que encuentra todas sus palabras. El tablero muestra las
+                elecciones y ambas guías ven su propia clave privada durante
+                toda la partida; no la compartas con el otro equipo.
+              </p>
+            </section>
+            <section>
+              <h2 className="font-display text-lg font-semibold text-ink">
+                Dispositivos
+              </h2>
+              <p>
+                El teléfono del tablero es público y gestiona las casillas. Cada
+                equipo mantiene una guía en su propio teléfono. Antes de empezar,
+                asignen manualmente los equipos y conecten una guía por equipo.
+                El tablero también puede terminar un turno o finalizar la
+                partida para todos.
+              </p>
+            </section>
+          </div>
+        </details>
+
         {view === "home" && (
           <section className="rounded-3xl border-2 border-ink bg-white p-6 shadow-comic sm:p-10">
             <p className="text-sm font-extrabold uppercase tracking-widest text-ink/55">
@@ -782,7 +863,7 @@ export default function KeywordsGame({
             </h2>
             <p className="mt-3 max-w-2xl font-semibold text-ink/65">
               El tablero es público. La clave secreta solo se muestra en el
-              teléfono de la persona guía del equipo activo. Forma equipos
+              teléfono privado de cada guía. Forma equipos
               manualmente y crea una sala o únete con un código.
             </p>
             <div className="mt-7 grid gap-3 sm:grid-cols-2">
@@ -809,6 +890,7 @@ export default function KeywordsGame({
                 Conectar / reconectar como guía
               </button>
             </div>
+            <CustomContentForm game="keywords" />
             {players.length < 4 && (
               <p className="mt-4 text-sm font-bold text-ink/65">
                 Guarda al menos cuatro nombres en Jugadores para crear una sala.
@@ -876,8 +958,8 @@ export default function KeywordsGame({
               Conectar teléfono de guía
             </h2>
             <p className="mt-2 font-semibold text-ink/65">
-              Elige el equipo y escribe el mismo nombre que figura en su
-              plantilla. Para reconectarte a una partida iniciada, usa el mismo
+              Elige el equipo, carga sus nombres y selecciona el que tienes
+              asignado. Para reconectarte a una partida iniciada, usa el mismo
               dispositivo o perfil donde te conectaste originalmente.
             </p>
             <form
@@ -894,7 +976,11 @@ export default function KeywordsGame({
                   className="mt-1 w-full rounded-2xl border-2 border-ink bg-cream px-4 py-3 text-lg font-bold uppercase"
                   id="keyword-room-code"
                   maxLength={8}
-                  onChange={(event) => setRoomCodeInput(event.target.value)}
+                  onChange={(event) => {
+                    setRoomCodeInput(event.target.value);
+                    setJoinTeamMembers([]);
+                    setJoinName("");
+                  }}
                   required
                   value={roomCodeInput}
                 />
@@ -913,7 +999,11 @@ export default function KeywordsGame({
                           : "bg-white"
                       }`}
                       key={team}
-                      onClick={() => setJoinTeam(team as TeamIndex)}
+                      onClick={() => {
+                        setJoinTeam(team as TeamIndex);
+                        setJoinTeamMembers([]);
+                        setJoinName("");
+                      }}
                       type="button"
                     >
                       Equipo {team + 1}
@@ -921,21 +1011,43 @@ export default function KeywordsGame({
                   ))}
                 </div>
               </fieldset>
-              <label className="block text-sm font-extrabold" htmlFor="keyword-guide-name">
-                Tu nombre en el equipo
-                <input
-                  autoComplete="name"
-                  className="mt-1 w-full rounded-2xl border-2 border-ink bg-cream px-4 py-3 text-lg font-bold"
-                  id="keyword-guide-name"
-                  maxLength={40}
-                  onChange={(event) => setJoinName(event.target.value)}
-                  required
-                  value={joinName}
-                />
-              </label>
+              <button
+                className="w-full rounded-full border-2 border-ink bg-mustard px-5 py-3 font-extrabold shadow-comic-sm disabled:opacity-45"
+                disabled={busy || roomCodeInput.trim().length !== 8}
+                onClick={loadJoinTeamMembers}
+                type="button"
+              >
+                {busy ? "Cargando nombres…" : "Mostrar nombres del equipo"}
+              </button>
+              {joinTeamMembers.length > 0 && (
+                <fieldset>
+                  <legend className="mb-2 text-sm font-extrabold">
+                    Elige tu nombre · Equipo {joinTeam + 1}
+                  </legend>
+                  <div className="grid grid-cols-2 gap-2">
+                    {joinTeamMembers.map((name, index) => (
+                      <button
+                        aria-pressed={joinName === name}
+                        className={`rounded-xl border-2 border-ink px-3 py-3 font-extrabold shadow-comic-sm ${
+                          joinName === name
+                            ? joinTeam === 0
+                              ? "bg-bubblegum"
+                              : "bg-sky"
+                            : "bg-white"
+                        }`}
+                        key={`${name}-${index}`}
+                        onClick={() => setJoinName(name)}
+                        type="button"
+                      >
+                        {name}
+                      </button>
+                    ))}
+                  </div>
+                </fieldset>
+              )}
               <button
                 className="w-full rounded-full border-2 border-ink bg-mint px-5 py-4 font-extrabold shadow-comic-sm disabled:opacity-45"
-                disabled={busy}
+                disabled={busy || !joinName}
                 type="submit"
               >
                 {busy ? "Conectando…" : "Unirme como guía 🔐"}

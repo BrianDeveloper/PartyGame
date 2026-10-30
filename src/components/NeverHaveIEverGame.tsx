@@ -1,17 +1,18 @@
 import { useState } from "react";
 import promptsByIntensity from "../data/never-have-i-ever.json";
+import CustomContentForm from "./CustomContentForm";
+import { useCustomGameContent } from "../state/CustomGameContentContext";
 
 type Intensity = keyof typeof promptsByIntensity;
+type IntensityFilter = Intensity | "todas";
 type Stage = "setup" | "playing" | "summary";
-type FinishReason = "rounds" | "fingers";
+type FinishReason = "manual" | "fingers";
 
 const intensities: { id: Intensity; label: string; emoji: string; color: string }[] = [
   { id: "suave", label: "Suave", emoji: "🌱", color: "bg-mint" },
   { id: "intenso", label: "Intenso", emoji: "🔥", color: "bg-bubblegum" },
   { id: "salvaje", label: "Salvaje", emoji: "😈", color: "bg-coral" },
 ];
-const roundOptions = [5, 10, 12];
-
 function shuffle<T>(items: readonly T[]): T[] {
   const shuffled = [...items];
   for (let index = shuffled.length - 1; index > 0; index -= 1) {
@@ -20,6 +21,39 @@ function shuffle<T>(items: readonly T[]): T[] {
       shuffled[swapIndex],
       shuffled[index],
     ];
+  }
+  return shuffled;
+}
+
+function getPromptPool(
+  intensity: IntensityFilter,
+  customPrompts: { prompt: string; intensity?: Intensity }[],
+) {
+  const defaultPrompts =
+    intensity === "todas"
+    ? Object.values(promptsByIntensity).flat()
+    : promptsByIntensity[intensity];
+  return [
+    ...defaultPrompts,
+    ...customPrompts
+      .filter(
+        (entry) =>
+          intensity === "todas" || entry.intensity === intensity,
+      )
+      .map((entry) => entry.prompt),
+  ];
+}
+
+function shuffleWithoutImmediateRepeat(items: readonly string[], previous: string) {
+  const shuffled = shuffle(items);
+  if (shuffled.length > 1 && shuffled[0] === previous) {
+    const differentIndex = shuffled.findIndex((item) => item !== previous);
+    if (differentIndex > 0) {
+      [shuffled[0], shuffled[differentIndex]] = [
+        shuffled[differentIndex]!,
+        shuffled[0]!,
+      ];
+    }
   }
   return shuffled;
 }
@@ -34,18 +68,24 @@ export default function NeverHaveIEverGame({
   playerCount: number;
 }) {
   const [stage, setStage] = useState<Stage>("setup");
-  const [intensity, setIntensity] = useState<Intensity>("suave");
-  const [roundLimit, setRoundLimit] = useState(10);
+  const [intensity, setIntensity] = useState<IntensityFilter>("suave");
   const [deck, setDeck] = useState<string[]>([]);
   const [cardIndex, setCardIndex] = useState(0);
-  const [finishReason, setFinishReason] = useState<FinishReason>("rounds");
+  const [playedCount, setPlayedCount] = useState(0);
+  const [finishReason, setFinishReason] = useState<FinishReason>("manual");
+  const { entries: customContent } = useCustomGameContent();
+  const customPrompts = customContent.filter(
+    (entry): entry is Extract<typeof entry, { game: "never" }> =>
+      entry.game === "never",
+  );
 
   const currentPrompt = deck[cardIndex];
-  const roundNumber = cardIndex + 1;
+  const roundNumber = playedCount;
 
   function startGame() {
-    setDeck(shuffle(promptsByIntensity[intensity]).slice(0, roundLimit));
+    setDeck(shuffle(getPromptPool(intensity, customPrompts)));
     setCardIndex(0);
+    setPlayedCount(1);
     setStage("playing");
   }
 
@@ -56,10 +96,17 @@ export default function NeverHaveIEverGame({
 
   function nextPrompt() {
     if (cardIndex + 1 >= deck.length) {
-      finishGame("rounds");
-      return;
+      setDeck(
+        shuffleWithoutImmediateRepeat(
+          getPromptPool(intensity, customPrompts),
+          currentPrompt ?? "",
+        ),
+      );
+      setCardIndex(0);
+    } else {
+      setCardIndex((current) => current + 1);
     }
-    setCardIndex((current) => current + 1);
+    setPlayedCount((count) => count + 1);
   }
 
   return (
@@ -100,10 +147,10 @@ export default function NeverHaveIEverGame({
               </h2>
             </div>
             <div className="rounded-3xl border-2 border-ink bg-white p-5 shadow-comic sm:p-8">
-              <div className="rounded-2xl border-2 border-ink bg-cream p-4">
-                <h3 className="font-display text-xl font-semibold">
-                  Cómo se juega
-                </h3>
+              <details className="rounded-2xl border-2 border-ink bg-cream p-4">
+                <summary className="cursor-pointer font-display text-xl font-semibold">
+                  📖 Cómo se juega
+                </summary>
                 <ol className="mt-2 list-inside list-decimal space-y-1 text-sm font-semibold text-ink/75">
                   <li>Todo el mundo empieza con cinco dedos levantados.</li>
                   <li>
@@ -111,21 +158,32 @@ export default function NeverHaveIEverGame({
                     falta contar la historia.
                   </li>
                   <li>
-                    Jugad hasta acabar las frases o hasta que alguien se quede
-                    sin dedos.
+                    Jugad hasta que alguien se quede sin dedos o decidáis
+                    terminar la partida. El mazo se vuelve a mezclar si se
+                    agotan las frases.
                   </li>
                   <li>
                     Al final, gana quien conserve más dedos. Si hay empate,
                     compartís la gloria.
                   </li>
                 </ol>
-              </div>
+              </details>
 
               <fieldset className="mt-5">
                 <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
                   Intensidad
                 </legend>
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+                  <button
+                    aria-pressed={intensity === "todas"}
+                    className={`rounded-xl border-2 border-ink px-2 py-3 text-sm font-extrabold shadow-comic-sm sm:text-base ${
+                      intensity === "todas" ? "bg-mustard" : "bg-white"
+                    }`}
+                    onClick={() => setIntensity("todas")}
+                    type="button"
+                  >
+                    🎲 Todas
+                  </button>
                   {intensities.map((option) => (
                     <button
                       aria-pressed={intensity === option.id}
@@ -142,27 +200,7 @@ export default function NeverHaveIEverGame({
                 </div>
               </fieldset>
 
-              <fieldset className="mt-5">
-                <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
-                  Número de frases
-                </legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {roundOptions.map((count) => (
-                    <button
-                      aria-pressed={roundLimit === count}
-                      className={`rounded-xl border-2 border-ink py-3 font-extrabold shadow-comic-sm ${
-                        roundLimit === count ? "bg-mustard" : "bg-white"
-                      }`}
-                      key={count}
-                      onClick={() => setRoundLimit(count)}
-                      type="button"
-                    >
-                      {count} frases
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
+              <CustomContentForm game="never" />
               <p className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4 text-sm font-semibold">
                 Sin puntos por beber ni castigos: cada quien decide si quiere
                 compartir una anécdota y puede pasar sin dar explicaciones.
@@ -182,14 +220,17 @@ export default function NeverHaveIEverGame({
           <section aria-labelledby="prompt-title" aria-live="polite">
             <div className="mb-4 flex items-center justify-between gap-3">
               <span className="rounded-full border-2 border-ink bg-mustard px-4 py-2 text-sm font-extrabold shadow-comic-sm">
-                Frase {roundNumber} de {deck.length}
+                Frase {roundNumber}
               </span>
               <span
                 className={`rounded-full border-2 border-ink px-4 py-2 text-sm font-extrabold shadow-comic-sm ${
-                  intensities.find((option) => option.id === intensity)?.color
+                  intensities.find((option) => option.id === intensity)?.color ??
+                  "bg-mustard"
                 }`}
               >
-                {intensities.find((option) => option.id === intensity)?.label}
+                {intensity === "todas"
+                  ? "Todas"
+                  : intensities.find((option) => option.id === intensity)?.label}
               </span>
             </div>
             <article className="flex min-h-[22rem] flex-col justify-between rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic sm:min-h-[25rem] sm:p-10">
@@ -219,9 +260,14 @@ export default function NeverHaveIEverGame({
                 onClick={nextPrompt}
                 type="button"
               >
-                {roundNumber === deck.length
-                  ? "Terminar y contar dedos 🎉"
-                  : "Siguiente frase 👉"}
+                Siguiente frase 👉
+              </button>
+              <button
+                className="rounded-full border-2 border-ink bg-mustard px-5 py-4 font-extrabold shadow-comic-sm sm:col-span-2"
+                onClick={() => finishGame("manual")}
+                type="button"
+              >
+                Terminar y contar dedos 🎉
               </button>
             </div>
           </section>
@@ -236,7 +282,7 @@ export default function NeverHaveIEverGame({
             <h2 className="mt-1 font-display text-4xl font-semibold">
               {finishReason === "fingers"
                 ? "¡Alguien se quedó sin dedos!"
-                : "¡Misión cumplida!"}
+                : "¡Partida terminada!"}
             </h2>
             <p className="mt-3 font-semibold text-ink/65">
               Jugasteis {roundNumber} {roundNumber === 1 ? "frase" : "frases"}.

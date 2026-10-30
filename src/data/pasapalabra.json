@@ -1,137 +1,3836 @@
-[
+{
+  "A": [
   {
+    "id": "a-01",
     "letter": "A",
-    "clue": "Empieza por A: vehículo que vuela y transporta pasajeros.",
+    "clueType": "startsWith",
+    "clue": "Insecto que produce miel y vive en colmenas.",
+    "answer": "abeja"
+  },
+  {
+    "id": "a-02",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Aeronave que transporta pasajeros por el aire.",
     "answer": "avión"
   },
   {
+    "id": "a-03",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Planta de tronco leñoso y copa de ramas.",
+    "answer": "árbol"
+  },
+  {
+    "id": "a-04",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Líquido transparente esencial para la vida.",
+    "answer": "agua"
+  },
+  {
+    "id": "a-05",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Tejido que cubre parte del suelo.",
+    "answer": "alfombra"
+  },
+  {
+    "id": "a-06",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Persona con quien se mantiene una relación de afecto.",
+    "answer": "amigo"
+  },
+  {
+    "id": "a-07",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Aro que se lleva en un dedo.",
+    "answer": "anillo"
+  },
+  {
+    "id": "a-08",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Conjunto de granos que forma muchas playas.",
+    "answer": "arena"
+  },
+  {
+    "id": "a-09",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Cereal muy usado en la paella.",
+    "answer": "arroz"
+  },
+  {
+    "id": "a-10",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Ave rapaz de vista aguda y pico curvo.",
+    "answer": "águila"
+  },
+  {
+    "id": "a-11",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Sustancia dulce que se obtiene, entre otras fuentes, de la caña.",
+    "answer": "azúcar"
+  },
+  {
+    "id": "a-12",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Persona que crea obras de arte o interpreta una obra.",
+    "answer": "artista"
+  },
+  {
+    "id": "a-13",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Abertura que atraviesa o se forma en una superficie.",
+    "answer": "agujero"
+  },
+  {
+    "id": "a-14",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Pieza blanda que sirve de apoyo para la cabeza al dormir.",
+    "answer": "almohada"
+  },
+  {
+    "id": "a-15",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Momento en que empieza a aparecer la luz del día.",
+    "answer": "amanecer"
+  },
+  {
+    "id": "a-16",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Pueblo pequeño, generalmente de carácter rural.",
+    "answer": "aldea"
+  },
+  {
+    "id": "a-17",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Prenda que protege del frío y se lleva sobre la ropa.",
+    "answer": "abrigo"
+  },
+  {
+    "id": "a-18",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Instrumento musical de fuelle y teclado o botones.",
+    "answer": "acordeón"
+  },
+  {
+    "id": "a-19",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Líquido graso que se usa para cocinar.",
+    "answer": "aceite"
+  },
+  {
+    "id": "a-20",
+    "letter": "A",
+    "clueType": "startsWith",
+    "clue": "Suceso emocionante o actividad llena de riesgos.",
+    "answer": "aventura"
+  }
+],
+  "B": [
+  {
+    "id": "b-01",
     "letter": "B",
-    "clue": "Empieza por B: instrumento para orientarse que señala el norte.",
+    "clueType": "startsWith",
+    "clue": "Vehículo que navega por el agua.",
+    "answer": "barco"
+  },
+  {
+    "id": "b-02",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Vehículo de dos ruedas impulsado con pedales.",
+    "answer": "bicicleta"
+  },
+  {
+    "id": "b-03",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Pelota grande usada en deportes como el fútbol.",
+    "answer": "balón"
+  },
+  {
+    "id": "b-04",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se conservan y consultan libros.",
+    "answer": "biblioteca"
+  },
+  {
+    "id": "b-05",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Terreno poblado de árboles.",
+    "answer": "bosque"
+  },
+  {
+    "id": "b-06",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Recipiente estrecho de cuello para guardar líquidos.",
+    "answer": "botella"
+  },
+  {
+    "id": "b-07",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Instrumento que señala el norte magnético.",
     "answer": "brújula"
   },
   {
-    "letter": "C",
-    "clue": "Empieza por C: animal australiano que lleva a sus crías en una bolsa.",
-    "answer": "canguro"
+    "id": "b-08",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Gran mamífero marino que respira por pulmones.",
+    "answer": "ballena"
   },
   {
+    "id": "b-09",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Saquito cosido a una prenda para guardar objetos.",
+    "answer": "bolsillo"
+  },
+  {
+    "id": "b-10",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Pieza de tela que representa a un país o grupo.",
+    "answer": "bandera"
+  },
+  {
+    "id": "b-11",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Dispositivo eléctrico que produce luz.",
+    "answer": "bombilla"
+  },
+  {
+    "id": "b-12",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Dispositivo que emite un sonido de aviso en un vehículo.",
+    "answer": "bocina"
+  },
+  {
+    "id": "b-13",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Prenda holgada que se usa encima de la ropa.",
+    "answer": "bata"
+  },
+  {
+    "id": "b-14",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Zona o conjunto de calles de una localidad.",
+    "answer": "barrio"
+  },
+  {
+    "id": "b-15",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Contacto de los labios como muestra de afecto.",
+    "answer": "beso"
+  },
+  {
+    "id": "b-16",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Prenda larga que se lleva alrededor del cuello.",
+    "answer": "bufanda"
+  },
+  {
+    "id": "b-17",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Instrumento musical de percusión formado por tambores y platillos.",
+    "answer": "batería"
+  },
+  {
+    "id": "b-18",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Globo de aire rodeado por una película líquida.",
+    "answer": "burbuja"
+  },
+  {
+    "id": "b-19",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Ave nocturna de grandes ojos y vuelo silencioso.",
+    "answer": "búho"
+  },
+  {
+    "id": "b-20",
+    "letter": "B",
+    "clueType": "startsWith",
+    "clue": "Asiento alargado para varias personas.",
+    "answer": "banco"
+  }
+],
+  "C": [
+  {
+    "id": "c-01",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Mamífero equino domesticado para montar o tirar de cargas.",
+    "answer": "caballo"
+  },
+  {
+    "id": "c-02",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Prenda con cuello y botones que cubre el torso.",
+    "answer": "camisa"
+  },
+  {
+    "id": "c-03",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Objeto metálico hueco que suena al ser golpeado.",
+    "answer": "campana"
+  },
+  {
+    "id": "c-04",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Utensilio cóncavo usado para llevar alimentos a la boca.",
+    "answer": "cuchara"
+  },
+  {
+    "id": "c-05",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Localidad grande con numerosos habitantes y servicios.",
+    "answer": "ciudad"
+  },
+  {
+    "id": "c-06",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Espacio aparente sobre la superficie de la Tierra.",
+    "answer": "cielo"
+  },
+  {
+    "id": "c-07",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Habitación o lugar donde se preparan alimentos.",
+    "answer": "cocina"
+  },
+  {
+    "id": "c-08",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Mamífero de orejas largas que excava madrigueras.",
+    "answer": "conejo"
+  },
+  {
+    "id": "c-09",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Obra pintada que suele enmarcarse y colgarse.",
+    "answer": "cuadro"
+  },
+  {
+    "id": "c-10",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Composición musical hecha para ser cantada.",
+    "answer": "canción"
+  },
+  {
+    "id": "c-11",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Utensilio con hoja cortante y mango.",
+    "answer": "cuchillo"
+  },
+  {
+    "id": "c-12",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Vía por la que se transita para ir de un lugar a otro.",
+    "answer": "camino"
+  },
+  {
+    "id": "c-13",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Órgano que bombea la sangre por el cuerpo.",
+    "answer": "corazón"
+  },
+  {
+    "id": "c-14",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Estructura donde vive una colonia de abejas.",
+    "answer": "colmena"
+  },
+  {
+    "id": "c-15",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Fruto pequeño y redondo del cerezo.",
+    "answer": "cereza"
+  },
+  {
+    "id": "c-16",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Utensilio de cerdas usado para limpiar o peinar.",
+    "answer": "cepillo"
+  },
+  {
+    "id": "c-17",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Molusco terrestre que lleva una concha en espiral.",
+    "answer": "caracol"
+  },
+  {
+    "id": "c-18",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Edificación fortificada de época medieval.",
+    "answer": "castillo"
+  },
+  {
+    "id": "c-19",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Juguete que vuela sujeto por un hilo.",
+    "answer": "cometa"
+  },
+  {
+    "id": "c-20",
+    "letter": "C",
+    "clueType": "startsWith",
+    "clue": "Conjunto de hojas unidas para escribir o dibujar.",
+    "answer": "cuaderno"
+  }
+],
+  "D": [
+  {
+    "id": "d-01",
     "letter": "D",
-    "clue": "Empieza por D: piedra preciosa muy dura que se usa en joyería.",
+    "clueType": "startsWith",
+    "clue": "Mamífero marino conocido por su hocico alargado.",
+    "answer": "delfín"
+  },
+  {
+    "id": "d-02",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Cada una de las prolongaciones de la mano o del pie.",
+    "answer": "dedo"
+  },
+  {
+    "id": "d-03",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Día de la semana que sigue al sábado.",
+    "answer": "domingo"
+  },
+  {
+    "id": "d-04",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Fruto de piel aterciopelada, también llamado melocotón.",
+    "answer": "durazno"
+  },
+  {
+    "id": "d-05",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Región muy seca con escasas precipitaciones.",
+    "answer": "desierto"
+  },
+  {
+    "id": "d-06",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Cubo con puntos usado en muchos juegos.",
+    "answer": "dado"
+  },
+  {
+    "id": "d-07",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Chorro de agua para lavarse bajo él.",
+    "answer": "ducha"
+  },
+  {
+    "id": "d-08",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Persona que ejerce la medicina tras completar su formación.",
+    "answer": "doctor"
+  },
+  {
+    "id": "d-09",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Criatura fantástica, a menudo representada con alas y fuego.",
+    "answer": "dragón"
+  },
+  {
+    "id": "d-10",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Piedra preciosa formada por carbono cristalizado.",
     "answer": "diamante"
   },
   {
+    "id": "d-11",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Primera comida del día.",
+    "answer": "desayuno"
+  },
+  {
+    "id": "d-12",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Representación hecha con líneas sobre una superficie.",
+    "answer": "dibujo"
+  },
+  {
+    "id": "d-13",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Medio de pago aceptado para comprar bienes y servicios.",
+    "answer": "dinero"
+  },
+  {
+    "id": "d-14",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Arte de mover el cuerpo siguiendo un ritmo.",
+    "answer": "danza"
+  },
+  {
+    "id": "d-15",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Habitación destinada principalmente a dormir.",
+    "answer": "dormitorio"
+  },
+  {
+    "id": "d-16",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Marcha organizada de personas o vehículos ante el público.",
+    "answer": "desfile"
+  },
+  {
+    "id": "d-17",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Actividad física reglada que puede practicarse como juego o competición.",
+    "answer": "deporte"
+  },
+  {
+    "id": "d-18",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Libro o recurso que explica palabras y sus significados.",
+    "answer": "diccionario"
+  },
+  {
+    "id": "d-19",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Lugar al que se dirige un viaje.",
+    "answer": "destino"
+  },
+  {
+    "id": "d-20",
+    "letter": "D",
+    "clueType": "startsWith",
+    "clue": "Reptil que vivió en la era mesozoica.",
+    "answer": "dinosaurio"
+  }
+],
+  "E": [
+  {
+    "id": "e-01",
     "letter": "E",
-    "clue": "Empieza por E: objeto de cristal en el que puedes ver tu reflejo.",
+    "clueType": "startsWith",
+    "clue": "Gran mamífero con trompa y colmillos.",
+    "answer": "elefante"
+  },
+  {
+    "id": "e-02",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Superficie que refleja imágenes.",
     "answer": "espejo"
   },
   {
+    "id": "e-03",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Astro que emite luz propia.",
+    "answer": "estrella"
+  },
+  {
+    "id": "e-04",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Centro donde se enseña y se aprende.",
+    "answer": "escuela"
+  },
+  {
+    "id": "e-05",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Conjunto de peldaños para subir o bajar entre niveles.",
+    "answer": "escalera"
+  },
+  {
+    "id": "e-06",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Utensilio de cerdas usado para barrer.",
+    "answer": "escoba"
+  },
+  {
+    "id": "e-07",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Conjunto organizado de fuerzas armadas de un país.",
+    "answer": "ejército"
+  },
+  {
+    "id": "e-08",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Capacidad de un sistema para realizar trabajo o producir cambios.",
+    "answer": "energía"
+  },
+  {
+    "id": "e-09",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Construcción destinada a albergar personas o actividades.",
+    "answer": "edificio"
+  },
+  {
+    "id": "e-10",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Paso o acceso para ingresar a un lugar.",
+    "answer": "entrada"
+  },
+  {
+    "id": "e-11",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Plato de vegetales u otros ingredientes, a menudo aliñados.",
+    "answer": "ensalada"
+  },
+  {
+    "id": "e-12",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Aparato que sirve para calentar una habitación o cocinar.",
+    "answer": "estufa"
+  },
+  {
+    "id": "e-13",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Conjunto de huesos que sostiene el cuerpo de muchos animales.",
+    "answer": "esqueleto"
+  },
+  {
+    "id": "e-14",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Lugar donde paran trenes o autobuses para recoger pasajeros.",
+    "answer": "estación"
+  },
+  {
+    "id": "e-15",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Conjunto de maletas y objetos que se llevan en un viaje.",
+    "answer": "equipaje"
+  },
+  {
+    "id": "e-16",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Mamífero pequeño cubierto de púas.",
+    "answer": "erizo"
+  },
+  {
+    "id": "e-17",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Pregunta o situación difícil de resolver.",
+    "answer": "enigma"
+  },
+  {
+    "id": "e-18",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Persona que prepara una obra para su publicación.",
+    "answer": "editor"
+  },
+  {
+    "id": "e-19",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Ocultación total o parcial de un astro por otro.",
+    "answer": "eclipse"
+  },
+  {
+    "id": "e-20",
+    "letter": "E",
+    "clueType": "startsWith",
+    "clue": "Rótulo adherido a un objeto con información sobre él.",
+    "answer": "etiqueta"
+  }
+],
+  "F": [
+  {
+    "id": "f-01",
     "letter": "F",
-    "clue": "Empieza por F: torre con una luz que guía a los barcos.",
+    "clueType": "startsWith",
+    "clue": "Torre con una luz que orienta a los barcos.",
     "answer": "faro"
   },
   {
+    "id": "f-02",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Grupo de personas unidas por parentesco o vínculos afectivos.",
+    "answer": "familia"
+  },
+  {
+    "id": "f-03",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Combustión que produce calor y luz.",
+    "answer": "fuego"
+  },
+  {
+    "id": "f-04",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Parte de una planta que suele contener sus órganos reproductores.",
+    "answer": "flor"
+  },
+  {
+    "id": "f-05",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Construcción de la que brota o mana agua.",
+    "answer": "fuente"
+  },
+  {
+    "id": "f-06",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se elaboran productos mediante procesos industriales.",
+    "answer": "fábrica"
+  },
+  {
+    "id": "f-07",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Imagen obtenida al registrar la luz con una cámara.",
+    "answer": "fotografía"
+  },
+  {
+    "id": "f-08",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Mamífero marino de cuerpo fusiforme y aletas.",
+    "answer": "foca"
+  },
+  {
+    "id": "f-09",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Relato breve que suele dejar una enseñanza.",
+    "answer": "fábula"
+  },
+  {
+    "id": "f-10",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Límite que separa territorios o países.",
+    "answer": "frontera"
+  },
+  {
+    "id": "f-11",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Prenda que se ajusta a la cintura y cubre las piernas.",
+    "answer": "falda"
+  },
+  {
+    "id": "f-12",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Establecimiento donde se dispensan medicamentos.",
+    "answer": "farmacia"
+  },
+  {
+    "id": "f-13",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Reunión para celebrar o divertirse.",
+    "answer": "fiesta"
+  },
+  {
+    "id": "f-14",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Pieza pequeña que se enciende al frotarla.",
+    "answer": "fósforo"
+  },
+  {
+    "id": "f-15",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Producto comestible que se desarrolla a partir de una flor.",
+    "answer": "fruta"
+  },
+  {
+    "id": "f-16",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Proyectil alargado que se dispara con un arco.",
+    "answer": "flecha"
+  },
+  {
+    "id": "f-17",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Aparición sobrenatural de una persona fallecida, según relatos.",
+    "answer": "fantasma"
+  },
+  {
+    "id": "f-18",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Segundo mes del año en el calendario gregoriano.",
+    "answer": "febrero"
+  },
+  {
+    "id": "f-19",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Pasta delgada y alargada.",
+    "answer": "fideo"
+  },
+  {
+    "id": "f-20",
+    "letter": "F",
+    "clueType": "startsWith",
+    "clue": "Dispositivo o material que retiene partículas de una mezcla.",
+    "answer": "filtro"
+  }
+],
+  "G": [
+  {
+    "id": "g-01",
     "letter": "G",
-    "clue": "Empieza por G: instrumento musical de cuerda que suele tocarse rasgueando.",
+    "clueType": "startsWith",
+    "clue": "Mamífero doméstico de uñas retráctiles.",
+    "answer": "gato"
+  },
+  {
+    "id": "g-02",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Instrumento de cuerda que suele tocarse con los dedos o una púa.",
     "answer": "guitarra"
   },
   {
-    "letter": "H",
-    "clue": "Empieza por H: aeronave con hélices que puede despegar verticalmente.",
-    "answer": "helicóptero"
+    "id": "g-03",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Conducto del cuello por el que pasan aire y alimentos.",
+    "answer": "garganta"
   },
   {
+    "id": "g-04",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Prenda que cubre la cabeza y suele tener visera.",
+    "answer": "gorra"
+  },
+  {
+    "id": "g-05",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Esfera inflable de goma o látex usada como juguete o adorno.",
+    "answer": "globo"
+  },
+  {
+    "id": "g-06",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Explotación rural donde se crían animales o se cultivan plantas.",
+    "answer": "granja"
+  },
+  {
+    "id": "g-07",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Animal alargado y sin patas, como una lombriz.",
+    "answer": "gusano"
+  },
+  {
+    "id": "g-08",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Pieza pequeña de masa horneada, dulce o salada.",
+    "answer": "galleta"
+  },
+  {
+    "id": "g-09",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Persona o ser de tamaño extraordinariamente grande.",
+    "answer": "gigante"
+  },
+  {
+    "id": "g-10",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Prenda que cubre la mano y deja los dedos separados o juntos.",
+    "answer": "guante"
+  },
+  {
+    "id": "g-11",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Gran simio africano de cuerpo robusto.",
+    "answer": "gorila"
+  },
+  {
+    "id": "g-12",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Hermano nacido en el mismo parto que otro.",
+    "answer": "gemelo"
+  },
+  {
+    "id": "g-13",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Insecto cuyo macho produce un sonido al frotar sus alas.",
+    "answer": "grillo"
+  },
+  {
+    "id": "g-14",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Combustible líquido usado en muchos motores.",
+    "answer": "gasolina"
+  },
+  {
+    "id": "g-15",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Ave pequeña y común de plumaje pardo.",
+    "answer": "gorrión"
+  },
+  {
+    "id": "g-16",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Conflicto armado entre grupos o países.",
+    "answer": "guerra"
+  },
+  {
+    "id": "g-17",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Abertura estrecha y alargada en una superficie.",
+    "answer": "grieta"
+  },
+  {
+    "id": "g-18",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Ave migratoria de alas largas y vuelo ágil.",
+    "answer": "golondrina"
+  },
+  {
+    "id": "g-19",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Comida cocinada lentamente con varios ingredientes.",
+    "answer": "guiso"
+  },
+  {
+    "id": "g-20",
+    "letter": "G",
+    "clueType": "startsWith",
+    "clue": "Ciencia que estudia la superficie terrestre y sus características.",
+    "answer": "geografía"
+  }
+],
+  "H": [
+  {
+    "id": "h-01",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Postre frío elaborado normalmente con leche, agua o fruta.",
+    "answer": "helado"
+  },
+  {
+    "id": "h-02",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Centro donde se atiende a personas enfermas o heridas.",
+    "answer": "hospital"
+  },
+  {
+    "id": "h-03",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Estructura que ponen las aves y de la que puede nacer una cría.",
+    "answer": "huevo"
+  },
+  {
+    "id": "h-04",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Órgano generalmente verde de una planta.",
+    "answer": "hoja"
+  },
+  {
+    "id": "h-05",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Persona que comparte uno o ambos progenitores con otra.",
+    "answer": "hermano"
+  },
+  {
+    "id": "h-06",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Polvo obtenido al moler cereales u otros alimentos.",
+    "answer": "harina"
+  },
+  {
+    "id": "h-07",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Red o tela suspendida entre dos puntos para descansar.",
+    "answer": "hamaca"
+  },
+  {
+    "id": "h-08",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Instrumento usado para realizar un trabajo manual.",
+    "answer": "herramienta"
+  },
+  {
+    "id": "h-09",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Hebra delgada que se usa para coser o tejer.",
+    "answer": "hilo"
+  },
+  {
+    "id": "h-10",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Herramienta con hoja cortante para talar o partir madera.",
+    "answer": "hacha"
+  },
+  {
+    "id": "h-11",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Relato de hechos reales o imaginarios.",
+    "answer": "historia"
+  },
+  {
+    "id": "h-12",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Línea aparente donde parecen encontrarse el cielo y la tierra.",
+    "answer": "horizonte"
+  },
+  {
+    "id": "h-13",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Conjunto visible de gases y partículas producido por una combustión.",
+    "answer": "humo"
+  },
+  {
+    "id": "h-14",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Marca que deja un pie, una mano u otro objeto al apoyarse.",
+    "answer": "huella"
+  },
+  {
+    "id": "h-15",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Persona admirada por acciones valerosas o extraordinarias.",
+    "answer": "héroe"
+  },
+  {
+    "id": "h-16",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Encantamiento propio de relatos de magia.",
+    "answer": "hechizo"
+  },
+  {
+    "id": "h-17",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Planta trepadora de hojas persistentes.",
+    "answer": "hiedra"
+  },
+  {
+    "id": "h-18",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Distribución de actividades según las horas del día.",
+    "answer": "horario"
+  },
+  {
+    "id": "h-19",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Organismo que incluye setas, mohos y levaduras.",
+    "answer": "hongo"
+  },
+  {
+    "id": "h-20",
+    "letter": "H",
+    "clueType": "startsWith",
+    "clue": "Conjunto de prácticas para conservar la salud y la limpieza.",
+    "answer": "higiene"
+  }
+],
+  "I": [
+  {
+    "id": "i-01",
     "letter": "I",
-    "clue": "Empieza por I: porción de tierra rodeada completamente de agua.",
+    "clueType": "startsWith",
+    "clue": "Porción de tierra rodeada de agua por todas partes.",
     "answer": "isla"
   },
   {
+    "id": "i-02",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Edificio destinado al culto cristiano.",
+    "answer": "iglesia"
+  },
+  {
+    "id": "i-03",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Estación más fría del año en cada hemisferio.",
+    "answer": "invierno"
+  },
+  {
+    "id": "i-04",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Animal invertebrado con seis patas.",
+    "answer": "insecto"
+  },
+  {
+    "id": "i-05",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Objeto que atrae ciertos metales mediante un campo magnético.",
+    "answer": "imán"
+  },
+  {
+    "id": "i-06",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Representación o pensamiento que surge en la mente.",
+    "answer": "idea"
+  },
+  {
+    "id": "i-07",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Sistema de comunicación propio de una comunidad.",
+    "answer": "idioma"
+  },
+  {
+    "id": "i-08",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Reptil de zonas cálidas, a menudo con una cresta dorsal.",
+    "answer": "iguana"
+  },
+  {
+    "id": "i-09",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Fuego que se propaga sin control y causa daños.",
+    "answer": "incendio"
+  },
+  {
+    "id": "i-10",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Punto o momento en que algo comienza.",
+    "answer": "inicio"
+  },
+  {
+    "id": "i-11",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Actividad económica dedicada a transformar materias primas.",
+    "answer": "industria"
+  },
+  {
+    "id": "i-12",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Objeto diseñado para realizar una tarea o producir música.",
+    "answer": "instrumento"
+  },
+  {
+    "id": "i-13",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Persona que recibe una invitación para asistir a un acto.",
+    "answer": "invitado"
+  },
+  {
+    "id": "i-14",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Representación visual de una persona, objeto o escena.",
+    "answer": "imagen"
+  },
+  {
+    "id": "i-15",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Estado extenso gobernado por un emperador o una autoridad central.",
+    "answer": "imperio"
+  },
+  {
+    "id": "i-16",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Atención o curiosidad que algo despierta.",
+    "answer": "interés"
+  },
+  {
+    "id": "i-17",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Objeto o procedimiento creado por primera vez.",
+    "answer": "invento"
+  },
+  {
+    "id": "i-18",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Etapa de la vida que transcurre antes de la adolescencia.",
+    "answer": "infancia"
+  },
+  {
+    "id": "i-19",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Lista ordenada que permite localizar temas o contenidos.",
+    "answer": "índice"
+  },
+  {
+    "id": "i-20",
+    "letter": "I",
+    "clueType": "startsWith",
+    "clue": "Ruta o recorrido previsto para un viaje.",
+    "answer": "itinerario"
+  }
+],
+  "J": [
+  {
+    "id": "j-01",
     "letter": "J",
-    "clue": "Empieza por J: producto que se usa con agua para lavar las manos.",
+    "clueType": "startsWith",
+    "clue": "Producto que se usa para lavar la piel o la ropa.",
     "answer": "jabón"
   },
   {
+    "id": "j-02",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Mamífero africano de cuello y patas muy largos.",
+    "answer": "jirafa"
+  },
+  {
+    "id": "j-03",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Persona que monta a caballo.",
+    "answer": "jinete"
+  },
+  {
+    "id": "j-04",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Mamífero parecido al cerdo, de vida silvestre.",
+    "answer": "jabalí"
+  },
+  {
+    "id": "j-05",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Objeto destinado al juego, especialmente de los niños.",
+    "answer": "juguete"
+  },
+  {
+    "id": "j-06",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Estructura con barrotes para encerrar o transportar animales.",
+    "answer": "jaula"
+  },
+  {
+    "id": "j-07",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Tiempo de trabajo o actividad correspondiente a un día.",
+    "answer": "jornada"
+  },
+  {
+    "id": "j-08",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Persona que dirige o tiene autoridad en un grupo.",
+    "answer": "jefe"
+  },
+  {
+    "id": "j-09",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Prenda de punto que cubre el torso y los brazos.",
+    "answer": "jersey"
+  },
+  {
+    "id": "j-10",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Legumbre alargada que también se conoce como frijol en varios países.",
+    "answer": "judía"
+  },
+  {
+    "id": "j-11",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Protuberancia marcada en la espalda de una persona o animal.",
+    "answer": "joroba"
+  },
+  {
+    "id": "j-12",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Persona que tiene autoridad para juzgar en un tribunal o competición.",
+    "answer": "juez"
+  },
+  {
+    "id": "j-13",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Etapa de la vida posterior a la niñez y anterior a la adultez.",
+    "answer": "juventud"
+  },
+  {
+    "id": "j-14",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Recipiente ornamental, a menudo usado para flores.",
+    "answer": "jarrón"
+  },
+  {
+    "id": "j-15",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Objeto de adorno hecho con metales o piedras preciosas.",
+    "answer": "joya"
+  },
+  {
+    "id": "j-16",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Líquido espeso y dulce, a veces usado como medicamento.",
+    "answer": "jarabe"
+  },
+  {
+    "id": "j-17",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Principio de dar a cada cual lo que le corresponde.",
+    "answer": "justicia"
+  },
+  {
+    "id": "j-18",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Rizoma aromático usado como especia.",
+    "answer": "jengibre"
+  },
+  {
+    "id": "j-19",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Dolor de cabeza intenso, a menudo localizado en un lado.",
+    "answer": "jaqueca"
+  },
+  {
+    "id": "j-20",
+    "letter": "J",
+    "clueType": "startsWith",
+    "clue": "Cultivo y cuidado de jardines.",
+    "answer": "jardinería"
+  }
+],
+  "K": [
+  {
+    "id": "k-01",
     "letter": "K",
-    "clue": "Empieza por K: mamífero australiano que se alimenta principalmente de eucalipto.",
+    "clueType": "startsWith",
+    "clue": "Nombre coloquial de un kilogramo.",
+    "answer": "kilo"
+  },
+  {
+    "id": "k-02",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Unidad de longitud equivalente a mil metros.",
+    "answer": "kilómetro"
+  },
+  {
+    "id": "k-03",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Unidad de potencia equivalente a mil vatios.",
+    "answer": "kilovatio"
+  },
+  {
+    "id": "k-04",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Unidad básica de masa del sistema internacional.",
+    "answer": "kilogramo"
+  },
+  {
+    "id": "k-05",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Puesto pequeño donde se venden periódicos u otros productos.",
+    "answer": "kiosco"
+  },
+  {
+    "id": "k-06",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Embarcación estrecha que se impulsa con pala de doble hoja.",
+    "answer": "kayak"
+  },
+  {
+    "id": "k-07",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Marsupial australiano que se alimenta principalmente de hojas de eucalipto.",
     "answer": "koala"
   },
   {
+    "id": "k-08",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Concepto de causa y efecto moral en varias tradiciones religiosas.",
+    "answer": "karma"
+  },
+  {
+    "id": "k-09",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Entretenimiento en que se canta siguiendo una grabación con letra.",
+    "answer": "karaoke"
+  },
+  {
+    "id": "k-10",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Salsa de tomate condimentada.",
+    "answer": "kétchup"
+  },
+  {
+    "id": "k-11",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Prenda tradicional japonesa de mangas amplias.",
+    "answer": "kimono"
+  },
+  {
+    "id": "k-12",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Combustible líquido usado, entre otros fines, en algunas turbinas.",
+    "answer": "keroseno"
+  },
+  {
+    "id": "k-13",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Unidad de información digital cuyo valor depende de la convención usada.",
+    "answer": "kilobyte"
+  },
+  {
+    "id": "k-14",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Perteneciente al pueblo kurdo o a su lengua.",
+    "answer": "kurdo"
+  },
+  {
+    "id": "k-15",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Carácter de origen chino usado en la escritura japonesa.",
+    "answer": "kanji"
+  },
+  {
+    "id": "k-16",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Plato de carne asada asociado a varias cocinas de Oriente Próximo.",
+    "answer": "kebab"
+  },
+  {
+    "id": "k-17",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Arte marcial japonés basado en golpes y bloqueos.",
+    "answer": "kárate"
+  },
+  {
+    "id": "k-18",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Feria popular con puestos y actividades recreativas.",
+    "answer": "kermés"
+  },
+  {
+    "id": "k-19",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Arte marcial japonés practicado con espada de bambú.",
+    "answer": "kendo"
+  },
+  {
+    "id": "k-20",
+    "letter": "K",
+    "clueType": "startsWith",
+    "clue": "Estudio del movimiento del cuerpo humano.",
+    "answer": "kinesiología"
+  }
+],
+  "L": [
+  {
+    "id": "l-01",
     "letter": "L",
-    "clue": "Empieza por L: objeto que ilumina una habitación y suele ponerse sobre una mesa.",
+    "clueType": "startsWith",
+    "clue": "Satélite natural de la Tierra.",
+    "answer": "luna"
+  },
+  {
+    "id": "l-02",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Conjunto de páginas encuadernadas con texto o imágenes.",
+    "answer": "libro"
+  },
+  {
+    "id": "l-03",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Instrumento de escritura con una mina que deja marcas.",
+    "answer": "lápiz"
+  },
+  {
+    "id": "l-04",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Líquido nutritivo producido por las glándulas mamarias.",
+    "answer": "leche"
+  },
+  {
+    "id": "l-05",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Gran felino africano cuyo macho suele tener melena.",
+    "answer": "león"
+  },
+  {
+    "id": "l-06",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Aparato que produce luz artificial.",
     "answer": "lámpara"
   },
   {
-    "letter": "M",
-    "clue": "Empieza por M: roca que cae del espacio y llega a la superficie terrestre.",
-    "answer": "meteorito"
+    "id": "l-07",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Depósito natural de agua, generalmente menor que un lago.",
+    "answer": "laguna"
   },
   {
+    "id": "l-08",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Pieza de arcilla cocida usada en construcción.",
+    "answer": "ladrillo"
+  },
+  {
+    "id": "l-09",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Órgano muscular de la boca y, también, sistema de comunicación.",
+    "answer": "lengua"
+  },
+  {
+    "id": "l-10",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Fruto cítrico amarillo de sabor ácido.",
+    "answer": "limón"
+  },
+  {
+    "id": "l-11",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Mamífero carnívoro emparentado con el perro.",
+    "answer": "lobo"
+  },
+  {
+    "id": "l-12",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Instrumento metálico que abre o cierra una cerradura.",
+    "answer": "llave"
+  },
+  {
+    "id": "l-13",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Construcción o recorrido con caminos difíciles de encontrar.",
+    "answer": "laberinto"
+  },
+  {
+    "id": "l-14",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Legumbre pequeña y redonda que se cocina como alimento.",
+    "answer": "lenteja"
+  },
+  {
+    "id": "l-15",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Mamífero veloz parecido al conejo, de patas largas.",
+    "answer": "liebre"
+  },
+  {
+    "id": "l-16",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Terreno inclinado de una montaña o elevación.",
+    "answer": "ladera"
+  },
+  {
+    "id": "l-17",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Máquina que lava ropa automáticamente.",
+    "answer": "lavadora"
+  },
+  {
+    "id": "l-18",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Cuerda o correa larga que se usa para azotar o guiar animales.",
+    "answer": "látigo"
+  },
+  {
+    "id": "l-19",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Extensión amplia de terreno plano.",
+    "answer": "llanura"
+  },
+  {
+    "id": "l-20",
+    "letter": "L",
+    "clueType": "startsWith",
+    "clue": "Bien o conjunto de bienes que se dejan a alguien en herencia.",
+    "answer": "legado"
+  }
+],
+  "M": [
+  {
+    "id": "m-01",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Mueble con una superficie elevada sostenida por patas.",
+    "answer": "mesa"
+  },
+  {
+    "id": "m-02",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Fruto del manzano, de forma redondeada.",
+    "answer": "manzana"
+  },
+  {
+    "id": "m-03",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Arte de combinar sonidos y silencios de forma expresiva.",
+    "answer": "música"
+  },
+  {
+    "id": "m-04",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Pieza metálica usada como medio de pago.",
+    "answer": "moneda"
+  },
+  {
+    "id": "m-05",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Profesional que diagnostica y trata enfermedades.",
+    "answer": "médico"
+  },
+  {
+    "id": "m-06",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Máquina que tritura o muele materiales.",
+    "answer": "molino"
+  },
+  {
+    "id": "m-07",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Representación gráfica de un territorio.",
+    "answer": "mapa"
+  },
+  {
+    "id": "m-08",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Mamífero capaz de volar y activo principalmente de noche.",
+    "answer": "murciélago"
+  },
+  {
+    "id": "m-09",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Bolsa que se lleva a la espalda mediante correas.",
+    "answer": "mochila"
+  },
+  {
+    "id": "m-10",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Institución que conserva y expone objetos de interés.",
+    "answer": "museo"
+  },
+  {
+    "id": "m-11",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Material duro que forma el tronco y las ramas de los árboles.",
+    "answer": "madera"
+  },
+  {
+    "id": "m-12",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Sustancia dulce elaborada por las abejas a partir del néctar.",
+    "answer": "miel"
+  },
+  {
+    "id": "m-13",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Máquina que transforma energía en movimiento.",
+    "answer": "motor"
+  },
+  {
+    "id": "m-14",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Animal marino gelatinoso con tentáculos.",
+    "answer": "medusa"
+  },
+  {
+    "id": "m-15",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Subida y bajada periódica del nivel del mar.",
+    "answer": "marea"
+  },
+  {
+    "id": "m-16",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Tela que se coloca sobre una mesa para cubrirla.",
+    "answer": "mantel"
+  },
+  {
+    "id": "m-17",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Dispositivo portátil que produce una llama.",
+    "answer": "mechero"
+  },
+  {
+    "id": "m-18",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Suceso extraordinario atribuido a una intervención sobrenatural.",
+    "answer": "milagro"
+  },
+  {
+    "id": "m-19",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Información que se comunica a otra persona.",
+    "answer": "mensaje"
+  },
+  {
+    "id": "m-20",
+    "letter": "M",
+    "clueType": "startsWith",
+    "clue": "Insecto de cuerpo fino cuyas hembras de muchas especies pican.",
+    "answer": "mosquito"
+  }
+],
+  "N": [
+  {
+    "id": "n-01",
     "letter": "N",
-    "clue": "Empieza por N: estructura de ramas que construyen algunas aves para poner huevos.",
+    "clueType": "startsWith",
+    "clue": "Conjunto visible de gotas de agua o cristales de hielo en la atmósfera.",
+    "answer": "nube"
+  },
+  {
+    "id": "n-02",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Fruto cítrico de color anaranjado.",
+    "answer": "naranja"
+  },
+  {
+    "id": "n-03",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Parte de la cara por la que se respira y se perciben olores.",
+    "answer": "nariz"
+  },
+  {
+    "id": "n-04",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Parte del día en que una zona de la Tierra queda sin luz solar.",
+    "answer": "noche"
+  },
+  {
+    "id": "n-05",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Estructura que construyen algunas aves para poner huevos.",
     "answer": "nido"
   },
   {
-    "letter": "Ñ",
-    "clue": "Empieza por Ñ: ave sudamericana corredora, parecida al avestruz.",
-    "answer": "ñandú"
+    "id": "n-06",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Precipitación de cristales de hielo.",
+    "answer": "nieve"
   },
   {
+    "id": "n-07",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Obra narrativa extensa escrita en prosa.",
+    "answer": "novela"
+  },
+  {
+    "id": "n-08",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Símbolo o concepto que expresa una cantidad.",
+    "answer": "número"
+  },
+  {
+    "id": "n-09",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Cuchillo pequeño, a menudo plegable.",
+    "answer": "navaja"
+  },
+  {
+    "id": "n-10",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Árbol que produce nueces.",
+    "answer": "nogal"
+  },
+  {
+    "id": "n-11",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Mamífero semiacuático de pelaje denso.",
+    "answer": "nutria"
+  },
+  {
+    "id": "n-12",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Persona que ha sobrevivido al hundimiento de una embarcación.",
+    "answer": "náufrago"
+  },
+  {
+    "id": "n-13",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Niebla poco densa que reduce la visibilidad.",
+    "answer": "neblina"
+  },
+  {
+    "id": "n-14",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Aparato que conserva alimentos a baja temperatura.",
+    "answer": "nevera"
+  },
+  {
+    "id": "n-15",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Persona o grupo que cambia de lugar de residencia con frecuencia.",
+    "answer": "nómada"
+  },
+  {
+    "id": "n-16",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Información sobre un hecho reciente o de interés público.",
+    "answer": "noticia"
+  },
+  {
+    "id": "n-17",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Líquido azucarado que producen algunas flores.",
+    "answer": "néctar"
+  },
+  {
+    "id": "n-18",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Cubierta de caucho que rodea la rueda de un vehículo.",
+    "answer": "neumático"
+  },
+  {
+    "id": "n-19",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Deporte o actividad de desplazarse por el agua.",
+    "answer": "natación"
+  },
+  {
+    "id": "n-20",
+    "letter": "N",
+    "clueType": "startsWith",
+    "clue": "Máquina de feria con asientos que gira alrededor de un eje.",
+    "answer": "noria"
+  }
+],
+  "Ñ": [
+  {
+    "id": "ñ-01",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Período aproximado de doce meses.",
+    "answer": "año"
+  },
+  {
+    "id": "ñ-02",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Arácnido de ocho patas que muchas veces teje una red.",
+    "answer": "araña"
+  },
+  {
+    "id": "ñ-03",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Recipiente grande en el que una persona puede tomar un baño.",
+    "answer": "bañera"
+  },
+  {
+    "id": "ñ-04",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Fruto comestible del castaño.",
+    "answer": "castaña"
+  },
+  {
+    "id": "ñ-05",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Persona que posee algo.",
+    "answer": "dueño"
+  },
+  {
+    "id": "ñ-06",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Comunicar conocimientos o habilidades a otra persona.",
+    "answer": "enseñar"
+  },
+  {
+    "id": "ñ-07",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Lengua hablada en España y en gran parte de América.",
+    "answer": "español"
+  },
+  {
+    "id": "ñ-08",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Cada pelo del borde del párpado.",
+    "answer": "pestaña"
+  },
+  {
+    "id": "ñ-09",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Pieza pequeña de tela o papel para limpiarse o cubrirse.",
+    "answer": "pañuelo"
+  },
+  {
+    "id": "ñ-10",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Órgano que filtra la sangre y produce orina.",
+    "answer": "riñón"
+  },
+  {
+    "id": "ñ-11",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Juguete con forma humana; también, articulación entre mano y antebrazo.",
+    "answer": "muñeca"
+  },
+  {
+    "id": "ñ-12",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "De tamaño menor que otros de su misma clase.",
+    "answer": "pequeño"
+  },
+  {
+    "id": "ñ-13",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Recipiente decorado que se rompe en algunas fiestas para repartir dulces.",
+    "answer": "piñata"
+  },
+  {
+    "id": "ñ-14",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Madera cortada que se usa como combustible.",
+    "answer": "leña"
+  },
+  {
+    "id": "ñ-15",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Estación del año entre el verano y el invierno.",
+    "answer": "otoño"
+  },
+  {
+    "id": "ñ-16",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Aniversario del día en que nació una persona.",
+    "answer": "cumpleaños"
+  },
+  {
+    "id": "ñ-17",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Marca, gesto o sonido que transmite una información.",
+    "answer": "señal"
+  },
+  {
+    "id": "ñ-18",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Elevación natural de gran altura del terreno.",
+    "answer": "montaña"
+  },
+  {
+    "id": "ñ-19",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Estado de reposo en que se duerme; también, experiencia imaginada al dormir.",
+    "answer": "sueño"
+  },
+  {
+    "id": "ñ-20",
+    "letter": "Ñ",
+    "clueType": "contains",
+    "clue": "Dar color a un material mediante una sustancia colorante.",
+    "answer": "teñir"
+  }
+],
+  "O": [
+  {
+    "id": "o-01",
     "letter": "O",
-    "clue": "Empieza por O: gran extensión de agua salada que cubre buena parte del planeta.",
+    "clueType": "startsWith",
+    "clue": "Mamífero grande de cuerpo robusto y cola corta.",
+    "answer": "oso"
+  },
+  {
+    "id": "o-02",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Mamífero rumiante criado por su lana y su carne.",
+    "answer": "oveja"
+  },
+  {
+    "id": "o-03",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Gran extensión de agua salada que separa continentes.",
     "answer": "océano"
   },
   {
+    "id": "o-04",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Parte externa del órgano de la audición.",
+    "answer": "oreja"
+  },
+  {
+    "id": "o-05",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Órgano de la vista.",
+    "answer": "ojo"
+  },
+  {
+    "id": "o-06",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Conjunto de músicos que interpreta obras instrumentales.",
+    "answer": "orquesta"
+  },
+  {
+    "id": "o-07",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se realizan tareas administrativas o profesionales.",
+    "answer": "oficina"
+  },
+  {
+    "id": "o-08",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Máquina electrónica que procesa y almacena información.",
+    "answer": "ordenador"
+  },
+  {
+    "id": "o-09",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Árbol cuyo fruto es la aceituna.",
+    "answer": "olivo"
+  },
+  {
+    "id": "o-10",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Elevación móvil de la superficie del mar.",
+    "answer": "ola"
+  },
+  {
+    "id": "o-11",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Metal precioso de color amarillo.",
+    "answer": "oro"
+  },
+  {
+    "id": "o-12",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Cicatriz en el abdomen donde estuvo unido el cordón umbilical.",
+    "answer": "ombligo"
+  },
+  {
+    "id": "o-13",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Lugar con agua y vegetación en una zona desértica.",
+    "answer": "oasis"
+  },
+  {
+    "id": "o-14",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Cosa material que puede percibirse con los sentidos.",
+    "answer": "objeto"
+  },
+  {
+    "id": "o-15",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Punto o causa de la que procede algo.",
+    "answer": "origen"
+  },
+  {
+    "id": "o-16",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Sentimiento de satisfacción por los propios méritos o los de alguien cercano.",
+    "answer": "orgullo"
+  },
+  {
+    "id": "o-17",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Trabajo habitual que requiere una habilidad o formación.",
+    "answer": "oficio"
+  },
+  {
+    "id": "o-18",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Bola formada al enrollar hilo o lana.",
+    "answer": "ovillo"
+  },
+  {
+    "id": "o-19",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Obra teatral cuya música se canta con acompañamiento instrumental.",
+    "answer": "ópera"
+  },
+  {
+    "id": "o-20",
+    "letter": "O",
+    "clueType": "startsWith",
+    "clue": "Borde de un río, lago o mar.",
+    "answer": "orilla"
+  }
+],
+  "P": [
+  {
+    "id": "p-01",
     "letter": "P",
-    "clue": "Empieza por P: construcción de base cuadrada y lados triangulares que termina en punta.",
+    "clueType": "startsWith",
+    "clue": "Mamífero doméstico conocido por su olfato y lealtad.",
+    "answer": "perro"
+  },
+  {
+    "id": "p-02",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Abertura que permite entrar o salir de un recinto.",
+    "answer": "puerta"
+  },
+  {
+    "id": "p-03",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Cuerpo celeste que gira alrededor de una estrella.",
+    "answer": "planeta"
+  },
+  {
+    "id": "p-04",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Objeto esférico o redondeado usado en juegos y deportes.",
+    "answer": "pelota"
+  },
+  {
+    "id": "p-05",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Establecimiento donde se elabora o vende pan.",
+    "answer": "panadería"
+  },
+  {
+    "id": "p-06",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Material delgado hecho principalmente con fibras vegetales.",
+    "answer": "papel"
+  },
+  {
+    "id": "p-07",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Construcción que permite cruzar un río, vía u obstáculo.",
+    "answer": "puente"
+  },
+  {
+    "id": "p-08",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Cada estructura que cubre el cuerpo de un ave.",
+    "answer": "pluma"
+  },
+  {
+    "id": "p-09",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Sólido con base poligonal y caras triangulares que convergen en un vértice.",
     "answer": "pirámide"
   },
   {
+    "id": "p-10",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Ave marina que no vuela y nada con gran habilidad.",
+    "answer": "pingüino"
+  },
+  {
+    "id": "p-11",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Objeto plegable que protege de la lluvia.",
+    "answer": "paraguas"
+  },
+  {
+    "id": "p-12",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Fruto cítrico grande de sabor ácido o amargo.",
+    "answer": "pomelo"
+  },
+  {
+    "id": "p-13",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Utensilio de mango y pelos usado para pintar.",
+    "answer": "pincel"
+  },
+  {
+    "id": "p-14",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Residencia grande y suntuosa, a menudo de un gobernante.",
+    "answer": "palacio"
+  },
+  {
+    "id": "p-15",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Animal marino de ocho brazos con ventosas.",
+    "answer": "pulpo"
+  },
+  {
+    "id": "p-16",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Extensión de terreno que se contempla desde un lugar.",
+    "answer": "paisaje"
+  },
+  {
+    "id": "p-17",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Compromiso de hacer o dar algo.",
+    "answer": "promesa"
+  },
+  {
+    "id": "p-18",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Superficie donde se escribe con tiza o marcador.",
+    "answer": "pizarra"
+  },
+  {
+    "id": "p-19",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Órgano principal de la respiración en los vertebrados terrestres.",
+    "answer": "pulmón"
+  },
+  {
+    "id": "p-20",
+    "letter": "P",
+    "clueType": "startsWith",
+    "clue": "Reconocimiento o recompensa por un mérito o resultado.",
+    "answer": "premio"
+  }
+],
+  "Q": [
+  {
+    "id": "q-01",
     "letter": "Q",
-    "clue": "Empieza por Q: alimento hecho normalmente con leche cuajada.",
+    "clueType": "startsWith",
+    "clue": "Alimento elaborado a partir de leche cuajada.",
     "answer": "queso"
   },
   {
+    "id": "q-02",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Lesión causada por calor, sustancias químicas o radiación.",
+    "answer": "quemadura"
+  },
+  {
+    "id": "q-03",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Ciencia que estudia la composición y las transformaciones de la materia.",
+    "answer": "química"
+  },
+  {
+    "id": "q-04",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Ser fantástico formado por partes de distintos animales.",
+    "answer": "quimera"
+  },
+  {
+    "id": "q-05",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Sala preparada para realizar operaciones quirúrgicas.",
+    "answer": "quirófano"
+  },
+  {
+    "id": "q-06",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Flauta andina tradicional, generalmente de caña.",
+    "answer": "quena"
+  },
+  {
+    "id": "q-07",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Pieza longitudinal que forma la base de la estructura de un barco.",
+    "answer": "quilla"
+  },
+  {
+    "id": "q-08",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Acusación formal presentada ante la justicia.",
+    "answer": "querella"
+  },
+  {
+    "id": "q-09",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Muchacha que cumple quince años o celebra esa edad.",
+    "answer": "quinceañera"
+  },
+  {
+    "id": "q-10",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Período de quince días.",
+    "answer": "quincena"
+  },
+  {
+    "id": "q-11",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Paso estrecho entre montañas; también, arroyo o barranco según la región.",
+    "answer": "quebrada"
+  },
+  {
+    "id": "q-12",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Ave centroamericana de plumaje brillante.",
+    "answer": "quetzal"
+  },
+  {
+    "id": "q-13",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Número mínimo de miembros necesario para que una reunión pueda decidir.",
+    "answer": "quórum"
+  },
+  {
+    "id": "q-14",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Sonido que expresa dolor o pena.",
+    "answer": "quejido"
+  },
+  {
+    "id": "q-15",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Estado de reposo o falta de movimiento.",
+    "answer": "quietud"
+  },
+  {
+    "id": "q-16",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Dispositivo que produce una llama o calor en una cocina.",
+    "answer": "quemador"
+  },
+  {
+    "id": "q-17",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Cada una de las dos partes óseas de la mandíbula.",
+    "answer": "quijada"
+  },
+  {
+    "id": "q-18",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Persona que vende objetos metálicos pequeños de uso doméstico.",
+    "answer": "quincallero"
+  },
+  {
+    "id": "q-19",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Planta andina y semilla comestible de alto valor nutritivo.",
+    "answer": "quinoa"
+  },
+  {
+    "id": "q-20",
+    "letter": "Q",
+    "clueType": "startsWith",
+    "clue": "Objeto portátil que protege del sol.",
+    "answer": "quitasol"
+  }
+],
+  "R": [
+  {
+    "id": "r-01",
     "letter": "R",
-    "clue": "Empieza por R: instrumento que sirve para medir el tiempo y suele llevar manecillas.",
+    "clueType": "startsWith",
+    "clue": "Corriente natural de agua que fluye hacia otra masa de agua.",
+    "answer": "río"
+  },
+  {
+    "id": "r-02",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Instrumento que indica la hora.",
     "answer": "reloj"
   },
   {
+    "id": "r-03",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Pequeño roedor de hocico puntiagudo y cola larga.",
+    "answer": "ratón"
+  },
+  {
+    "id": "r-04",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Pieza circular que gira alrededor de un eje.",
+    "answer": "rueda"
+  },
+  {
+    "id": "r-05",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Instrucciones para preparar un plato o fórmula médica.",
+    "answer": "receta"
+  },
+  {
+    "id": "r-06",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Parte de una planta que suele fijarla al suelo y absorber agua.",
+    "answer": "raíz"
+  },
+  {
+    "id": "r-07",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Lugar que protege de un peligro o de las inclemencias.",
+    "answer": "refugio"
+  },
+  {
+    "id": "r-08",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Anfibio sin cola en su etapa adulta y de patas traseras largas.",
+    "answer": "rana"
+  },
+  {
+    "id": "r-09",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Conjunto de flores o ramas unidas.",
+    "answer": "ramo"
+  },
+  {
+    "id": "r-10",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Medio o tratamiento para aliviar una enfermedad o problema.",
+    "answer": "remedio"
+  },
+  {
+    "id": "r-11",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Publicación periódica con artículos e imágenes.",
+    "answer": "revista"
+  },
+  {
+    "id": "r-12",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Masa sólida de minerales que forma parte de la corteza terrestre.",
+    "answer": "roca"
+  },
+  {
+    "id": "r-13",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Edificio de gran altura con muchos pisos.",
+    "answer": "rascacielos"
+  },
+  {
+    "id": "r-14",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Mamífero grande con uno o dos cuernos sobre el hocico.",
+    "answer": "rinoceronte"
+  },
+  {
+    "id": "r-15",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Relación amorosa o composición narrativa de tradición popular.",
+    "answer": "romance"
+  },
+  {
+    "id": "r-16",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Piedra preciosa de color rojo.",
+    "answer": "rubí"
+  },
+  {
+    "id": "r-17",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Ángulo o espacio apartado donde se encuentran dos superficies.",
+    "answer": "rincón"
+  },
+  {
+    "id": "r-18",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Objeto que se da a alguien como muestra de afecto o celebración.",
+    "answer": "regalo"
+  },
+  {
+    "id": "r-19",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Señal o huella que deja algo al pasar.",
+    "answer": "rastro"
+  },
+  {
+    "id": "r-20",
+    "letter": "R",
+    "clueType": "startsWith",
+    "clue": "Camino o itinerario entre dos lugares.",
+    "answer": "ruta"
+  }
+],
+  "S": [
+  {
+    "id": "s-01",
     "letter": "S",
-    "clue": "Empieza por S: aparato con luces de colores que regula el tráfico.",
+    "clueType": "startsWith",
+    "clue": "Estrella alrededor de la cual gira la Tierra.",
+    "answer": "sol"
+  },
+  {
+    "id": "s-02",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Asiento individual con respaldo.",
+    "answer": "silla"
+  },
+  {
+    "id": "s-03",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Reptil alargado sin patas.",
+    "answer": "serpiente"
+  },
+  {
+    "id": "s-04",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Fruto grande de pulpa roja y abundante agua.",
+    "answer": "sandía"
+  },
+  {
+    "id": "s-05",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Zona oscura que produce un cuerpo al bloquear la luz.",
+    "answer": "sombra"
+  },
+  {
+    "id": "s-06",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Prenda que cubre la cabeza.",
+    "answer": "sombrero"
+  },
+  {
+    "id": "s-07",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Expresión facial que se forma al curvar los labios.",
+    "answer": "sonrisa"
+  },
+  {
+    "id": "s-08",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Período convencional de siete días.",
+    "answer": "semana"
+  },
+  {
+    "id": "s-09",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Dispositivo luminoso que regula el tránsito.",
     "answer": "semáforo"
   },
   {
+    "id": "s-10",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Información que se mantiene reservada.",
+    "answer": "secreto"
+  },
+  {
+    "id": "s-11",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Insecto de patas traseras adaptadas para saltar.",
+    "answer": "saltamontes"
+  },
+  {
+    "id": "s-12",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Mineral cristalino usado para sazonar alimentos.",
+    "answer": "sal"
+  },
+  {
+    "id": "s-13",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Ser mitológico con torso humano y cola de pez.",
+    "answer": "sirena"
+  },
+  {
+    "id": "s-14",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Ausencia de sonido o ruido.",
+    "answer": "silencio"
+  },
+  {
+    "id": "s-15",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Herramienta dentada para cortar; también, conjunto de montañas.",
+    "answer": "sierra"
+  },
+  {
+    "id": "s-16",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Persona que sirve en las fuerzas armadas.",
+    "answer": "soldado"
+  },
+  {
+    "id": "s-17",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Parte de una planta capaz de germinar y producir otra.",
+    "answer": "semilla"
+  },
+  {
+    "id": "s-18",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Cuerpo que gira alrededor de un planeta.",
+    "answer": "satélite"
+  },
+  {
+    "id": "s-19",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Camino estrecho, generalmente peatonal.",
+    "answer": "sendero"
+  },
+  {
+    "id": "s-20",
+    "letter": "S",
+    "clueType": "startsWith",
+    "clue": "Ayuda que se presta a alguien en una emergencia.",
+    "answer": "socorro"
+  }
+],
+  "T": [
+  {
+    "id": "t-01",
     "letter": "T",
-    "clue": "Empieza por T: aparato que sirve para medir la temperatura.",
+    "clueType": "startsWith",
+    "clue": "Gran felino asiático de pelaje rayado.",
+    "answer": "tigre"
+  },
+  {
+    "id": "t-02",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Fruto rojo usado como alimento y en ensaladas.",
+    "answer": "tomate"
+  },
+  {
+    "id": "t-03",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Vehículo formado por vagones que circulan sobre raíles.",
+    "answer": "tren"
+  },
+  {
+    "id": "t-04",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Recipiente pequeño con asa para bebidas.",
+    "answer": "taza"
+  },
+  {
+    "id": "t-05",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Instrumento de dos hojas que se cruzan para cortar.",
+    "answer": "tijera"
+  },
+  {
+    "id": "t-06",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Aparato que permite comunicarse a distancia mediante la voz.",
+    "answer": "teléfono"
+  },
+  {
+    "id": "t-07",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Fenómeno atmosférico con lluvia, viento o actividad eléctrica.",
+    "answer": "tormenta"
+  },
+  {
+    "id": "t-08",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Conjunto de objetos valiosos o riqueza escondida.",
+    "answer": "tesoro"
+  },
+  {
+    "id": "t-09",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Edificio o arte donde se representan obras ante un público.",
+    "answer": "teatro"
+  },
+  {
+    "id": "t-10",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Paso subterráneo que atraviesa una montaña u obstáculo.",
+    "answer": "túnel"
+  },
+  {
+    "id": "t-11",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Reptil con caparazón que protege su cuerpo.",
+    "answer": "tortuga"
+  },
+  {
+    "id": "t-12",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Suelo o planeta en que vivimos.",
+    "answer": "tierra"
+  },
+  {
+    "id": "t-13",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Instrumento de percusión que se toca golpeando una membrana.",
+    "answer": "tambor"
+  },
+  {
+    "id": "t-14",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Instrumento que mide la temperatura.",
     "answer": "termómetro"
   },
   {
+    "id": "t-15",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Trabajo o actividad que debe realizarse.",
+    "answer": "tarea"
+  },
+  {
+    "id": "t-16",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Vehículo urbano que circula sobre raíles.",
+    "answer": "tranvía"
+  },
+  {
+    "id": "t-17",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Cubierta exterior de un edificio.",
+    "answer": "tejado"
+  },
+  {
+    "id": "t-18",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Cereal con el que se elabora buena parte de la harina de pan.",
+    "answer": "trigo"
+  },
+  {
+    "id": "t-19",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Sonido fuerte que acompaña a una descarga eléctrica atmosférica.",
+    "answer": "trueno"
+  },
+  {
+    "id": "t-20",
+    "letter": "T",
+    "clueType": "startsWith",
+    "clue": "Actividad de viajar por ocio o sector que ofrece servicios a viajeros.",
+    "answer": "turismo"
+  }
+],
+  "U": [
+  {
+    "id": "u-01",
     "letter": "U",
-    "clue": "Empieza por U: conjunto de todo lo que existe, incluidos planetas y estrellas.",
+    "clueType": "startsWith",
+    "clue": "Fruto pequeño que crece en racimos en la vid.",
+    "answer": "uva"
+  },
+  {
+    "id": "u-02",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Animal fantástico representado con un cuerno en la frente.",
+    "answer": "unicornio"
+  },
+  {
+    "id": "u-03",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Vestimenta igual para los miembros de un grupo.",
+    "answer": "uniforme"
+  },
+  {
+    "id": "u-04",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Conjunto de todo el espacio, la materia y la energía.",
     "answer": "universo"
   },
   {
+    "id": "u-05",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Ave de plumaje blanco y negro, conocida por su cola larga.",
+    "answer": "urraca"
+  },
+  {
+    "id": "u-06",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Objeto empleado para una tarea práctica.",
+    "answer": "utensilio"
+  },
+  {
+    "id": "u-07",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Situación que requiere atención inmediata.",
+    "answer": "urgencia"
+  },
+  {
+    "id": "u-08",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Planificación y organización de las ciudades.",
+    "answer": "urbanismo"
+  },
+  {
+    "id": "u-09",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Parte inferior de una puerta o entrada.",
+    "answer": "umbral"
+  },
+  {
+    "id": "u-10",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Preparado blando que se aplica sobre la piel.",
+    "answer": "ungüento"
+  },
+  {
+    "id": "u-11",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Cualidad de ser uno o elemento individual de un conjunto.",
+    "answer": "unidad"
+  },
+  {
+    "id": "u-12",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Persona que utiliza un servicio o producto.",
+    "answer": "usuario"
+  },
+  {
+    "id": "u-13",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Capacidad de algo para servir a un propósito.",
+    "answer": "utilidad"
+  },
+  {
+    "id": "u-14",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Elemento químico metálico y radiactivo.",
+    "answer": "uranio"
+  },
+  {
+    "id": "u-15",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Ciudad grande y densamente poblada.",
+    "answer": "urbe"
+  },
+  {
+    "id": "u-16",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Proyecto o sociedad ideal difícil de realizar.",
+    "answer": "utopía"
+  },
+  {
+    "id": "u-17",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Sonido cuya frecuencia supera el límite audible para las personas.",
+    "answer": "ultrasonido"
+  },
+  {
+    "id": "u-18",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Instrumento de cuerda pequeño originario de Hawái.",
+    "answer": "ukelele"
+  },
+  {
+    "id": "u-19",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Recipiente destinado a guardar cenizas, votos u otros objetos.",
+    "answer": "urna"
+  },
+  {
+    "id": "u-20",
+    "letter": "U",
+    "clueType": "startsWith",
+    "clue": "Persona que presta dinero cobrando intereses excesivos.",
+    "answer": "usurero"
+  }
+],
+  "V": [
+  {
+    "id": "v-01",
     "letter": "V",
-    "clue": "Empieza por V: montaña que puede expulsar lava, ceniza y gases.",
+    "clueType": "startsWith",
+    "clue": "Hembra adulta del ganado bovino.",
+    "answer": "vaca"
+  },
+  {
+    "id": "v-02",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Abertura en una pared que deja pasar luz y aire.",
+    "answer": "ventana"
+  },
+  {
+    "id": "v-03",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Prenda de una sola pieza que cubre el torso y las piernas.",
+    "answer": "vestido"
+  },
+  {
+    "id": "v-04",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Abertura terrestre por la que pueden salir lava y gases.",
     "answer": "volcán"
   },
   {
+    "id": "v-05",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Instrumento musical de cuerda que se toca con arco.",
+    "answer": "violín"
+  },
+  {
+    "id": "v-06",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Persona que vive cerca de otra.",
+    "answer": "vecino"
+  },
+  {
+    "id": "v-07",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Estación más cálida del año en cada hemisferio.",
+    "answer": "verano"
+  },
+  {
+    "id": "v-08",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Cilindro de cera con una mecha que da luz al encenderse.",
+    "answer": "vela"
+  },
+  {
+    "id": "v-09",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Mamífero rumiante de la familia de los ciervos.",
+    "answer": "venado"
+  },
+  {
+    "id": "v-10",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Resultado favorable en una competición o conflicto.",
+    "answer": "victoria"
+  },
+  {
+    "id": "v-11",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Desplazamiento de un lugar a otro.",
+    "answer": "viaje"
+  },
+  {
+    "id": "v-12",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se cultivan plantas jóvenes para trasplantarlas.",
+    "answer": "vivero"
+  },
+  {
+    "id": "v-13",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Profesional que previene y trata enfermedades de animales.",
+    "answer": "veterinario"
+  },
+  {
+    "id": "v-14",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Estado gaseoso de una sustancia que normalmente es líquida.",
+    "answer": "vapor"
+  },
+  {
+    "id": "v-15",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Punto donde se unen dos lados o aristas.",
+    "answer": "vértice"
+  },
+  {
+    "id": "v-16",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Persona encargada de custodiar un lugar.",
+    "answer": "vigilante"
+  },
+  {
+    "id": "v-17",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Terreno plantado de vides.",
+    "answer": "viñedo"
+  },
+  {
+    "id": "v-18",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Conjunto de platos, vasos y otros utensilios para la mesa.",
+    "answer": "vajilla"
+  },
+  {
+    "id": "v-19",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Relación entre la distancia recorrida y el tiempo empleado.",
+    "answer": "velocidad"
+  },
+  {
+    "id": "v-20",
+    "letter": "V",
+    "clueType": "startsWith",
+    "clue": "Preparado que estimula defensas contra una enfermedad.",
+    "answer": "vacuna"
+  }
+],
+  "W": [
+  {
+    "id": "w-01",
     "letter": "W",
-    "clue": "Empieza por W: tecnología inalámbrica que permite conectar dispositivos a internet.",
+    "clueType": "startsWith",
+    "clue": "Conjunto de páginas y recursos accesibles mediante internet.",
+    "answer": "web"
+  },
+  {
+    "id": "w-02",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Tecnología que conecta dispositivos a una red mediante ondas de radio.",
     "answer": "wifi"
   },
   {
+    "id": "w-03",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Inodoro o retrete, según el uso común en España.",
+    "answer": "wáter"
+  },
+  {
+    "id": "w-04",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Comida formada por ingredientes entre dos rebanadas de pan.",
+    "answer": "sándwich"
+  },
+  {
+    "id": "w-05",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Bebida alcohólica destilada de cereales y envejecida en barrica.",
+    "answer": "whisky"
+  },
+  {
+    "id": "w-06",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Deporte de equipo que se juega en una piscina.",
+    "answer": "waterpolo"
+  },
+  {
+    "id": "w-07",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Elemento químico metálico también llamado tungsteno.",
+    "answer": "wolframio"
+  },
+  {
+    "id": "w-08",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Perteneciente o relativo a Hawái.",
+    "answer": "hawaiano"
+  },
+  {
+    "id": "w-09",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Espectáculo o presentación de entretenimiento.",
+    "answer": "show"
+  },
+  {
+    "id": "w-10",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Género cinematográfico ambientado en el oeste de Estados Unidos.",
+    "answer": "western"
+  },
+  {
+    "id": "w-11",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Conjunto de programas y datos de un sistema informático.",
+    "answer": "software"
+  },
+  {
+    "id": "w-12",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Componentes físicos de un equipo informático.",
+    "answer": "hardware"
+  },
+  {
+    "id": "w-13",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Cámara que transmite imágenes a un ordenador o por internet.",
+    "answer": "webcam"
+  },
+  {
+    "id": "w-14",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Seminario que se realiza por internet.",
+    "answer": "webinario"
+  },
+  {
+    "id": "w-15",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Nombre inglés de la unidad de potencia llamada vatio en español.",
+    "answer": "watt"
+  },
+  {
+    "id": "w-16",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Reproductor portátil de casetes, nombre comercial difundido como común.",
+    "answer": "walkman"
+  },
+  {
+    "id": "w-17",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Sartén profunda usada en la cocina china y otras cocinas asiáticas.",
+    "answer": "wok"
+  },
+  {
+    "id": "w-18",
+    "letter": "W",
+    "clueType": "startsWith",
+    "clue": "Deporte acuático que combina tabla y vela.",
+    "answer": "windsurf"
+  },
+  {
+    "id": "w-19",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Vaquero del oeste norteamericano, especialmente en relatos y películas.",
+    "answer": "cowboy"
+  },
+  {
+    "id": "w-20",
+    "letter": "W",
+    "clueType": "contains",
+    "clue": "Ave no voladora de Nueva Zelanda; también, fruto comestible.",
+    "answer": "kiwi"
+  }
+],
+  "X": [
+  {
+    "id": "x-01",
     "letter": "X",
-    "clue": "Empieza por X: instrumento musical de láminas que se golpean con baquetas.",
+    "clueType": "contains",
+    "clue": "Automóvil de alquiler con conductor.",
+    "answer": "taxi"
+  },
+  {
+    "id": "x-02",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Prueba destinada a evaluar conocimientos o capacidades.",
+    "answer": "examen"
+  },
+  {
+    "id": "x-03",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Resultado favorable de una acción o empresa.",
+    "answer": "éxito"
+  },
+  {
+    "id": "x-04",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Elemento químico gaseoso esencial para la respiración de muchos seres vivos.",
+    "answer": "oxígeno"
+  },
+  {
+    "id": "x-05",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Viaje o paseo, generalmente breve, con un fin recreativo.",
+    "answer": "excursión"
+  },
+  {
+    "id": "x-06",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Conjunto coherente de palabras escritas u orales.",
+    "answer": "texto"
+  },
+  {
+    "id": "x-07",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Que está fuera de lo habitual o se añade a lo ordinario.",
+    "answer": "extra"
+  },
+  {
+    "id": "x-08",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Que se ajusta con precisión a la realidad o a una medida.",
+    "answer": "exacto"
+  },
+  {
+    "id": "x-09",
+    "letter": "X",
+    "clueType": "startsWith",
+    "clue": "Instrumento de percusión formado por láminas afinadas.",
     "answer": "xilófono"
   },
   {
+    "id": "x-10",
+    "letter": "X",
+    "clueType": "startsWith",
+    "clue": "Elemento químico gaseoso perteneciente a los gases nobles.",
+    "answer": "xenón"
+  },
+  {
+    "id": "x-11",
+    "letter": "X",
+    "clueType": "startsWith",
+    "clue": "Procedimiento de impresión electrostática en seco.",
+    "answer": "xerografía"
+  },
+  {
+    "id": "x-12",
+    "letter": "X",
+    "clueType": "startsWith",
+    "clue": "Tejido vegetal que transporta agua y sales minerales desde la raíz.",
+    "answer": "xilema"
+  },
+  {
+    "id": "x-13",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "País de América del Norte cuya capital es Ciudad de México.",
+    "answer": "México"
+  },
+  {
+    "id": "x-14",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Estado del sur de México, cuya capital tiene el mismo nombre.",
+    "answer": "Oaxaca"
+  },
+  {
+    "id": "x-15",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Deporte de combate en el que se golpea con los puños enguantados.",
+    "answer": "boxeo"
+  },
+  {
+    "id": "x-16",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Parte del cuerpo situada entre el cuello y el abdomen.",
+    "answer": "tórax"
+  },
+  {
+    "id": "x-17",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Que puede causar daño o envenenamiento.",
+    "answer": "tóxico"
+  },
+  {
+    "id": "x-18",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Formado por elementos de distinta naturaleza o género.",
+    "answer": "mixto"
+  },
+  {
+    "id": "x-19",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Conjunto ordenado de documentos sobre un asunto.",
+    "answer": "expediente"
+  },
+  {
+    "id": "x-20",
+    "letter": "X",
+    "clueType": "contains",
+    "clue": "Que está cercano en el espacio o en el tiempo.",
+    "answer": "próximo"
+  }
+],
+  "Y": [
+  {
+    "id": "y-01",
     "letter": "Y",
-    "clue": "Empieza por Y: embarcación de recreo, generalmente lujosa.",
+    "clueType": "startsWith",
+    "clue": "Hembra adulta del caballo.",
+    "answer": "yegua"
+  },
+  {
+    "id": "y-02",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Material blanco usado en construcción y para inmovilizar fracturas.",
+    "answer": "yeso"
+  },
+  {
+    "id": "y-03",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Embarcación de recreo.",
     "answer": "yate"
   },
   {
+    "id": "y-04",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Parte amarilla del interior de un huevo.",
+    "answer": "yema"
+  },
+  {
+    "id": "y-05",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Marido de la hija de una persona.",
+    "answer": "yerno"
+  },
+  {
+    "id": "y-06",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Alimento lácteo fermentado por bacterias.",
+    "answer": "yogur"
+  },
+  {
+    "id": "y-07",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se encuentran minerales, fósiles u otros recursos.",
+    "answer": "yacimiento"
+  },
+  {
+    "id": "y-08",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Bloque de hierro sobre el que se golpea y moldea metal.",
+    "answer": "yunque"
+  },
+  {
+    "id": "y-09",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Elemento químico usado, entre otras aplicaciones, como antiséptico.",
+    "answer": "yodo"
+  },
+  {
+    "id": "y-10",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Planta tropical cuya raíz es comestible.",
+    "answer": "yuca"
+  },
+  {
+    "id": "y-11",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Pieza de armadura que protege la cabeza.",
+    "answer": "yelmo"
+  },
+  {
+    "id": "y-12",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Vena importante situada a ambos lados del cuello.",
+    "answer": "yugular"
+  },
+  {
+    "id": "y-13",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Fibra vegetal usada para fabricar sacos y tejidos.",
+    "answer": "yute"
+  },
+  {
+    "id": "y-14",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Término árabe con distintos sentidos religiosos e históricos.",
+    "answer": "yihad"
+  },
+  {
+    "id": "y-15",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Caimán de América del Sur.",
+    "answer": "yacaré"
+  },
+  {
+    "id": "y-16",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Mamífero bovino de pelo largo propio de Asia central.",
+    "answer": "yak"
+  },
+  {
+    "id": "y-17",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Disciplina de origen indio que combina posturas, respiración y meditación.",
+    "answer": "yoga"
+  },
+  {
+    "id": "y-18",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Persona que practica yoga.",
+    "answer": "yogui"
+  },
+  {
+    "id": "y-19",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Compuesto químico que contiene yodo.",
+    "answer": "yoduro"
+  },
+  {
+    "id": "y-20",
+    "letter": "Y",
+    "clueType": "startsWith",
+    "clue": "Adición de yodo a una sustancia, como la sal.",
+    "answer": "yodación"
+  }
+],
+  "Z": [
+  {
+    "id": "z-01",
     "letter": "Z",
-    "clue": "Empieza por Z: animal salvaje parecido al perro, conocido por aullar.",
+    "clueType": "startsWith",
+    "clue": "Calzado que cubre el pie hasta el tobillo.",
+    "answer": "zapato"
+  },
+  {
+    "id": "z-02",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Mamífero carnívoro de hocico fino y cola abundante.",
     "answer": "zorro"
+  },
+  {
+    "id": "z-03",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Raíz comestible generalmente anaranjada.",
+    "answer": "zanahoria"
+  },
+  {
+    "id": "z-04",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Piedra preciosa, normalmente azul, de la familia del corindón.",
+    "answer": "zafiro"
+  },
+  {
+    "id": "z-05",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Líquido obtenido al exprimir frutas.",
+    "answer": "zumo"
+  },
+  {
+    "id": "z-06",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Lugar donde se mantienen animales para su cuidado y exhibición.",
+    "answer": "zoológico"
+  },
+  {
+    "id": "z-07",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Excavación larga y estrecha en el suelo.",
+    "answer": "zanja"
+  },
+  {
+    "id": "z-08",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Sonido continuo y grave, como el de algunos insectos.",
+    "answer": "zumbido"
+  },
+  {
+    "id": "z-09",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Calzado de madera o con suela de madera.",
+    "answer": "zueco"
+  },
+  {
+    "id": "z-10",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Arbusto silvestre con tallos espinosos.",
+    "answer": "zarza"
+  },
+  {
+    "id": "z-11",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Franja inferior de una pared o parte baja de una construcción.",
+    "answer": "zócalo"
+  },
+  {
+    "id": "z-12",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Ciencia que estudia los animales.",
+    "answer": "zoología"
+  },
+  {
+    "id": "z-13",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Dirigible grande cuya estructura contiene gas más ligero que el aire.",
+    "answer": "zepelín"
+  },
+  {
+    "id": "z-14",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Bolsa de cuero usada para llevar comida u otros objetos.",
+    "answer": "zurrón"
+  },
+  {
+    "id": "z-15",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Género escénico español que alterna partes habladas y cantadas.",
+    "answer": "zarzuela"
+  },
+  {
+    "id": "z-16",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Extensión de terreno con características o límites definidos.",
+    "answer": "zona"
+  },
+  {
+    "id": "z-17",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Franja celeste dividida tradicionalmente en doce signos.",
+    "answer": "zodiaco"
+  },
+  {
+    "id": "z-18",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Elemento químico metálico usado, entre otras cosas, para galvanizar hierro.",
+    "answer": "zinc"
+  },
+  {
+    "id": "z-19",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Paso largo que se da al andar o correr.",
+    "answer": "zancada"
+  },
+  {
+    "id": "z-20",
+    "letter": "Z",
+    "clueType": "startsWith",
+    "clue": "Dispositivo que emite un zumbido como señal acústica.",
+    "answer": "zumbador"
   }
 ]
+}

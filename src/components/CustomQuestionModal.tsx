@@ -6,6 +6,11 @@ type CustomQuestionModalProps = {
   mode: QuestionMode;
   categories: { id: string; label: string }[];
   intensities: { id: string; label: string }[];
+  onQuestionAdded: (question: {
+    id: string;
+    category: string;
+    intensity: string;
+  }) => void;
   onClose: () => void;
 };
 
@@ -13,6 +18,7 @@ export default function CustomQuestionModal({
   mode,
   categories,
   intensities,
+  onQuestionAdded,
   onClose,
 }: CustomQuestionModalProps) {
   const { addCustomQuestion } = useCustomQuestions();
@@ -30,23 +36,37 @@ export default function CustomQuestionModal({
       return;
     }
 
+    const startsWithWhoQuestion = cleanText
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLocaleLowerCase()
+      .startsWith("¿quien");
     const normalizedText =
-      mode === "likely" &&
-      !cleanText.toLowerCase().startsWith("¿quién") &&
-      !cleanText.includes("{player}")
-        ? `¿Quién es más probable que {player} ${cleanText}`
-        : cleanText;
-    const added = addCustomQuestion({
-      mode,
-      category,
-      intensity,
-      text: normalizedText,
-    });
+      mode === "likely" && !startsWithWhoQuestion
+        ? `¿Quién es más probable que ${cleanText}`
+        : cleanText.replace(/\{player\}\s*/gi, "");
+    let added: ReturnType<typeof addCustomQuestion>;
+    try {
+      added = addCustomQuestion({
+        mode,
+        category,
+        intensity,
+        text: normalizedText,
+      });
+    } catch (saveError) {
+      setError(
+        saveError instanceof Error
+          ? saveError.message
+          : "No se pudo guardar la pregunta en este dispositivo.",
+      );
+      return;
+    }
 
     if (!added) {
       setError("Esa pregunta ya está guardada en este modo.");
       return;
     }
+    onQuestionAdded(added);
     onClose();
   }
 
@@ -137,6 +157,9 @@ export default function CustomQuestionModal({
 
           <p aria-live="polite" className="min-h-5 text-sm font-bold text-coral">
             {error}
+          </p>
+          <p className="-mt-3 text-xs font-semibold text-ink/55">
+            Se guarda en este dispositivo y se añade al mazo de este juego.
           </p>
           <button
             className="w-full rounded-full border-2 border-ink bg-mustard px-6 py-4 font-extrabold shadow-comic-sm transition-transform hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none"

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import cardData from "../data/kings-cup.json";
 
 type Rank = "A" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "J" | "Q" | "K";
 type PlayingCard = {
@@ -8,95 +9,25 @@ type PlayingCard = {
   color: "red" | "black";
 };
 type Stage = "setup" | "ready" | "card" | "summary";
+type Rule = { title: string; description: string };
 
-const ranks: Rank[] = [
-  "A",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "J",
-  "Q",
-  "K",
-];
-const suits = [
-  { symbol: "♠", color: "black" as const },
-  { symbol: "♥", color: "red" as const },
-  { symbol: "♦", color: "red" as const },
-  { symbol: "♣", color: "black" as const },
-];
-const rules: Record<Rank, { title: string; description: string }> = {
-  A: {
-    title: "Brindis en cadena",
-    description:
-      "Por turnos, cada persona añade una palabra al brindis colectivo. Si alguien se traba, puede pasar o proponer un brindis nuevo.",
-  },
-  "2": {
-    title: "Tú eliges",
-    description:
-      "Elige a alguien para responder una pregunta ligera o hacer un mini-reto. Cualquiera puede pasar sin explicar por qué.",
-  },
-  "3": {
-    title: "Te toca",
-    description:
-      "Cuenta una anécdota divertida o elige un mini-reto. Compartir algo personal es opcional.",
-  },
-  "4": {
-    title: "Pulgar maestro",
-    description:
-      "En cualquier momento antes de la próxima carta, pon el pulgar sobre la mesa sin avisar. El último en imitarte propone una regla temporal.",
-  },
-  "5": {
-    title: "Rimas",
-    description:
-      "Elige una palabra. En sentido horario, cada quien dice una rima; quien se quede sin ideas puede pasar y elegir otra palabra.",
-  },
-  "6": {
-    title: "Categoría",
-    description:
-      "Elige una categoría, como películas o comidas. Por turnos, nombren algo que encaje; quien quiera puede pasar.",
-  },
-  "7": {
-    title: "Cielo",
-    description:
-      "Todos señalan al techo. La última persona en hacerlo elige una categoría para la próxima ronda.",
-  },
-  "8": {
-    title: "Compañero",
-    description:
-      "Elige a una persona: durante la próxima ronda harán juntos la respuesta o el mini-reto de la carta.",
-  },
-  "9": {
-    title: "Duelo de piedra, papel o tijera",
-    description:
-      "Elige a alguien para un duelo amistoso. Quien gana decide quién toma el siguiente turno; si empatan, repiten o pasan.",
-  },
-  "10": {
-    title: "Regla de la casa",
-    description:
-      "Inventa una regla sencilla y segura que dure hasta que salga otro 10. Cualquiera puede proponer cambiarla si incomoda.",
-  },
-  J: {
-    title: "Ronda relámpago",
-    description:
-      "Elige una categoría y jueguen una vuelta rápida. Quien quiera puede pasar; esa persona elige la siguiente categoría.",
-  },
-  Q: {
-    title: "Maestro de preguntas",
-    description:
-      "Haz una pregunta al grupo. La primera persona que responda elige la categoría del próximo mini-reto.",
-  },
-  K: {
-    title: "Rey",
-    description:
-      "Propón una regla colectiva, divertida y segura. Al salir el cuarto Rey, el grupo hace un reto final acordado y termina la partida.",
-  },
-};
+const ranks = cardData.ranks as Rank[];
+const suits = cardData.suits as { symbol: string; color: "red" | "black" }[];
+const defaultRules = cardData.rules as Record<Rank, Rule>;
+const rulesStorageKey = "la-ultima-ronda.kings-cup-rules";
+
+function isRuleSet(value: unknown): value is Record<Rank, Rule> {
+  if (typeof value !== "object" || value === null) return false;
+  return ranks.every((rank) => {
+    const rule = (value as Record<string, unknown>)[rank];
+    if (typeof rule !== "object" || rule === null) return false;
+    const candidate = rule as Record<string, unknown>;
+    return (
+      typeof candidate.title === "string" &&
+      typeof candidate.description === "string"
+    );
+  });
+}
 
 function shuffle<T>(items: readonly T[]): T[] {
   const shuffled = [...items];
@@ -137,6 +68,31 @@ export default function KingsCupGame({
   const [drawIndex, setDrawIndex] = useState(0);
   const [playerOrder, setPlayerOrder] = useState<string[]>([]);
   const [kingCount, setKingCount] = useState(0);
+  const [rules, setRules] = useState<Record<Rank, Rule>>(defaultRules);
+  const [draftRules, setDraftRules] = useState<Record<Rank, Rule>>(defaultRules);
+  const [rulesError, setRulesError] = useState("");
+  const [rulesSaved, setRulesSaved] = useState(false);
+
+  useEffect(() => {
+    try {
+      const savedRules = localStorage.getItem(rulesStorageKey);
+      if (!savedRules) return;
+
+      const parsedRules: unknown = JSON.parse(savedRules);
+      if (!isRuleSet(parsedRules)) {
+        throw new Error("El formato guardado no es válido.");
+      }
+
+      setRules(parsedRules);
+      setDraftRules(parsedRules);
+    } catch (error) {
+      setRulesError(
+        error instanceof Error
+          ? `No se pudieron cargar las reglas guardadas: ${error.message}`
+          : "No se pudieron cargar las reglas guardadas.",
+      );
+    }
+  }, []);
 
   const currentCard = deck[drawIndex - 1];
   const currentPlayer =
@@ -144,6 +100,48 @@ export default function KingsCupGame({
       ? playerOrder[(drawIndex - 1) % playerOrder.length]
       : undefined;
   const currentRule = currentCard ? rules[currentCard.rank] : undefined;
+
+  function saveRules(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    try {
+      localStorage.setItem(rulesStorageKey, JSON.stringify(draftRules));
+      setRules(draftRules);
+      setRulesError("");
+      setRulesSaved(true);
+    } catch (error) {
+      setRulesSaved(false);
+      setRulesError(
+        error instanceof Error
+          ? `No se pudieron guardar las reglas: ${error.message}`
+          : "No se pudieron guardar las reglas.",
+      );
+    }
+  }
+
+  function restoreDefaultRules() {
+    try {
+      localStorage.setItem(rulesStorageKey, JSON.stringify(defaultRules));
+      setRules(defaultRules);
+      setDraftRules(defaultRules);
+      setRulesError("");
+      setRulesSaved(true);
+    } catch (error) {
+      setRulesSaved(false);
+      setRulesError(
+        error instanceof Error
+          ? `No se pudieron restaurar las reglas: ${error.message}`
+          : "No se pudieron restaurar las reglas.",
+      );
+    }
+  }
+
+  function updateDraftRule(rank: Rank, field: keyof Rule, value: string) {
+    setDraftRules((current) => ({
+      ...current,
+      [rank]: { ...current[rank], [field]: value },
+    }));
+    setRulesSaved(false);
+  }
 
   function startGame() {
     setDeck(createDeck());
@@ -218,10 +216,10 @@ export default function KingsCupGame({
               </h2>
             </div>
             <div className="rounded-3xl border-2 border-ink bg-white p-5 shadow-comic sm:p-8">
-              <div className="rounded-2xl border-2 border-ink bg-cream p-4">
-                <h3 className="font-display text-xl font-semibold">
-                  Cómo se juega
-                </h3>
+              <details className="rounded-2xl border-2 border-ink bg-cream p-4">
+                <summary className="cursor-pointer font-display text-xl font-semibold">
+                  📖 Cómo se juega
+                </summary>
                 <ol className="mt-2 list-inside list-decimal space-y-1 text-sm font-semibold text-ink/75">
                   <li>
                     La app mezcla una baraja estándar y asigna los turnos al
@@ -236,7 +234,75 @@ export default function KingsCupGame({
                     Rey, acuerden un reto final y termina la partida.
                   </li>
                 </ol>
-              </div>
+              </details>
+              <details className="mt-4 rounded-2xl border-2 border-ink bg-cream p-4">
+                <summary className="cursor-pointer font-display text-xl font-semibold">
+                  ⚙️ Personalizar las reglas
+                </summary>
+                <p className="mt-2 text-sm font-semibold text-ink/70">
+                  Edita el título y la descripción de cada carta. Se guardan en
+                  este dispositivo y se aplican también a las partidas nuevas.
+                </p>
+                <form className="mt-4 space-y-3" onSubmit={saveRules}>
+                  {ranks.map((rank) => (
+                    <fieldset
+                      className="rounded-2xl border-2 border-ink bg-white p-3"
+                      key={rank}
+                    >
+                      <legend className="px-2 font-display text-lg font-semibold">
+                        Carta {rank}
+                      </legend>
+                      <label className="block text-sm font-bold">
+                        Título
+                        <input
+                          className="mt-1 w-full rounded-xl border-2 border-ink px-3 py-2 font-semibold"
+                          onChange={(event) =>
+                            updateDraftRule(rank, "title", event.target.value)
+                          }
+                          value={draftRules[rank].title}
+                        />
+                      </label>
+                      <label className="mt-3 block text-sm font-bold">
+                        Descripción
+                        <textarea
+                          className="mt-1 min-h-20 w-full rounded-xl border-2 border-ink px-3 py-2 font-semibold"
+                          onChange={(event) =>
+                            updateDraftRule(
+                              rank,
+                              "description",
+                              event.target.value,
+                            )
+                          }
+                          value={draftRules[rank].description}
+                        />
+                      </label>
+                    </fieldset>
+                  ))}
+                  <button
+                    className="w-full rounded-full border-2 border-ink bg-mint px-5 py-3 font-extrabold shadow-comic-sm"
+                    type="submit"
+                  >
+                    Guardar reglas 💾
+                  </button>
+                </form>
+                <button
+                  className="mt-3 w-full rounded-full border-2 border-ink bg-mustard px-5 py-3 font-extrabold shadow-comic-sm"
+                  onClick={restoreDefaultRules}
+                  type="button"
+                >
+                  Restaurar reglas originales
+                </button>
+                {rulesSaved && (
+                  <p className="mt-3 text-center text-sm font-bold text-ink">
+                    Reglas guardadas en este dispositivo.
+                  </p>
+                )}
+                {rulesError && (
+                  <p className="mt-3 rounded-xl border-2 border-ink bg-coral p-3 text-sm font-bold">
+                    {rulesError}
+                  </p>
+                )}
+              </details>
               <p className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4 text-sm font-semibold">
                 Beber no es obligatorio y no hay penalizaciones por negarse.
                 Todas las reglas se pueden hacer con bebidas sin alcohol o

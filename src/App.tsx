@@ -10,7 +10,6 @@ import PassapalabraGame from "./components/PassapalabraGame";
 import PlayersModal from "./components/PlayersModal";
 import TelephoneGame from "./components/TelephoneGame";
 import TabooGame from "./components/TabooGame";
-import TruthDareGame from "./components/TruthDareGame";
 import { usePlayers } from "./state/PlayersContext";
 
 type GameMode = {
@@ -50,13 +49,6 @@ const gameModes: GameMode[] = [
     emoji: "👉",
     color: "bg-mint",
     tilt: "-rotate-[1deg]",
-  },
-  {
-    title: "Verdad o Reto + Ruleta",
-    description: "La suerte está echada. La dignidad, no tanto.",
-    emoji: "🎡",
-    color: "bg-sky",
-    tilt: "rotate-[1deg]",
   },
   {
     title: "Charadas",
@@ -287,24 +279,6 @@ export default function App() {
           onBack={() => setSelectedMode(null)}
           onManagePlayers={openPlayers}
           players={players}
-        />
-        {isPlayersOpen && (
-          <PlayersModal
-            onClose={() => setIsPlayersOpen(false)}
-            onContinue={() => setIsPlayersOpen(false)}
-            pendingMode={null}
-          />
-        )}
-      </>
-    );
-  }
-
-  if (selectedMode === "Verdad o Reto + Ruleta") {
-    return (
-      <>
-        <TruthDareGame
-          onBack={() => setSelectedMode(null)}
-          onManagePlayers={openPlayers}
         />
         {isPlayersOpen && (
           <PlayersModal

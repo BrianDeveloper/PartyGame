@@ -143,6 +143,43 @@
           ]
         }
       ]
+    },
+    {
+      "id": "animales",
+      "name": "🐾 Animales y criaturas",
+      "subcategories": [
+        {
+          "id": "animales-salvajes",
+          "name": "Animales salvajes",
+          "icon": "🦁",
+          "words": [
+            "un león rugiendo en la sabana",
+            "una jirafa comiendo hojas altas",
+            "un elefante jugando con agua",
+            "un tigre acechando a su presa",
+            "un oso pescando en un río",
+            "una cebra corriendo por la llanura",
+            "un cocodrilo tomando el sol",
+            "un gorila golpeando su pecho"
+          ]
+        },
+        {
+          "id": "criaturas-fantasticas",
+          "name": "Criaturas fantásticas",
+          "icon": "🐉",
+          "words": [
+            "un dragón lanzando fuego al cielo",
+            "un unicornio galopando por un arcoíris",
+            "una sirena cantando en la orilla del mar",
+            "un centauro disparando flechas imaginarias",
+            "una fénix renaciendo de sus cenizas",
+            "un hada volando entre flores gigantes",
+            "un troll escondido bajo un puente",
+            "una quimera con alas y cola de serpiente"
+          ]
+        }
+      ]
+
     }
   ]
 }

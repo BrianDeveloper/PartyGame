@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import assassinData from "../data/assassin.json";
 import { usePlayers } from "../state/PlayersContext";
 
 type Role = "assassin" | "detective" | "doctor" | "civilian";
@@ -13,36 +14,10 @@ const playerColors = [
   "bg-sky",
   "bg-coral",
 ];
-const roleDetails: Record<
+const roleDetails = assassinData.roles as Record<
   Role,
   { name: string; emoji: string; color: string; instruction: string }
-> = {
-  assassin: {
-    name: "El Asesino",
-    emoji: "🔪",
-    color: "bg-coral",
-    instruction: "Elige en secreto a quién eliminar cada noche.",
-  },
-  detective: {
-    name: "El Detective",
-    emoji: "🔍",
-    color: "bg-sky",
-    instruction: "Investiga a una persona cada noche para descubrir si es el Asesino.",
-  },
-  doctor: {
-    name: "El Médico",
-    emoji: "🩺",
-    color: "bg-mint",
-    instruction:
-      "Protege a una persona cada noche. No puedes proteger a la misma persona dos noches seguidas.",
-  },
-  civilian: {
-    name: "Civil",
-    emoji: "👥",
-    color: "bg-mustard",
-    instruction: "Debate y vota durante el día para descubrir al Asesino.",
-  },
-};
+>;
 
 function shuffle<T>(items: T[]): T[] {
   const shuffled = [...items];
@@ -69,7 +44,6 @@ export default function AssassinGame({
     players.slice(0, maximumPlayers),
   );
   const [doctorEnabled, setDoctorEnabled] = useState(false);
-  const [rulesOpen, setRulesOpen] = useState(false);
   const [roundPlayers, setRoundPlayers] = useState<string[]>([]);
   const [roles, setRoles] = useState<Record<string, Role>>({});
   const [turnIndex, setTurnIndex] = useState(0);
@@ -259,15 +233,12 @@ export default function AssassinGame({
               )}
             </div>
 
-            <button
-              aria-expanded={rulesOpen}
-              className="mt-5 w-full rounded-full border-2 border-ink bg-sky px-5 py-3 font-extrabold shadow-comic-sm"
-              onClick={() => setRulesOpen((open) => !open)}
-              type="button"
-            >
-              {rulesOpen ? "Ocultar reglas ▲" : "📖 Ver resumen de reglas"}
-            </button>
-            {rulesOpen && <RulesSummary doctorEnabled={doctorEnabled} />}
+            <details className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4">
+              <summary className="cursor-pointer font-extrabold">
+                📖 Resumen de reglas
+              </summary>
+              <RulesSummary doctorEnabled={doctorEnabled} />
+            </details>
 
             <div className="mt-5 rounded-2xl border-2 border-ink bg-bubblegum p-4 text-sm font-semibold">
               La app solo reparte los roles: para jugar la partida hace falta un

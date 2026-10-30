@@ -1,9 +1,9 @@
 import { useState } from "react";
 import prompts from "../data/telephone-game.json";
+import CustomContentForm from "./CustomContentForm";
+import { useCustomGameContent } from "../state/CustomGameContentContext";
 
 type Stage = "setup" | "prompt" | "relay" | "reveal" | "summary";
-
-const roundOptions = [1, 3, 5];
 
 function shuffle<T>(items: readonly T[]): T[] {
   const shuffled = [...items];
@@ -13,6 +13,20 @@ function shuffle<T>(items: readonly T[]): T[] {
       shuffled[swapIndex]!,
       shuffled[index]!,
     ];
+  }
+  return shuffled;
+}
+
+function shuffleWithoutImmediateRepeat(items: readonly string[], previous: string) {
+  const shuffled = shuffle(items);
+  if (shuffled.length > 1 && shuffled[0] === previous) {
+    const differentIndex = shuffled.findIndex((item) => item !== previous);
+    if (differentIndex > 0) {
+      [shuffled[0], shuffled[differentIndex]] = [
+        shuffled[differentIndex]!,
+        shuffled[0]!,
+      ];
+    }
   }
   return shuffled;
 }
@@ -27,16 +41,24 @@ export default function TelephoneGame({
   players: string[];
 }) {
   const [stage, setStage] = useState<Stage>("setup");
-  const [roundLimit, setRoundLimit] = useState(3);
   const [deck, setDeck] = useState<string[]>([]);
   const [roundIndex, setRoundIndex] = useState(0);
+  const [roundNumber, setRoundNumber] = useState(1);
+  const [completedRounds, setCompletedRounds] = useState(0);
+  const { entries: customContent } = useCustomGameContent();
+  const customPrompts = customContent
+    .filter((entry) => entry.game === "telephone")
+    .map((entry) => entry.prompt);
+  const promptBank = [...prompts, ...customPrompts];
 
   const originalMessage = deck[roundIndex];
-  const startingPlayer = players[roundIndex % players.length];
+  const startingPlayer = players[(roundNumber - 1) % players.length];
 
   function startGame() {
-    setDeck(shuffle(prompts).slice(0, roundLimit));
+    setDeck(shuffle(promptBank));
     setRoundIndex(0);
+    setRoundNumber(1);
+    setCompletedRounds(0);
     setStage("prompt");
   }
 
@@ -45,13 +67,24 @@ export default function TelephoneGame({
   }
 
   function startNextRound() {
+    setCompletedRounds((count) => count + 1);
+    setRoundNumber((count) => count + 1);
     if (roundIndex + 1 >= deck.length) {
-      setStage("summary");
-      return;
+      setDeck(
+        shuffleWithoutImmediateRepeat(promptBank, originalMessage ?? ""),
+      );
+      setRoundIndex(0);
+    } else {
+      setRoundIndex((index) => index + 1);
     }
-
-    setRoundIndex((index) => index + 1);
     setStage("prompt");
+  }
+
+  function finishGame() {
+    setCompletedRounds((count) =>
+      stage === "reveal" ? count + 1 : count,
+    );
+    setStage("summary");
   }
 
   return (
@@ -92,10 +125,10 @@ export default function TelephoneGame({
               </h2>
             </div>
             <div className="rounded-3xl border-2 border-ink bg-white p-5 shadow-comic sm:p-8">
-              <div className="rounded-2xl border-2 border-ink bg-cream p-4">
-                <h3 className="font-display text-xl font-semibold">
-                  Cómo se juega
-                </h3>
+              <details className="rounded-2xl border-2 border-ink bg-cream p-4">
+                <summary className="cursor-pointer font-display text-xl font-semibold">
+                  📖 Cómo se juega
+                </summary>
                 <ol className="mt-2 list-inside list-decimal space-y-1 text-sm font-semibold text-ink/75">
                   <li>
                     Quien empieza lee la frase en secreto y luego la pasa de
@@ -106,32 +139,12 @@ export default function TelephoneGame({
                     revelar la original y comparar.
                   </li>
                 </ol>
-              </div>
+              </details>
 
-              <fieldset className="mt-5">
-                <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
-                  Número de rondas
-                </legend>
-                <div className="grid grid-cols-3 gap-2">
-                  {roundOptions.map((count) => (
-                    <button
-                      aria-pressed={roundLimit === count}
-                      className={`rounded-xl border-2 border-ink py-3 font-extrabold shadow-comic-sm ${
-                        roundLimit === count ? "bg-mustard" : "bg-white"
-                      }`}
-                      key={count}
-                      onClick={() => setRoundLimit(count)}
-                      type="button"
-                    >
-                      {count} {count === 1 ? "ronda" : "rondas"}
-                    </button>
-                  ))}
-                </div>
-              </fieldset>
-
+              <CustomContentForm game="telephone" />
               <p className="mt-5 rounded-2xl border-2 border-ink bg-sky p-4 text-sm font-semibold">
                 {players.length > 0
-                  ? `Empieza ${players[0]}; el inicio rota entre jugadores en cada ronda.`
+                  ? `Empieza ${players[0]}; el inicio rota entre jugadores en cada ronda. No hay límite de rondas.`
                   : "Reúne al menos a tres jugadores para empezar."}{" "}
                 La app no guarda respuestas ni controla la cadena.
               </p>
@@ -148,12 +161,13 @@ export default function TelephoneGame({
         )}
 
         {stage === "prompt" && originalMessage && (
+          <>
           <section
             aria-labelledby="prompt-title"
             className="rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic sm:p-10"
           >
             <p className="text-sm font-extrabold uppercase tracking-widest text-ink/55">
-              Ronda {roundIndex + 1} de {deck.length}
+              Ronda {roundNumber}
             </p>
             <span aria-hidden="true" className="mt-4 block text-6xl">
               🤫
@@ -178,9 +192,18 @@ export default function TelephoneGame({
               Ya la memoricé. Empezar la cadena 🤐
             </button>
           </section>
+          <button
+            className="mt-3 w-full rounded-full border-2 border-ink bg-white px-6 py-3 font-extrabold shadow-comic-sm"
+            onClick={finishGame}
+            type="button"
+          >
+            Terminar partida
+          </button>
+          </>
         )}
 
         {stage === "relay" && (
+          <>
           <section
             aria-labelledby="relay-title"
             className="rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic sm:p-10"
@@ -189,7 +212,7 @@ export default function TelephoneGame({
               📞
             </span>
             <p className="mt-3 text-sm font-extrabold uppercase tracking-widest text-ink/55">
-              Ronda {roundIndex + 1} de {deck.length}
+              Ronda {roundNumber}
             </p>
             <h2
               className="mt-2 font-display text-3xl font-semibold"
@@ -209,6 +232,14 @@ export default function TelephoneGame({
               La frase volvió. Revelar original 👀
             </button>
           </section>
+          <button
+            className="mt-3 w-full rounded-full border-2 border-ink bg-white px-6 py-3 font-extrabold shadow-comic-sm"
+            onClick={finishGame}
+            type="button"
+          >
+            Terminar partida
+          </button>
+          </>
         )}
 
         {stage === "reveal" && originalMessage && (
@@ -218,7 +249,7 @@ export default function TelephoneGame({
             className="rounded-3xl border-2 border-ink bg-white p-6 text-center shadow-comic sm:p-10"
           >
             <p className="text-sm font-extrabold uppercase tracking-widest text-ink/55">
-              Ronda {roundIndex + 1} de {deck.length} · empezó {startingPlayer}
+              Ronda {roundNumber} · empezó {startingPlayer}
             </p>
             <span aria-hidden="true" className="mt-4 block text-6xl">
               📣
@@ -240,9 +271,14 @@ export default function TelephoneGame({
               onClick={startNextRound}
               type="button"
             >
-              {roundIndex + 1 >= deck.length
-                ? "Terminar partida 🎉"
-                : "Siguiente ronda 👉"}
+              Siguiente ronda 👉
+            </button>
+            <button
+              className="mt-3 w-full rounded-full border-2 border-ink bg-white px-6 py-3 font-extrabold shadow-comic-sm"
+              onClick={finishGame}
+              type="button"
+            >
+              Terminar partida 🎉
             </button>
           </section>
         )}
@@ -256,7 +292,8 @@ export default function TelephoneGame({
               Teléfono terminado
             </p>
             <h2 className="mt-1 font-display text-4xl font-semibold">
-              {deck.length} {deck.length === 1 ? "frase" : "frases"} después…
+              {completedRounds}{" "}
+              {completedRounds === 1 ? "ronda" : "rondas"} completadas…
             </h2>
             <p className="mt-3 font-semibold text-ink/65">
               No hay puntos: el plan era descubrir cuánto se deforma una frase

@@ -8,47 +8,121 @@ lugares:
 | Dato | Ubicación | Persistencia |
 | --- | --- | --- |
 | Jugadores | `localStorage`, clave `la-ultima-ronda.players` | Se conserva en ese dispositivo entre usos |
-| Preguntas personalizadas | `localStorage`, clave `la-ultima-ronda.custom-questions` | Se conserva en ese dispositivo entre usos |
-| Preguntas y cartas incluidas | JSON en `src/data/questions.json` y `src/data/minigames.json` | Se empaquetan con la app |
-| Mazo de Charadas | JSON en `src/data/charades.json` | Se empaqueta con la app |
+| Preguntas personalizadas | `localStorage`, clave `la-ultima-ronda.custom-questions` | Se guarda inmediatamente en ese dispositivo, se inyecta en el mazo del modo correspondiente y aparece al terminar de añadirla; no modifica el JSON empaquetado |
+| Frases, palabras y pistas personalizadas | `localStorage`, clave `la-ultima-ronda.custom-game-content` | Los formularios de cada juego guardan entradas con los campos que requiere su banco; solo se usan en ese dispositivo y no modifican el JSON empaquetado |
+| Bancos de preguntas | Un JSON por juego en `src/data/` (`what-would-you-rather.json`, `most-likely.json`, `impostor.json`, `never-have-i-ever.json`, `pasapalabra.json`, `telephone-game.json` y `taboo.json`) | Se empaquetan con la app |
+| Reglas y roles de juegos | `kings-cup.json` y `assassin.json` | Se empaquetan con la app |
+| Mazo de Charadas y palabras de Palabras clave | `charades.json` y `keywords.json` | Se empaquetan con la app |
 | Cartas generadas con Gemini | Estado React en memoria | No se guardan; desaparecen al salir o reiniciar |
 | Turno, votos y partida actual | Estado React en memoria | No se guardan; una nueva sesión empieza de cero |
-| Verdades consecutivas por jugador | Estado React durante la partida | No se guardan; elegir reto reinicia el contador |
 | Puntos de Charadas | Estado React de la partida | Temporales; se reinician al salir del modo |
 | Frases y partida de Yo nunca nunca | JSON y estado React | El mazo viene con la app; el progreso es temporal |
+| Reglas personalizadas de King's Cup | `localStorage`, clave `la-ultima-ronda.kings-cup-rules` | Los títulos y descripciones se guardan en el dispositivo; se pueden restaurar los originales |
 | Baraja y partida de King's Cup | Baraja aleatoria de 52 cartas y estado React | Progreso temporal; se reinicia al salir |
-| Roscos y marcador de Pasapalabra | JSON local y estado React | Las pistas vienen con la app; la partida es temporal |
+| Roscos y marcador de Pasapalabra | JSON local y estado React | Dos roscos aleatorios por partida, con tiempo configurable por jugador (1, 1,5, 2 o 3 minutos); se recuerdan las últimas ocho pistas usadas por letra en `localStorage` para reducir repeticiones entre partidas |
 | Frases y cadena de Teléfono descompuesto | JSON local y estado React | Las frases vienen con la app; la partida es temporal |
-| Tarjetas y marcador de Tabú | JSON local y estado React | Las tarjetas vienen con la app; la partida es temporal |
+| Tarjetas y marcador de Tabú | JSON local y estado React | Tiempo configurable por turno (30, 45, 60, 90 o 120 segundos); las tarjetas vienen con la app y la partida es temporal |
+| Temporizadores de Charadas e Impostor | Estado React | Charadas permite 30, 60, 90 o 120 segundos por turno; El Impostor permite 30, 45, 60, 90 o 120 segundos de debate |
 | Salas de Palabras clave | Supabase Realtime y funciones SQL | Estado sincronizado entre dispositivos; la clave queda protegida en el servidor |
 
-## Categorías y regla de Verdad o Reto
+## Editar los bancos locales
+
+Cada juego mantiene sus datos en su propio archivo de `src/data/`. Las
+preguntas de «¿Qué prefieres?» están en `what-would-you-rather.json` y las de
+«¿Quién es más probable que...?» en `most-likely.json`; ambos conservan sus
+categorías e intensidades. El Impostor, Yo nunca nunca, Teléfono descompuesto y
+Tabú usan respectivamente `impostor.json`, `never-have-i-ever.json`,
+`telephone-game.json` y `taboo.json`. Las reglas y los roles también viven en
+los archivos específicos indicados arriba.
+
+Los formularios «Añadir contenido al banco» guardan entradas adicionales en
+`localStorage`, sin sobrescribir los JSON de la aplicación. Hay formularios para
+palabras del Impostor y Palabras clave; frases de Yo nunca nunca y Teléfono
+descompuesto; tarjetas de Tabú con sus cinco palabras prohibidas; pistas de
+Pasapalabra con letra, tipo, definición y respuesta; y palabras, categorías y
+subcategorías de Charadas. Las preguntas personalizadas de los dos juegos de
+tarjetas se guardan por separado en `la-ultima-ronda.custom-questions`.
+
+### Añadir categorías y mazos de Charadas
+
+Charadas construye la selección desde el array `categories` de
+`src/data/charades.json`: cada elemento genera una categoría y cada elemento de
+`subcategories` un mazo. También se pueden añadir palabras y crear categorías o
+subcategorías desde el formulario del juego; esas entradas se almacenan en el
+dispositivo y aparecen automáticamente en la selección. Para editar el banco
+incluido en la app, usa esta estructura:
+
+```json
+{
+  "id": "deportes",
+  "name": "Deportes",
+  "icon": "⚽",
+  "subcategories": [
+    {
+      "id": "deportes-de-equipo",
+      "name": "Deportes de equipo",
+      "icon": "🏀",
+      "words": ["encestar un tiro libre", "celebrar un gol"]
+    }
+  ]
+}
+```
+
+Añade el objeto de categoría dentro de `categories` y cada mazo dentro de su
+`subcategories`. Los `id` deben ser únicos, cada subcategoría debe incluir una
+lista `words` con al menos una palabra, y `icon` es opcional (si se omite, el
+mazo muestra 🎭). Las tarjetas heredan colores de la paleta de Charadas. Vite
+actualiza la interfaz al guardar el JSON durante el desarrollo; para una app
+instalada, hay que volver a compilarla y distribuir la nueva versión.
+
+`pasapalabra.json` agrupa las pistas por letra. Cada elemento contiene un `id`
+único, `letter`, `clueType` (`startsWith` o `contains`), `clue` y `answer`.
+El banco incluye 540 pistas, 20 por cada letra del rosco.
+La respuesta debe empezar por la letra indicada para `startsWith` o contenerla
+para `contains`; la Ñ se valida como una letra distinta de la N. Al añadir
+pistas, mantén al menos dos por letra para que una partida pueda generar los
+dos roscos sin repetir una pista dentro de la misma partida. El historial local
+conserva hasta ocho IDs recientes por letra para reducir repeticiones entre
+partidas. El formulario del juego valida que la respuesta empiece por la letra
+indicada o la contenga, según el tipo de pista; se requiere un banco de al
+menos dos pistas por letra.
+
+## Categorías e intensidades
 
 Los mazos de preguntas ofrecen las categorías Chill, Picante, Escatológico y
 Turbio. En «¿Qué prefieres?» y «¿Quién es más probable que...?» se elige una
 categoría antes de ver las cartas; el filtro de intensidad (suave, intenso o
-salvaje) se aplica de forma independiente.
+salvaje) se aplica de forma independiente. Las tarjetas de «¿Quién es más
+probable que...?» no asignan nombres: el grupo decide a quién señalar.
 
-En Verdad o Reto, cada jugador puede elegir Verdad dos veces seguidas. En su
-turno siguiente, Verdad queda bloqueada y debe elegir Reto. El contador es
-temporal y se reinicia al elegir Reto; no se guarda en `localStorage`.
+En El Impostor se elige entre una ronda clásica y el modo de eliminación,
+además de repartir entre uno y tres impostores. En eliminación, cada reunión
+termina expulsando al jugador con más votos; un empate no elimina a nadie.
+Gana la tripulación cuando expulsa a todos los impostores y ganan los
+impostores cuando igualan o superan en número a la tripulación viva. Para que
+la partida empiece equilibrada, debe haber más tripulantes que impostores.
 
 En «Yo nunca nunca», cada persona empieza con cinco dedos levantados y baja uno
-si la frase le aplica. Se puede elegir entre tres intensidades y partidas de 5,
-10 o 12 frases. El juego también se puede terminar cuando alguien se queda sin
-dedos; al final, el grupo cuenta los dedos restantes para decidir quién gana.
-Compartir anécdotas es opcional, y el juego no asigna puntos por beber ni
-impone castigos.
+si la frase le aplica. Se puede elegir una de las tres intensidades o mezclar
+todas. Las frases se barajan de nuevo cuando se agota el mazo, evitando repetir
+la última frase justo al volver a empezar; el juego continúa hasta que alguien
+se queda sin dedos o el grupo decide terminar. Al final, el grupo cuenta los
+dedos restantes para decidir quién gana. Compartir anécdotas es opcional, y el
+juego no asigna puntos por beber ni impone castigos.
 
 En King's Cup, la app mezcla una baraja estándar de 52 cartas y asigna los
 turnos entre los jugadores. Cada valor propone una dinámica grupal; al salir
 cada Rey, se puede proponer una regla colectiva y el cuarto Rey cierra la
 partida con un reto final acordado. No hay copa compartida ni penalizaciones
 por beber: todas las dinámicas se pueden hacer sin alcohol y cualquier persona
-puede pasar o proponer una alternativa.
+puede pasar o proponer una alternativa. Desde la configuración se pueden editar
+los títulos y descripciones de las trece cartas; los cambios se guardan en
+`localStorage` y se mantienen entre partidas en ese dispositivo. También se
+pueden restaurar los textos originales del banco `kings-cup.json`.
 
 En Pasapalabra se enfrentan dos jugadores, cada uno con su rosco circular local
-de 27 letras y dos minutos de tiempo activo. Un narrador externo lee las
+de 27 letras y un tiempo activo configurable de uno, uno y medio, dos o tres
+minutos. Un narrador externo lee las
 pistas y juzga las respuestas; la app muestra el rosco, revela la respuesta
 solo cuando se solicita y registra aciertos, fallos y letras pasadas. Al decir
 «Pasapalabra», el reloj del jugador se pausa y empieza el turno del rival; al
@@ -61,10 +135,13 @@ En Teléfono descompuesto, la app muestra una frase a la primera persona, que
 la memoriza y la pasa de boca en boca con las reglas tradicionales. Cuando la
 frase completa la vuelta, el grupo revela la frase original en la app y compara
 el resultado. La app no registra respuestas ni dirige la cadena. El inicio
-rota entre rondas, se puede jugar una, tres o cinco rondas y no hay puntuación.
+rota entre jugadores en cada ronda. El mazo usa todas las frases y se vuelve a
+barajar al agotarse, sin repetir inmediatamente la última frase; el grupo puede
+terminar la partida cuando quiera y no hay puntuación.
 
 En Tabú se forman dos equipos con al menos cuatro jugadores. En cada turno, una
-persona tiene 60 segundos para conseguir que su equipo adivine palabras sin
+persona tiene un tiempo configurable (30, 45, 60, 90 o 120 segundos) para
+conseguir que su equipo adivine palabras sin
 decir ninguna de las cinco prohibidas. Un acierto suma un punto, pasar no suma
 y una infracción resta uno. Los equipos alternan turnos; se puede jugar uno,
 dos o tres turnos por equipo.
@@ -94,6 +171,10 @@ Las guías pueden salir de una sala desde su dispositivo; esto elimina su
 registro de miembro y libera el puesto. En una partida iniciada, salir es
 definitivo para esa guía. Aplica
 `supabase/migrations/20261030162400_leave_keyword_room.sql` para habilitarlo.
+La pantalla de guía carga los integrantes del equipo seleccionado desde la
+sala. Aplica
+`supabase/migrations/20261030184300_keyword_team_roster_for_guides.sql` para
+habilitar la consulta del roster antes de conectarse.
 El tablero incluye **Terminar partida para todos**, que finaliza la sala y
 sincroniza ese resultado con las otras pantallas.
 

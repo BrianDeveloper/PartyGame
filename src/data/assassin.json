@@ -1,0 +1,28 @@
+{
+  "roles": {
+    "assassin": {
+      "name": "El Asesino",
+      "emoji": "🔪",
+      "color": "bg-coral",
+      "instruction": "Elige en secreto a quién eliminar cada noche."
+    },
+    "detective": {
+      "name": "El Detective",
+      "emoji": "🔍",
+      "color": "bg-sky",
+      "instruction": "Investiga a una persona cada noche para descubrir si es el Asesino."
+    },
+    "doctor": {
+      "name": "El Médico",
+      "emoji": "🩺",
+      "color": "bg-mint",
+      "instruction": "Protege a una persona cada noche. No puedes proteger a la misma persona dos noches seguidas."
+    },
+    "civilian": {
+      "name": "Civil",
+      "emoji": "👥",
+      "color": "bg-mustard",
+      "instruction": "Debate y vota durante el día para descubrir al Asesino."
+    }
+  }
+}

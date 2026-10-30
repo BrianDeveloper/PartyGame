@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import cards from "../data/taboo.json";
+import CustomContentForm from "./CustomContentForm";
+import { useCustomGameContent } from "../state/CustomGameContentContext";
 
 type TabooCard = {
   word: string;
@@ -13,7 +15,7 @@ type TurnStats = {
   forbidden: number;
 };
 
-const turnDuration = 60;
+const turnDurationOptions = [30, 45, 60, 90, 120];
 const roundOptions = [1, 2, 3];
 const typedCards = cards as TabooCard[];
 
@@ -51,9 +53,10 @@ export default function TabooGame({
 }) {
   const [stage, setStage] = useState<Stage>("setup");
   const [turnsPerTeam, setTurnsPerTeam] = useState(2);
+  const [selectedTurnDuration, setSelectedTurnDuration] = useState(60);
   const [teams, setTeams] = useState<string[][]>([[], []]);
   const [turnIndex, setTurnIndex] = useState(0);
-  const [secondsLeft, setSecondsLeft] = useState(turnDuration);
+  const [secondsLeft, setSecondsLeft] = useState(60);
   const [countdown, setCountdown] = useState(3);
   const [currentCard, setCurrentCard] = useState<TabooCard | null>(null);
   const [remainingCards, setRemainingCards] = useState<TabooCard[]>([]);
@@ -63,6 +66,12 @@ export default function TabooGame({
     passed: 0,
     forbidden: 0,
   });
+  const { entries: customContent } = useCustomGameContent();
+  const customCards = customContent.filter(
+    (entry): entry is Extract<typeof entry, { game: "taboo" }> =>
+      entry.game === "taboo",
+  );
+  const cardBank = [...typedCards, ...customCards];
 
   const activeTeamIndex = turnIndex % 2;
   const activeTeam = teams[activeTeamIndex] ?? [];
@@ -74,7 +83,7 @@ export default function TabooGame({
   useEffect(() => {
     if (stage !== "countdown") return;
     if (countdown <= 1) {
-      setSecondsLeft(turnDuration);
+      setSecondsLeft(selectedTurnDuration);
       setStage("playing");
       return;
     }
@@ -84,7 +93,7 @@ export default function TabooGame({
       1000,
     );
     return () => window.clearTimeout(timer);
-  }, [countdown, stage]);
+  }, [countdown, selectedTurnDuration, stage]);
 
   useEffect(() => {
     if (stage !== "playing") return;
@@ -101,13 +110,13 @@ export default function TabooGame({
   }, [secondsLeft, stage]);
 
   function drawNextCard(deck: TabooCard[]) {
-    const nextDeck = deck.length > 0 ? deck : shuffle(typedCards);
+    const nextDeck = deck.length > 0 ? deck : shuffle(cardBank);
     setCurrentCard(nextDeck[0] ?? null);
     setRemainingCards(nextDeck.slice(1));
   }
 
   function startGame() {
-    const shuffledCards = shuffle(typedCards);
+    const shuffledCards = shuffle(cardBank);
     setTeams(splitTeams(players));
     setTeamScores([0, 0]);
     setTurnStats({ correct: 0, passed: 0, forbidden: 0 });
@@ -190,7 +199,7 @@ export default function TabooGame({
           <section aria-labelledby="taboo-title">
             <div className="mb-5 text-center">
               <p className="text-sm font-extrabold uppercase tracking-widest text-ink/55">
-                Dos equipos · 60 segundos · palabras prohibidas
+                Dos equipos · {selectedTurnDuration} segundos · palabras prohibidas
               </p>
               <h2
                 className="mt-1 font-display text-4xl font-semibold"
@@ -217,10 +226,10 @@ export default function TabooGame({
                   </div>
                 ))}
               </div>
-              <div className="mt-4 rounded-2xl border-2 border-ink bg-cream p-4">
-                <h3 className="font-display text-xl font-semibold">
-                  Cómo se juega
-                </h3>
+              <details className="mt-4 rounded-2xl border-2 border-ink bg-cream p-4">
+                <summary className="cursor-pointer font-display text-xl font-semibold">
+                  📖 Cómo se juega
+                </summary>
                 <ol className="mt-2 list-inside list-decimal space-y-1 text-sm font-semibold text-ink/75">
                   <li>
                     Por turnos, una persona da pistas para que su equipo
@@ -232,10 +241,33 @@ export default function TabooGame({
                   </li>
                   <li>
                     Acierto: +1 punto. Pasar: 0. Palabra prohibida: −1 punto.
-                    Cada turno dura 60 segundos.
+                    El tiempo de cada turno se configura abajo.
                   </li>
                 </ol>
-              </div>
+              </details>
+
+              <fieldset className="mt-5">
+                <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
+                  Tiempo por turno
+                </legend>
+                <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+                  {turnDurationOptions.map((duration) => (
+                    <button
+                      aria-pressed={selectedTurnDuration === duration}
+                      className={`rounded-xl border-2 border-ink py-3 font-extrabold shadow-comic-sm ${
+                        selectedTurnDuration === duration
+                          ? "bg-mustard"
+                          : "bg-white"
+                      }`}
+                      key={duration}
+                      onClick={() => setSelectedTurnDuration(duration)}
+                      type="button"
+                    >
+                      {duration}s
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
 
               <fieldset className="mt-5">
                 <legend className="mb-2 text-sm font-extrabold uppercase tracking-wide text-ink/60">
@@ -258,6 +290,7 @@ export default function TabooGame({
                 </div>
               </fieldset>
 
+              <CustomContentForm game="taboo" />
               {players.length < 4 && (
                 <p className="mt-4 rounded-2xl border-2 border-ink bg-coral p-4 text-sm font-bold">
                   Hacen falta al menos 4 jugadores para formar dos equipos.

@@ -2,7 +2,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
   type ReactNode,
@@ -15,7 +14,7 @@ type NewCustomQuestion = Omit<GameQuestion, "id">;
 
 type CustomQuestionsContextValue = {
   customQuestions: GameQuestion[];
-  addCustomQuestion: (question: NewCustomQuestion) => boolean;
+  addCustomQuestion: (question: NewCustomQuestion) => GameQuestion | null;
 };
 
 const CustomQuestionsContext =
@@ -62,21 +61,10 @@ export function CustomQuestionsProvider({
   const [customQuestions, setCustomQuestions] =
     useState<GameQuestion[]>(readCustomQuestions);
 
-  useEffect(() => {
-    try {
-      window.localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(customQuestions),
-      );
-    } catch (error) {
-      console.error("No se pudieron guardar las preguntas personalizadas.", error);
-    }
-  }, [customQuestions]);
-
   const addCustomQuestion = useCallback(
     (question: NewCustomQuestion) => {
       const cleanText = question.text.trim();
-      if (!cleanText) return false;
+      if (!cleanText) return null;
       if (
         customQuestions.some(
           (existing) =>
@@ -84,7 +72,7 @@ export function CustomQuestionsProvider({
             existing.text.toLocaleLowerCase() === cleanText.toLocaleLowerCase(),
         )
       ) {
-        return false;
+        return null;
       }
 
       const newQuestion: GameQuestion = {
@@ -92,8 +80,20 @@ export function CustomQuestionsProvider({
         text: cleanText,
         id: `custom-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       };
-      setCustomQuestions((current) => [...current, newQuestion]);
-      return true;
+      const updatedQuestions = [...customQuestions, newQuestion];
+      try {
+        window.localStorage.setItem(
+          STORAGE_KEY,
+          JSON.stringify(updatedQuestions),
+        );
+      } catch (error) {
+        console.error("No se pudieron guardar las preguntas personalizadas.", error);
+        throw new Error(
+          "No se pudo guardar en este dispositivo. Comprueba el espacio disponible e inténtalo de nuevo.",
+        );
+      }
+      setCustomQuestions(updatedQuestions);
+      return newQuestion;
     },
     [customQuestions],
   );

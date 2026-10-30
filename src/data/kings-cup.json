@@ -1,0 +1,63 @@
+{
+  "ranks": ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"],
+  "suits": [
+    { "symbol": "♠", "color": "black" },
+    { "symbol": "♥", "color": "red" },
+    { "symbol": "♦", "color": "red" },
+    { "symbol": "♣", "color": "black" }
+  ],
+  "rules": {
+    "A": {
+      "title": "Brindis en cadena",
+      "description": "Por turnos, cada persona añade una palabra al brindis colectivo. Si alguien se traba, puede pasar o proponer un brindis nuevo."
+    },
+    "2": {
+      "title": "Tú eliges",
+      "description": "Elige a alguien para responder una pregunta ligera o hacer un mini-reto. Cualquiera puede pasar sin explicar por qué."
+    },
+    "3": {
+      "title": "Te toca",
+      "description": "Cuenta una anécdota divertida o elige un mini-reto. Compartir algo personal es opcional."
+    },
+    "4": {
+      "title": "Pulgar maestro",
+      "description": "En cualquier momento antes de la próxima carta, pon el pulgar sobre la mesa sin avisar. El último en imitarte propone una regla temporal."
+    },
+    "5": {
+      "title": "Rimas",
+      "description": "Elige una palabra. En sentido horario, cada quien dice una rima; quien se quede sin ideas puede pasar y elegir otra palabra."
+    },
+    "6": {
+      "title": "Categoría",
+      "description": "Elige una categoría, como películas o comidas. Por turnos, nombren algo que encaje; quien quiera puede pasar."
+    },
+    "7": {
+      "title": "Cielo",
+      "description": "Todos señalan al techo. La última persona en hacerlo elige una categoría para la próxima ronda."
+    },
+    "8": {
+      "title": "Compañero",
+      "description": "Elige a una persona: durante la próxima ronda harán juntos la respuesta o el mini-reto de la carta."
+    },
+    "9": {
+      "title": "Duelo de piedra, papel o tijera",
+      "description": "Elige a alguien para un duelo amistoso. Quien gana decide quién toma el siguiente turno; si empatan, repiten o pasan."
+    },
+    "10": {
+      "title": "Regla de la casa",
+      "description": "Inventa una regla sencilla y segura que dure hasta que salga otro 10. Cualquiera puede proponer cambiarla si incomoda."
+    },
+    "J": {
+      "title": "Ronda relámpago",
+      "description": "Elige una categoría y jueguen una vuelta rápida. Quien quiera puede pasar; esa persona elige la siguiente categoría."
+    },
+    "Q": {
+      "title": "Maestro de preguntas",
+      "description": "Haz una pregunta al grupo. La primera persona que responda elige la categoría del próximo mini-reto."
+    },
+    "K": {
+      "title": "Rey",
+      "description": "Propón una regla colectiva, divertida y segura. Al salir el cuarto Rey, el grupo hace un reto final acordado y termina la partida."
+    }
+  }
+}
