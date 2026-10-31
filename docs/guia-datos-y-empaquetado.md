@@ -23,7 +23,7 @@ lugares:
 | Frases y cadena de Teléfono descompuesto | JSON local y estado React | Las frases vienen con la app; la partida es temporal |
 | Tarjetas y marcador de Tabú | JSON local y estado React | Tiempo configurable por turno (30, 45, 60, 90 o 120 segundos); las tarjetas vienen con la app y la partida es temporal |
 | Temporizadores de Charadas e Impostor | Estado React | Charadas permite 30, 60, 90 o 120 segundos por turno; El Impostor permite 30, 45, 60, 90 o 120 segundos de debate |
-| Salas de Palabras clave | Supabase Realtime y funciones SQL | Estado sincronizado entre dispositivos; la clave queda protegida en el servidor |
+| Salas de Palabras clave | Supabase Realtime y funciones SQL | Estado sincronizado entre dispositivos; la clave queda protegida en el servidor y cada turno tiene temporizador configurable |
 
 ## Editar los bancos locales
 
@@ -176,7 +176,22 @@ sala. Aplica
 `supabase/migrations/20261030184300_keyword_team_roster_for_guides.sql` para
 habilitar la consulta del roster antes de conectarse.
 El tablero incluye **Terminar partida para todos**, que finaliza la sala y
-sincroniza ese resultado con las otras pantallas.
+sincroniza ese resultado con las otras pantallas. También puede **pasar el turno
+sin pista** durante la fase de pista, con confirmación, para desbloquear la
+partida si una guía no responde.
+La clave privada se vuelve a solicitar automáticamente cuando cambia el equipo
+activo, de modo que la guía entrante recibe su tablero aunque la consulta
+anterior haya fallado. Aplica
+`supabase/migrations/20261030200000_keyword_turn_recovery.sql` para permitir
+que el tablero termine el turno tanto en la fase de pista como en la de
+conjeturas; esta migración también vuelve a dejar la clave disponible para las
+dos guías mientras la partida está activa.
+Al crear la sala se elige la duración de cada turno: 1:00, 1:30, 2:00 o 3:00,
+con 90 segundos por defecto. El temporizador se sincroniza con el servidor, se
+reinicia al empezar el turno y al enviar una pista, y cualquier dispositivo de
+la sala puede cerrar el turno cuando vence. Las salas creadas antes de esta
+migración siguen funcionando sin temporizador. Aplica
+`supabase/migrations/20261030210000_keyword_turn_timer.sql` para habilitarlo.
 
 La función `cleanup_expired_keyword_rooms()` elimina salas y sus datos asociados
 cuando tienen más de 12 horas. Para automatizarlo, aplica también

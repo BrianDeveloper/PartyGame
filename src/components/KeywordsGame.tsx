@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import wordBank from "../data/keywords.json";
 import CustomContentForm from "./CustomContentForm";
 import { useCustomGameContent } from "../state/CustomGameContentContext";
@@ -25,6 +25,8 @@ type PublicState = {
   guessesLeft: number;
   winner: TeamIndex | null;
   endReason: "assassin" | "all_words" | "closed" | null;
+  turnSeconds: number | null;
+  turnEndsAt: number | null;
 };
 type Room = {
   id: string;
@@ -92,6 +94,12 @@ function createRoomCode() {
     { length: 8 },
     () => alphabet[Math.floor(Math.random() * alphabet.length)],
   ).join("");
+}
+
+function formatDuration(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -192,6 +200,29 @@ function parsePublicState(value: unknown): PublicState {
     clue = { word: value.clue.word, count: value.clue.count };
   }
 
+  let turnSeconds: number | null = null;
+  if (value.turnSeconds !== undefined && value.turnSeconds !== null) {
+    if (
+      typeof value.turnSeconds !== "number" ||
+      !Number.isInteger(value.turnSeconds) ||
+      value.turnSeconds <= 0
+    ) {
+      throw new Error("La duración del turno recibida no es válida.");
+    }
+    turnSeconds = value.turnSeconds;
+  }
+
+  let turnEndsAt: number | null = null;
+  if (value.turnEndsAt !== undefined && value.turnEndsAt !== null) {
+    if (
+      typeof value.turnEndsAt !== "number" ||
+      !Number.isFinite(value.turnEndsAt)
+    ) {
+      throw new Error("El fin del turno recibido no es válido.");
+    }
+    turnEndsAt = value.turnEndsAt;
+  }
+
   return {
     board,
     teams: [value.teams[0], value.teams[1]],
@@ -203,6 +234,8 @@ function parsePublicState(value: unknown): PublicState {
     guessesLeft: value.guessesLeft,
     winner: value.winner,
     endReason: value.endReason,
+    turnSeconds,
+    turnEndsAt,
   };
 }
 
@@ -273,6 +306,8 @@ export default function KeywordsGame({
   const [clueInput, setClueInput] = useState("");
   const [clueCount, setClueCount] = useState(1);
   const [secretKey, setSecretKey] = useState<number[] | null>(null);
+  const [secretKeyError, setSecretKeyError] = useState("");
+  const [secretKeyRetry, setSecretKeyRetry] = useState(0);
   const [busy, setBusy] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [notice, setNotice] = useState("");
@@ -280,6 +315,10 @@ export default function KeywordsGame({
     useState<ConnectionNotice | null>(null);
   const [confirmCloseRoom, setConfirmCloseRoom] = useState(false);
   const [confirmLeaveRoom, setConfirmLeaveRoom] = useState(false);
+  const [confirmPassTurn, setConfirmPassTurn] = useState(false);
+  const [turnSeconds, setTurnSeconds] = useState(90);
+  const [clockNow, setClockNow] = useState(() => Date.now());
+  const lastExpiryAttempt = useRef<number | null>(null);
   const { entries: customContent } = useCustomGameContent();
   const customWords = customContent
     .filter((entry) => entry.game === "keywords")
@@ -300,6 +339,11 @@ export default function KeywordsGame({
       : room
         ? 9
         : 0;
+  const turnEndsAt = room?.public_state.turnEndsAt ?? null;
+  const turnSecondsLeft =
+    room?.status === "playing" && turnEndsAt !== null
+      ? Math.max(0, Math.ceil((turnEndsAt - clockNow) / 1000))
+      : null;
   const guideMembers = members.filter((member) => member.role === "cluegiver");
   const isActiveGuide =
     deviceRole?.type === "cluegiver" &&
@@ -478,10 +522,14 @@ export default function KeywordsGame({
       room.status !== "playing"
     ) {
       setSecretKey(null);
+      setSecretKeyError("");
       return;
     }
 
+    const isActiveGuideForTurn =
+      room.public_state.activeTeam === deviceRole.team;
     let active = true;
+    setSecretKeyError("");
     void (async () => {
       try {
         const { data, error } = await supabase.rpc("get_keyword_key", {
@@ -497,19 +545,90 @@ export default function KeywordsGame({
           throw new Error("El servidor devolvió una clave secreta inválida.");
         }
         setSecretKey(data);
+        setSecretKeyError("");
       } catch (error) {
-        if (active) setErrorMessage(getErrorMessage(error));
+        if (!active) return;
+        setSecretKey(null);
+        if (isActiveGuideForTurn) {
+          setSecretKeyError(getErrorMessage(error));
+        }
       }
     })();
 
     return () => {
       active = false;
-      setSecretKey(null);
     };
   }, [
     deviceRole,
     room?.id,
     room?.status,
+    room?.public_state.activeTeam,
+    secretKeyRetry,
+    supabase,
+  ]);
+
+  useEffect(() => {
+    setConfirmPassTurn(false);
+  }, [room?.public_state.activeTeam, room?.public_state.phase]);
+
+  useEffect(() => {
+    lastExpiryAttempt.current = null;
+  }, [room?.id]);
+
+  useEffect(() => {
+    if (
+      !room ||
+      room.status !== "playing" ||
+      room.public_state.turnEndsAt === null
+    ) {
+      return;
+    }
+    setClockNow(Date.now());
+    const interval = window.setInterval(() => setClockNow(Date.now()), 1000);
+    return () => window.clearInterval(interval);
+  }, [room?.id, room?.status, room?.public_state.turnEndsAt]);
+
+  useEffect(() => {
+    if (!room || !supabase || room.status !== "playing") return;
+    const deadline = room.public_state.turnEndsAt;
+    if (deadline === null) return;
+    if (
+      room.public_state.phase !== "clue" &&
+      room.public_state.phase !== "guessing"
+    ) {
+      return;
+    }
+    if (clockNow < deadline) return;
+    if (lastExpiryAttempt.current === deadline) return;
+
+    lastExpiryAttempt.current = deadline;
+    void (async () => {
+      try {
+        const { data, error } = await supabase.rpc("expire_keyword_turn", {
+          p_room_id: room.id,
+        });
+        if (error) throw error;
+        if (data === true) {
+          try {
+            await loadRoom(room.id);
+          } catch (loadError) {
+            setErrorMessage(getErrorMessage(loadError));
+          }
+        } else {
+          lastExpiryAttempt.current = null;
+        }
+      } catch (error) {
+        setErrorMessage(getErrorMessage(error));
+      }
+    })();
+  }, [
+    clockNow,
+    loadRoom,
+    room?.id,
+    room?.status,
+    room?.public_state.activeTeam,
+    room?.public_state.phase,
+    room?.public_state.turnEndsAt,
     supabase,
   ]);
 
@@ -561,6 +680,7 @@ export default function KeywordsGame({
         p_board: board,
         p_teams: teams,
         p_starting_team: startingTeam,
+        p_turn_seconds: turnSeconds,
       });
       if (error) throw error;
       if (typeof data !== "string") {
@@ -672,10 +792,12 @@ export default function KeywordsGame({
   function endTurn() {
     if (!room || !supabase) return;
     runAction(async () => {
-      const { error } = await supabase.rpc("end_keyword_turn", {
+      const { error } = await supabase.rpc("end_keyword_turn_checked", {
         p_room_id: room.id,
+        p_expected_turn_ends_at: room.public_state.turnEndsAt,
       });
       if (error) throw error;
+      setConfirmPassTurn(false);
       await loadRoom(room.id);
     });
   }
@@ -697,6 +819,8 @@ export default function KeywordsGame({
     setMembers([]);
     setDeviceRole(null);
     setSecretKey(null);
+    setSecretKeyError("");
+    setConfirmPassTurn(false);
     setView("home");
     try {
       removeDeviceSession();
@@ -737,6 +861,8 @@ export default function KeywordsGame({
       setMembers([]);
       setDeviceRole(null);
       setSecretKey(null);
+      setSecretKeyError("");
+      setConfirmPassTurn(false);
       setView("home");
     });
   }
@@ -824,7 +950,9 @@ export default function KeywordsGame({
                 La guía del equipo activo da una sola palabra y un número. El
                 equipo puede elegir hasta ese número más una casilla. Si acierta
                 una palabra propia, puede seguir mientras le queden intentos;
-                una palabra neutral o rival termina el turno.
+                una palabra neutral o rival termina el turno. Cada turno puede
+                tener un temporizador configurable que se reinicia al empezar el
+                turno y al enviar la pista.
               </p>
             </section>
             <section>
@@ -846,8 +974,8 @@ export default function KeywordsGame({
                 El teléfono del tablero es público y gestiona las casillas. Cada
                 equipo mantiene una guía en su propio teléfono. Antes de empezar,
                 asignen manualmente los equipos y conecten una guía por equipo.
-                El tablero también puede terminar un turno o finalizar la
-                partida para todos.
+                El tablero también puede terminar un turno, pasar el turno sin
+                pista o finalizar la partida para todos.
               </p>
             </section>
           </div>
@@ -936,6 +1064,29 @@ export default function KeywordsGame({
                 </article>
               ))}
             </div>
+            <fieldset className="mt-6 rounded-3xl border-2 border-ink bg-white p-5 shadow-comic-sm">
+              <legend className="px-2 font-display text-xl font-semibold">
+                Duración de cada turno
+              </legend>
+              <p className="mb-4 text-sm font-semibold text-ink/65">
+                El temporizador se reinicia al empezar cada turno y al enviar una pista.
+              </p>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {[60, 90, 120, 180].map((seconds) => (
+                  <button
+                    aria-pressed={turnSeconds === seconds}
+                    className={`rounded-xl border-2 border-ink py-3 font-extrabold shadow-comic-sm ${
+                      turnSeconds === seconds ? "bg-mustard" : "bg-white"
+                    }`}
+                    key={seconds}
+                    onClick={() => setTurnSeconds(seconds)}
+                    type="button"
+                  >
+                    {formatDuration(seconds)}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
             <button
               className="mt-6 w-full rounded-full border-2 border-ink bg-mint px-6 py-4 font-display text-xl font-semibold shadow-comic-sm disabled:opacity-45"
               disabled={
@@ -1187,6 +1338,23 @@ export default function KeywordsGame({
                     <span className="rounded-full border-2 border-ink bg-mustard px-4 py-2 font-extrabold shadow-comic-sm">
                       Turno: Equipo {room.public_state.activeTeam + 1}
                     </span>
+                    {turnSecondsLeft !== null && (
+                      <span
+                        aria-label={
+                          turnSecondsLeft > 0
+                            ? `Tiempo restante: ${formatDuration(turnSecondsLeft)}`
+                            : "Tiempo agotado"
+                        }
+                        className={`rounded-full border-2 border-ink px-4 py-2 font-extrabold shadow-comic-sm ${
+                          turnSecondsLeft <= 10 ? "bg-coral" : "bg-white"
+                        }`}
+                        role="timer"
+                      >
+                        {turnSecondsLeft > 0
+                          ? `Tiempo: ${formatDuration(turnSecondsLeft)}`
+                          : "Tiempo agotado"}
+                      </span>
+                    )}
                   </header>
 
                   {room.public_state.phase === "guessing" &&
@@ -1238,6 +1406,54 @@ export default function KeywordsGame({
                       >
                         Terminar turno
                       </button>
+                    )}
+                  {deviceRole.type === "board" &&
+                    room.public_state.phase === "clue" && (
+                      <div className="mt-4">
+                        {confirmPassTurn ? (
+                          <div
+                            aria-labelledby="confirm-pass-turn-title"
+                            className="rounded-2xl border-2 border-ink bg-coral p-4 shadow-comic-sm"
+                            role="alert"
+                          >
+                            <p
+                              className="font-extrabold"
+                              id="confirm-pass-turn-title"
+                            >
+                              ¿Pasar el turno sin pista? La guía del Equipo{" "}
+                              {room.public_state.activeTeam + 1} perderá este
+                              turno.
+                            </p>
+                            <div className="mt-3 flex flex-wrap gap-2">
+                              <button
+                                className="rounded-full border-2 border-ink bg-white px-4 py-2 font-extrabold"
+                                disabled={busy}
+                                onClick={() => setConfirmPassTurn(false)}
+                                type="button"
+                              >
+                                Cancelar
+                              </button>
+                              <button
+                                className="rounded-full border-2 border-ink bg-ink px-4 py-2 font-extrabold text-white"
+                                disabled={busy}
+                                onClick={endTurn}
+                                type="button"
+                              >
+                                {busy ? "Pasando…" : "Sí, pasar turno"}
+                              </button>
+                            </div>
+                          </div>
+                        ) : (
+                          <button
+                            className="w-full rounded-full border-2 border-ink bg-mustard px-5 py-3 font-extrabold shadow-comic-sm"
+                            disabled={busy}
+                            onClick={() => setConfirmPassTurn(true)}
+                            type="button"
+                          >
+                            Pasar turno sin pista
+                          </button>
+                        )}
+                      </div>
                     )}
                   {deviceRole.type === "board" && (
                     <div className="mt-4">
@@ -1356,6 +1572,10 @@ export default function KeywordsGame({
                                 Enviar pista al tablero
                               </button>
                             </form>
+                          ) : room.public_state.phase === "guessing" ? (
+                            <p className="mt-4 rounded-2xl bg-cream p-3 text-center text-sm font-bold">
+                              El equipo está debatiendo la pista.
+                            </p>
                           ) : (
                             <p className="mt-4 rounded-2xl bg-cream p-3 text-center text-sm font-bold">
                               Espera el turno de tu equipo para enviar una pista.
@@ -1363,11 +1583,34 @@ export default function KeywordsGame({
                           )}
                           </>
                         ) : (
-                          <p className="text-center font-bold">
-                            {room.public_state.phase === "guessing"
-                              ? "El equipo está debatiendo la pista."
-                              : "Espera el turno de tu equipo."}
-                          </p>
+                          <div className="space-y-2 text-center font-bold">
+                            {room.public_state.activeTeam === deviceRole.team ? (
+                              secretKeyError ? (
+                                <>
+                                  <p>No se pudo cargar tu clave.</p>
+                                  <p className="text-sm font-semibold text-ink/65">
+                                    {secretKeyError}
+                                  </p>
+                                  <button
+                                    className="rounded-full border-2 border-ink bg-mustard px-4 py-2 text-sm font-extrabold shadow-comic-sm disabled:opacity-45"
+                                    disabled={busy}
+                                    onClick={() =>
+                                      setSecretKeyRetry((value) => value + 1)
+                                    }
+                                    type="button"
+                                  >
+                                    Reintentar clave
+                                  </button>
+                                </>
+                              ) : (
+                                <p>Cargando tu clave…</p>
+                              )
+                            ) : room.public_state.phase === "guessing" ? (
+                              <p>El equipo está debatiendo la pista.</p>
+                            ) : (
+                              <p>Espera el turno de tu equipo.</p>
+                            )}
+                          </div>
                         )}
                       </div>
                       {confirmLeaveRoom ? (
