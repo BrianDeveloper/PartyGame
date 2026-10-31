@@ -1,7 +1,7 @@
 {
   "name": "party-game",
   "private": true,
-  "version": "1.0.8-debug",
+  "version": "1.0.9-debug",
   "type": "module",
   "scripts": {
     "dev": "vite",

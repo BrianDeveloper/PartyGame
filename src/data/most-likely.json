@@ -16,70 +16,252 @@
       "mode": "likely",
       "category": "chill",
       "intensity": "suave",
-      "text": "¿Quién es más probable que organice un viaje y olvide mirar el tiempo?"
+      "text": "Organizar un viaje completo y olvidar revisar el clima"
     },
     {
       "id": "likely-02",
       "mode": "likely",
       "category": "chill",
       "intensity": "suave",
-      "text": "¿Quién es más probable que se coma la última patata y lo niegue mirando a los ojos?"
+      "text": "Comerse la última ración y negarlo mirando fijamente a los ojos"
     },
     {
       "id": "likely-03",
       "mode": "likely",
-      "category": "escatologico",
+      "category": "chill",
       "intensity": "suave",
-      "text": "¿Quién es más probable que culpe al perro de un pedo propio?"
+      "text": "Dormirse en la sala durante una película que él mismo pidió poner"
     },
     {
       "id": "likely-04",
       "mode": "likely",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Quién es más probable que acabe en un calabozo por una idea que parecía buenísima?"
+      "text": "Perderse en su propio barrio por ir distraído con el teléfono"
     },
     {
       "id": "likely-05",
       "mode": "likely",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Quién es más probable que venda al grupo por una pizza gratis?"
+      "text": "Adoptar una mascota por impulso tras ver un video en internet"
     },
     {
       "id": "likely-06",
       "mode": "likely",
-      "category": "escatologico",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Quién es más probable que se tire un pedo en un ascensor y se baje en la planta equivocada?"
+      "text": "Gastar la mitad de su sueldo en un pasatiempo que abandonará en tres semanas"
     },
     {
       "id": "likely-07",
       "mode": "likely",
       "category": "chill",
-      "intensity": "intenso",
-      "text": "¿Quién es más probable que adopte una planta y aun así consiga matarla?"
+      "intensity": "salvaje",
+      "text": "Bloquear a todos sus contactos un fin de semana solo para desintoxicarse"
     },
     {
       "id": "likely-08",
       "mode": "likely",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "salvaje",
-      "text": "¿Quién es más probable que sobreviva a un apocalipsis solo porque nadie se acuerda de buscarle?"
+      "text": "Renunciar a su trabajo en vivo tras una molestia menor sin tener plan B"
     },
     {
       "id": "likely-09",
       "mode": "likely",
-      "category": "picante",
+      "category": "chill",
       "intensity": "salvaje",
-      "text": "¿Quién es más probable que borre el chat y diga «no sé de qué hablas»?"
+      "text": "Terminar viviendo en otro país por seguir una corazonada espontánea"
     },
     {
       "id": "likely-10",
       "mode": "likely",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Coquetear abiertamente con el mesero para conseguir una bebida gratis"
+    },
+    {
+      "id": "likely-11",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Guardar fotos íntimas de sus exs en una carpeta oculta con contraseña"
+    },
+    {
+      "id": "likely-12",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Responder una historia provocativa de madrugada y arrepentirse al despertar"
+    },
+    {
+      "id": "likely-13",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Terminar teniendo un encuentro íntimo en el baño durante una fiesta concurrida"
+    },
+    {
+      "id": "likely-14",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Mantener un romance prohibido con alguien del entorno laboral"
+    },
+    {
+      "id": "likely-15",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Proponer un trío o intercambio de pareja para salir de la rutina"
+    },
+    {
+      "id": "likely-16",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Acostarse con un familiar directo de su mejor amigo sin medir las consecuencias"
+    },
+    {
+      "id": "likely-17",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Filtrar por descuido o error un video explícito propio en redes sociales"
+    },
+    {
+      "id": "likely-18",
+      "mode": "likely",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Llevar una doble vida amorosa completa sin que ninguna de las partes lo note"
+    },
+    {
+      "id": "likely-19",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Soltarse un gas ruidoso en un grupo pequeño y echarle la culpa al perro"
+    },
+    {
+      "id": "likely-20",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Ir a una cita romántica con un pedazo de comida notable clavado en los dientes"
+    },
+    {
+      "id": "likely-21",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Tapar el retrete en una casa ajena y no saber cómo arreglar el desastre"
+    },
+    {
+      "id": "likely-22",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Tener diarrea en plena vía pública y buscar refugio desesperado detrás de un árbol"
+    },
+    {
+      "id": "likely-23",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Vomitar en el interior de un taxi al regresar de una noche de excesos"
+    },
+    {
+      "id": "likely-24",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Usar la misma ropa interior tres días seguidos sin lavarla por pura flojera"
+    },
+    {
+      "id": "likely-25",
+      "mode": "likely",
       "category": "escatologico",
       "intensity": "salvaje",
-      "text": "¿Quién es más probable que use el último trozo de papel y deje el rollo vacío?"
+      "text": "Limpiarse con una prenda usada al defecar en el campo por falta de papel"
+    },
+    {
+      "id": "likely-26",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "Comer un plato caído al suelo con mugre visible solo por no desperdiciar nada"
+    },
+    {
+      "id": "likely-27",
+      "mode": "likely",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "Soportar una infección fúngica por vergüenza a ir al médico a tiempo"
+    },
+    {
+      "id": "likely-28",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Revisar el teléfono de su pareja a escondidas apenas esta se meta a la ducha"
+    },
+    {
+      "id": "likely-29",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Fingir una enfermedad grave para librarse de un compromiso ineludible"
+    },
+    {
+      "id": "likely-30",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Inventar un chisme malicioso sobre un conocido solo por pura diversión"
+    },
+    {
+      "id": "likely-31",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Delatar a un compañero de trabajo de confianza para quedarse con su puesto"
+    },
+    {
+      "id": "likely-32",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Quedarse con una cartera extraviada con mucho dinero sin intentar buscar al dueño"
+    },
+    {
+      "id": "likely-33",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Manipular psicológicamente a su grupo para salir victorioso de una discusión"
+    },
+    {
+      "id": "likely-34",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Culpar a un amigo de un delito grave que cometió él para evadir la cárcel"
+    },
+    {
+      "id": "likely-35",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Vender los secretos más oscuros de su familia a cambio de una fuerte suma económica"
+    },
+    {
+      "id": "likely-36",
+      "mode": "likely",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Presenciar un crimen violento e irse del lugar sin prestar ayuda ni llamar a la policía"
     }
   ]
 }

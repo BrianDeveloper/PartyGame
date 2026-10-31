@@ -1,122 +1,402 @@
 [
   {
-    "word": "PIZZA",
-    "forbidden": ["Queso", "Tomate", "Masa", "Italia", "Porción"]
-  },
-  {
-    "word": "AVIÓN",
-    "forbidden": ["Volar", "Aeropuerto", "Alas", "Piloto", "Pasajeros"]
-  },
-  {
-    "word": "PLAYA",
-    "forbidden": ["Arena", "Mar", "Verano", "Toalla", "Olas"]
-  },
-  {
-    "word": "DENTISTA",
-    "forbidden": ["Dientes", "Boca", "Muela", "Caries", "Consulta"]
-  },
-  {
-    "word": "ELEFANTE",
-    "forbidden": ["Trompa", "Grande", "Gris", "Africa", "Colmillos"]
-  },
-  {
-    "word": "HELADO",
-    "forbidden": ["Frío", "Verano", "Cono", "Postre", "Sabores"]
-  },
-  {
-    "word": "CUMPLEAÑOS",
-    "forbidden": ["Tarta", "Velas", "Regalo", "Fiesta", "Edad"]
-  },
-  {
     "word": "FÚTBOL",
-    "forbidden": ["Pelota", "Gol", "Portería", "Equipo", "Cancha"]
+    "forbidden": ["Gol", "Pelota", "Cancha", "Jugador", "Deporte"]
   },
   {
-    "word": "CAMA",
-    "forbidden": ["Dormir", "Almohada", "Colchón", "Sábanas", "Noche"]
+    "word": "PIZZA",
+    "forbidden": ["Queso", "Masa", "Comida", "Italiana", "Horno"]
   },
   {
-    "word": "PARAGUAS",
-    "forbidden": ["Lluvia", "Agua", "Abrir", "Mojarse", "Tormenta"]
+    "word": "CELULAR",
+    "forbidden": ["Teléfono", "Llamar", "Pantalla", "App", "Mensaje"]
   },
   {
-    "word": "BIBLIOTECA",
-    "forbidden": ["Libros", "Leer", "Silencio", "Estudiar", "Préstamo"]
-  },
-  {
-    "word": "DINOSAURIO",
-    "forbidden": ["Extinto", "Fósil", "Jurásico", "Tiranosaurio", "Prehistoria"]
-  },
-  {
-    "word": "ESPEJO",
-    "forbidden": ["Reflejo", "Mirar", "Cristal", "Imagen", "Baño"]
-  },
-  {
-    "word": "MICROONDAS",
-    "forbidden": ["Calentar", "Comida", "Cocina", "Minuto", "Plato"]
-  },
-  {
-    "word": "FANTASMA",
-    "forbidden": ["Espíritu", "Miedo", "Casa", "Sábana", "Aparecer"]
-  },
-  {
-    "word": "SEMÁFORO",
-    "forbidden": ["Rojo", "Verde", "Amarillo", "Coche", "Cruzar"]
-  },
-  {
-    "word": "CHOCOLATE",
-    "forbidden": ["Dulce", "Cacao", "Tableta", "Postre", "Negro"]
-  },
-  {
-    "word": "GAFAS",
-    "forbidden": ["Ver", "Ojos", "Lentes", "Sol", "Graduación"]
-  },
-  {
-    "word": "ASCENSOR",
-    "forbidden": ["Subir", "Bajar", "Piso", "Botón", "Edificio"]
+    "word": "VAMPIRO",
+    "forbidden": ["Sangre", "Drácula", "Colmillos", "Noche", "Murciélago"]
   },
   {
     "word": "GUITARRA",
-    "forbidden": ["Cuerda", "Música", "Tocar", "Instrumento", "Púa"]
+    "forbidden": ["Cuerdas", "Música", "Tocar", "Instrumento", "Acústica"]
   },
   {
-    "word": "PIRATA",
-    "forbidden": ["Barco", "Tesoro", "Parche", "Mar", "Garfio"]
-  },
-  {
-    "word": "SANDÍA",
-    "forbidden": ["Fruta", "Roja", "Verano", "Pepitas", "Cáscara"]
-  },
-  {
-    "word": "LUNES",
-    "forbidden": ["Semana", "Trabajo", "Día", "Oficina", "Madrugar"]
+    "word": "PLAYA",
+    "forbidden": ["Arena", "Mar", "Sol", "Agua", "Vacaciones"]
   },
   {
     "word": "CINE",
-    "forbidden": ["Película", "Pantalla", "Palomitas", "Entrada", "Sala"]
+    "forbidden": ["Película", "Palomitas", "Pantalla", "Ver", "Boletos"]
   },
   {
-    "word": "ROBOT",
-    "forbidden": ["Máquina", "Metal", "Tecnología", "Automático", "Android"]
+    "word": "MÉDICO",
+    "forbidden": ["Doctor", "Hospital", "Salud", "Enfermo", "Receta"]
   },
   {
-    "word": "COCINERO",
-    "forbidden": ["Comida", "Restaurante", "Chef", "Cocina", "Receta"]
+    "word": "INTERNET",
+    "forbidden": ["Wi-Fi", "Red", "Navegar", "Web", "Conexión"]
   },
   {
-    "word": "VOLCÁN",
-    "forbidden": ["Lava", "Erupción", "Montaña", "Fuego", "Ceniza"]
+    "word": "AVIÓN",
+    "forbidden": ["Volar", "Piloto", "Aeropuerto", "Cielo", "Alas"]
   },
   {
-    "word": "DENTÍFRICO",
-    "forbidden": ["Pasta", "Dientes", "Cepillo", "Baño", "Menta"]
+    "word": "DINOSAURIO",
+    "forbidden": ["Extinto", "Prehistórico", "Fósil", "Rex", "Gigante"]
+  },
+  {
+    "word": "CAFÉ",
+    "forbidden": ["Taza", "Despertar", "Mañana", "Caliente", "Bebida"]
+  },
+  {
+    "word": "SUPERMERCADO",
+    "forbidden": ["Comprar", "Carrito", "Comida", "Caja", "Pagar"]
+  },
+  {
+    "word": "CERVEZA",
+    "forbidden": ["Bebida", "Alcohol", "Lata", "Espuma", "Bar"]
+  },
+  {
+    "word": "ASTRONAUTA",
+    "forbidden": ["Espacio", "Luna", "Traje", "Cohete", "NASA"]
+  },
+  {
+    "word": "CHOCOLATE",
+    "forbidden": ["Dulce", "Cacao", "Negro", "Comer", "Pastilla"]
+  },
+  {
+    "word": "BICICLETA",
+    "forbidden": ["Pedales", "Ruedas", "Manubrio", "Casco", "Rodar"]
+  },
+  {
+    "word": "TELEVISOR",
+    "forbidden": ["Pantalla", "Ver", "Canal", "Control", "Serie"]
+  },
+  {
+    "word": "PERRO",
+    "forbidden": ["Ladrar", "Mascota", "Can", "Cola", "Pasear"]
+  },
+  {
+    "word": "GATO",
+    "forbidden": ["Maullar", "Mascota", "Felino", "Ratón", "Leche"]
+  },
+  {
+    "word": "ESPEJO",
+    "forbidden": ["Reflejo", "Mirarse", "Cristal", "Cara", "Vidrio"]
+  },
+  {
+    "word": "RELOJ",
+    "forbidden": ["Hora", "Tiempo", "Muñeca", "Minutos", "Segundos"]
+  },
+  {
+    "word": "ZAPATOS",
+    "forbidden": ["Pies", "Caminar", "Calzado", "Cordones", "Suela"]
+  },
+  {
+    "word": "LIBRO",
+    "forbidden": ["Leer", "Páginas", "Autor", "Texto", "Biblioteca"]
+  },
+  {
+    "word": "FUEGO",
+    "forbidden": ["Quemar", "Humo", "Llama", "Calor", "Encendedor"]
+  },
+  {
+    "word": "NIEVE",
+    "forbidden": ["Frío", "Blanco", "Invierno", "Hielo", "Muñeco"]
+  },
+  {
+    "word": "ZOMBIE",
+    "forbidden": ["Muerto", "Cerebro", "Caminar", "Infección", "Apocalipsis"]
+  },
+  {
+    "word": "SUPERHÉROE",
+    "forbidden": ["Capa", "Poderes", "Cómic", "Salvar", "Villano"]
+  },
+  {
+    "word": "TATUAJE",
+    "forbidden": ["Tinta", "Piel", "Aguja", "Dibujo", "Cuerpo"]
+  },
+  {
+    "word": "HELADO",
+    "forbidden": ["Frío", "Cono", "Sabores", "Dulce", "Verano"]
+  },
+  {
+    "word": "MATRIMONIO",
+    "forbidden": ["Boda", "Esposos", "Casarse", "Anillo", "Fiesta"]
+  },
+  {
+    "word": "POLICÍA",
+    "forbidden": ["Patrulla", "Sirena", "Cárcel", "Delito", "Uniforme"]
+  },
+  {
+    "word": "PIRATA",
+    "forbidden": ["Barco", "Tesoro", "Parche", "Mar", "Loro"]
+  },
+  {
+    "word": "CUMPLEAÑOS",
+    "forbidden": ["Torta", "Pastel", "Velas", "Regalo", "Fiesta"]
+  },
+  {
+    "word": "LLUVIA",
+    "forbidden": ["Agua", "Nubes", "Paraguas", "Mojarse", "Tormenta"]
+  },
+  {
+    "word": "PIANO",
+    "forbidden": ["Teclas", "Música", "Negras", "Blancas", "Tocar"]
+  },
+  {
+    "word": "TIBURÓN",
+    "forbidden": ["Mar", "Aleta", "Dientes", "Peligro", "Pez"]
+  },
+  {
+    "word": "SOPA",
+    "forbidden": ["Cuchara", "Plato", "Caldo", "Caliente", "Comer"]
+  },
+  {
+    "word": "VIDEOJUEGO",
+    "forbidden": ["Consola", "Control", "Jugar", "Pantalla", "Gamer"]
+  },
+  {
+    "word": "BATERÍA",
+    "forbidden": ["Cargar", "Teléfono", "Energía", "Porcentaje", "Pila"]
+  },
+  {
+    "word": "HAMBURGUESA",
+    "forbidden": ["Carne", "Pan", "Papas", "Comida", "Queso"]
+  },
+  {
+    "word": "TEATRO",
+    "forbidden": ["Actores", "Obra", "Escenario", "Dramaturgia", "Telón"]
+  },
+  {
+    "word": "MICRÓFONO",
+    "forbidden": ["Cantar", "Voz", "Hablar", "Sonido", "Amplificador"]
+  },
+  {
+    "word": "TREN",
+    "forbidden": ["Vías", "Estación", "Vagón", "Viajar", "Ferrocarril"]
+  },
+  {
+    "word": "FANTASMA",
+    "forbidden": ["Asustar", "Espíritu", "Sábana", "Casa", "Casper"]
+  },
+  {
+    "word": "HOTEL",
+    "forbidden": ["Habitación", "Vacaciones", "Cama", "Hospedarse", "Reserva"]
+  },
+  {
+    "word": "ASCENSOR",
+    "forbidden": ["Pisos", "Subir", "Bajar", "Botones", "Edificio"]
+  },
+  {
+    "word": "CIRCO",
+    "forbidden": ["Payaso", "Carpa", "Malabarista", "Magia", "Show"]
+  },
+  {
+    "word": "CAMA",
+    "forbidden": ["Dormir", "Almohada", "Cobija", "Cuarto", "Colchón"]
+  },
+  {
+    "word": "PARAGUAS",
+    "forbidden": ["Lluvia", "Mojarse", "Abrir", "Agua", "Sombrilla"]
+  },
+  {
+    "word": "DIENTES",
+    "forbidden": ["Boca", "Cepillo", "Sonrisa", "Morder", "Odontólogo"]
+  },
+  {
+    "word": "SILLA",
+    "forbidden": ["Sentarse", "Mueble", "Patas", "Comedor", "Respaldar"]
+  },
+  {
+    "word": "MONTAÑA",
+    "forbidden": ["Escalar", "Cumbre", "Naturaleza", "Nieve", "Pico"]
+  },
+  {
+    "word": "DINERO",
+    "forbidden": ["Billetes", "Monedas", "Pagar", "Comprar", "Banco"]
+  },
+  {
+    "word": "SERPIENTE",
+    "forbidden": ["Reptil", "Veneno", "Culebra", "Arrastrarse", "Morder"]
+  },
+  {
+    "word": "CIGARRO",
+    "forbidden": ["Fumar", "Tabaco", "Humo", "Cenicero", "Encendedor"]
+  },
+  {
+    "word": "LENTES",
+    "forbidden": ["Ojos", "Ver", "Gafas", "Anteojos", "Cristales"]
+  },
+  {
+    "word": "TECLADO",
+    "forbidden": ["Escribir", "Computadora", "Teclas", "Mouse", "Letras"]
+  },
+  {
+    "word": "CÁMARA",
+    "forbidden": ["Foto", "Imagen", "Lente", "Flash", "Video"]
+  },
+  {
+    "word": "TORTA",
+    "forbidden": ["Pastel", "Cumpleaños", "Velas", "Chocolate", "Dulce"]
+  },
+  {
+    "word": "DENTISTA",
+    "forbidden": ["Dientes", "Boca", "Dolor", "Doctor", "Limpieza"]
+  },
+  {
+    "word": "GIMNASIO",
+    "forbidden": ["Pesas", "Ejercicio", "Entrenar", "Sudor", "Rutina"]
+  },
+  {
+    "word": "BOLSILLO",
+    "forbidden": ["Pantalón", "Guardar", "Ropa", "Manos", "Llaves"]
+  },
+  {
+    "word": "CANDELABRO",
+    "forbidden": ["Velas", "Fuego", "Luz", "Cera", "Adorno"]
+  },
+  {
+    "word": "PARQUE",
+    "forbidden": ["Árboles", "Juegos", "Caminar", "Banca", "Niños"]
+  },
+  {
+    "word": "MICROONDAS",
+    "forbidden": ["Calentar", "Comida", "Cocina", "Horno", "Plato"]
+  },
+  {
+    "word": "CAMIÓN",
+    "forbidden": ["Manejar", "Carga", "Conductor", "Ruedas", "Carretera"]
+  },
+  {
+    "word": "MANZANA",
+    "forbidden": ["Fruta", "Roja", "Comer", "Árbol", "Pecado"]
+  },
+  {
+    "word": "MOCHILA",
+    "forbidden": ["Espalda", "Cargar", "Escuela", "Guardar", "Bolsos"]
+  },
+  {
+    "word": "NAVIDAD",
+    "forbidden": ["Diciembre", "Regalos", "Árbol", "Navideño", "Fiesta"]
+  },
+  {
+    "word": "BILLETERA",
+    "forbidden": ["Dinero", "Tarjetas", "Guardar", "Bolsillo", "Efectivo"]
+  },
+  {
+    "word": "ZAPATERÍA",
+    "forbidden": ["Comprar", "Zapatos", "Tienda", "Pies", "Calzado"]
+  },
+  {
+    "word": "ESCUELA",
+    "forbidden": ["Estudiar", "Profesor", "Alumnos", "Clases", "Colegio"]
+  },
+  {
+    "word": "GUITARRISTA",
+    "forbidden": ["Guitarra", "Tocar", "Músico", "Cuerdas", "Banda"]
+  },
+  {
+    "word": "PELUQUERÍA",
+    "forbidden": ["Cabello", "Cortar", "Tijeras", "Pelo", "Barbería"]
+  },
+  {
+    "word": "ESCOMBROS",
+    "forbidden": ["Basura", "Construcción", "Piedras", "Derrumbe", "Restos"]
   },
   {
     "word": "CANGURO",
-    "forbidden": ["Australia", "Salto", "Bolsa", "Cría", "Animal"]
+    "forbidden": ["Saltar", "Australia", "Bolsa", "Animal", "Mamífero"]
   },
   {
-    "word": "FOTOGRAFÍA",
-    "forbidden": ["Foto", "Cámara", "Imagen", "Retrato", "Capturar"]
+    "word": "PINTURA",
+    "forbidden": ["Cuadro", "Pincel", "Color", "Arte", "Pintor"]
+  },
+  {
+    "word": "SEMÁFORO",
+    "forbidden": ["Luz", "Verde", "Rojo", "Calle", "Tráfico"]
+  },
+  {
+    "word": "CACTUS",
+    "forbidden": ["Espinas", "Desierto", "Planta", "Verde", "Agua"]
+  },
+  {
+    "word": "ZOMBI",
+    "forbidden": ["Infección", "Muerto", "Cerebros", "Apocalipsis", "Caminar"]
+  },
+  {
+    "word": "JABÓN",
+    "forbidden": ["Bañarse", "Lavar", "Manos", "Burbujas", "Espuma"]
+  },
+  {
+    "word": "BIBLIOTECA",
+    "forbidden": ["Libros", "Silencio", "Leer", "Estudiar", "Estantes"]
+  },
+  {
+    "word": "ESQUÍ",
+    "forbidden": ["Nieve", "Montaña", "Frío", "Deporte", "Deslizarse"]
+  },
+  {
+    "word": "SOMBRA",
+    "forbidden": ["Luz", "Oscuridad", "Sol", "Cuerpo", "Proyección"]
+  },
+  {
+    "word": "BASURA",
+    "forbidden": ["Bolsa", "Desechos", "Contenedor", "Sucio", "Tirar"]
+  },
+  {
+    "word": "SIRENA",
+    "forbidden": ["Mar", "Pez", "Mitología", "Cola", "Mujer"]
+  },
+  {
+    "word": "SERENATA",
+    "forbidden": ["Canción", "Música", "Ventana", "Amor", "Guitarra"]
+  },
+  {
+    "word": "ESFINGE",
+    "forbidden": ["Egipto", "Pirámides", "Estatua", "Monumento", "Cabeza"]
+  },
+  {
+    "word": "NÁUFRAGO",
+    "forbidden": ["Isla", "Barco", "Sobrevivir", "Mar", "Desierta"]
+  },
+  {
+    "word": "BUZO",
+    "forbidden": ["Nadar", "Mar", "Agua", "Oxígeno", "Sumergirse"]
+  },
+  {
+    "word": "MIMO",
+    "forbidden": ["Hablar", "Silencio", "Blanco", "Gestos", "Actuar"]
+  },
+  {
+    "word": "PASAPORTE",
+    "forbidden": ["Viajar", "País", "Aeropuerto", "Identificación", "Visa"]
+  },
+  {
+    "word": "CASTILLO",
+    "forbidden": ["Rey", "Princesa", "Medieval", "Torre", "Piedra"]
+  },
+  {
+    "word": "HIELO",
+    "forbidden": ["Frío", "Agua", "Congelado", "Cubo", "Derretir"]
+  },
+  {
+    "word": "MERMELADA",
+    "forbidden": ["Fruta", "Pan", "Frasco", "Dulce", "Untar"]
+  },
+  {
+    "word": "SOLDADO",
+    "forbidden": ["Ejército", "Guerra", "Uniforme", "Arma", "Militar"]
+  },
+  {
+    "word": "ESCORPIÓN",
+    "forbidden": ["Veneno", "Picadura", "Cola", "Desierto", "Arácnido"]
+  },
+  {
+    "word": "SUBMARINO",
+    "forbidden": ["Agua", "Mar", "Navegar", "Sumergirse", "Barco"]
+  },
+  {
+    "word": "MONEDA",
+    "forbidden": ["Dinero", "Metal", "Cara", "Cruz", "Pagar"]
   }
 ]

@@ -11,7 +11,11 @@
     "Yo nunca nunca he enviado un mensaje al chat equivocado.",
     "Yo nunca nunca he dicho «ya voy» sin haber empezado a prepararme.",
     "Yo nunca nunca he visto una serie entera en un fin de semana.",
-    "Yo nunca nunca he fingido estar ocupado para evitar una llamada."
+    "Yo nunca nunca he fingido estar ocupado para evitar una llamada.",
+    "Yo nunca nunca he entrado a una habitación y he olvidado por qué fui.",
+    "Yo nunca nunca he comprado algo solo porque estaba en descuento sin necesitarlo.",
+    "Yo nunca nunca me he tropezado en la calle y he disimulado mirando al cielo.",
+    "Yo nunca nunca he comido algo directamente de la olla para no ensuciar platos."
   ],
   "intenso": [
     "Yo nunca nunca he inventado una excusa para cancelar un plan que yo mismo propuse.",
@@ -25,20 +29,28 @@
     "Yo nunca nunca he contado un secreto que prometí guardar.",
     "Yo nunca nunca he borrado un mensaje para que nadie lo viera.",
     "Yo nunca nunca he dicho que estaba de camino cuando todavía estaba en casa.",
-    "Yo nunca nunca he juzgado a alguien por algo que yo también hago."
+    "Yo nunca nunca he juzgado a alguien por algo que yo también hago.",
+    "Yo nunca nunca he hablado mal de un amigo a sus espaldas y me han cachado.",
+    "Yo nunca nunca he fingido que me gusta un regalo horrible para no herir sentimientos.",
+    "Yo nunca nunca he robado comida o bebida de la nevera compartida en el trabajo o casa.",
+    "Yo nunca nunca he inventado una emergencia laboral o médica para irme temprano."
   ],
   "salvaje": [
-    "Yo nunca nunca he revisado el móvil de una pareja sin permiso.",
-    "Yo nunca nunca he mentido para salir de una cita o de una relación.",
-    "Yo nunca nunca he besado a alguien y luego he fingido que no significó nada.",
-    "Yo nunca nunca he tenido una cita con dos personas distintas en la misma semana sin contárselo.",
-    "Yo nunca nunca he enviado una captura de pantalla a la persona que aparecía en ella.",
-    "Yo nunca nunca he seguido hablando con alguien solo porque me gustaba la atención.",
-    "Yo nunca nunca he sentido celos de alguien de este grupo.",
-    "Yo nunca nunca he exagerado una historia para quedar mejor.",
-    "Yo nunca nunca he ocultado una relación o un ligue a mis amistades.",
-    "Yo nunca nunca he coqueteado con alguien para conseguir un favor.",
-    "Yo nunca nunca he vuelto a escribirle a alguien solo porque me aburría.",
-    "Yo nunca nunca he tenido que pedir perdón por un mensaje enviado de madrugada."
+    "Yo nunca nunca he robado dinero de la billetera o cartera de un familiar.",
+    "Yo nunca nunca he tenido un encuentro íntimo en el lugar de trabajo o estudio.",
+    "Yo nunca nunca he sido la tercera persona en una relación ajena a sabiendas.",
+    "Yo nunca nunca he hurtado algo en una tienda o supermercado.",
+    "Yo nunca nunca he grabado o me he dejado grabar en una situación sexual íntima.",
+    "Yo nunca nunca he coqueteado o tenido algo con un familiar o ex de un amigo muy cercano.",
+    "Yo nunca nunca he mentido bajo juramento o ante la ley para salvarme de un castigo.",
+    "Yo nunca nunca he practicado un trío o intercambio de parejas.",
+    "Yo nunca nunca he usado información confidencial para arruinar la reputación o el trabajo de alguien.",
+    "Yo nunca nunca he estado con alguien solo por su dinero o por conveniencia económica.",
+    "Yo nunca nunca he tenido un encuentro intimo con dos personas distintas en menos de 24 horas.",
+    "Yo nunca nunca he destruido intencionalmente la propiedad privada de alguien por venganza.",
+    "Yo nunca nunca he continuado una relación sexual sabiendo que la otra persona estaba enamorada y yo solo la usaba.",
+    "Yo nunca nunca he participado en un juego íntimo en un lugar público con alto riesgo de ser visto.",
+    "Yo nunca nunca he acusado o culpado a un inocente de un delito o falta grave para librarme de la cárcel o despido.",
+    "Yo nunca nunca he sido infiel físicamente teniendo una relación estable."
   ]
 }

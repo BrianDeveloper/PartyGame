@@ -14,72 +14,254 @@
     {
       "id": "prefer-01",
       "mode": "prefer",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "suave",
-      "text": "¿Qué prefieres: decir siempre lo que piensas o no poder volver a mentir?"
+      "text": "Tener café perfecto o nunca hacer filas"
     },
     {
       "id": "prefer-02",
       "mode": "prefer",
       "category": "chill",
       "intensity": "suave",
-      "text": "¿Qué prefieres: vacaciones en una cabaña sin internet o una semana en un crucero lleno de desconocidos?"
+      "text": "Vivir en primavera eterna o con nieve y casa acogedora"
     },
     {
       "id": "prefer-03",
       "mode": "prefer",
-      "category": "escatologico",
+      "category": "chill",
       "intensity": "suave",
-      "text": "¿Qué prefieres: estornudar cada vez que vas al baño o tener hipo cada vez que te sientas?"
+      "text": "No tener sueño matutino o dormir en cualquier parte"
     },
     {
       "id": "prefer-04",
       "mode": "prefer",
-      "category": "picante",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Qué prefieres: que tu historial de búsqueda salga en una pantalla gigante o que tu familia lea tus mensajes en voz alta?"
+      "text": "Memorizar libros o aprender idiomas en una semana"
     },
     {
       "id": "prefer-05",
       "mode": "prefer",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Qué prefieres: salvar tu reputación culpando a un amigo o admitir una cagada que no fue tuya?"
+      "text": "Cambiar tu voz al reír o hablar cantando al estar nervioso"
     },
     {
       "id": "prefer-06",
       "mode": "prefer",
-      "category": "escatologico",
+      "category": "chill",
       "intensity": "intenso",
-      "text": "¿Qué prefieres: pisar descalzo un baño de gasolinera o descubrir demasiado tarde que el papel era de lija?"
+      "text": "Wi-Fi gratis lento o datos carísimos ilimitados"
     },
     {
       "id": "prefer-07",
       "mode": "prefer",
       "category": "chill",
-      "intensity": "intenso",
-      "text": "¿Qué prefieres: tener siempre la canción perfecta en la cabeza o no volver a olvidar ningún cumpleaños?"
+      "intensity": "salvaje",
+      "text": "Cinco años sin celular o no salir jamás de tu país"
     },
     {
       "id": "prefer-08",
       "mode": "prefer",
-      "category": "picante",
+      "category": "chill",
       "intensity": "salvaje",
-      "text": "¿Qué prefieres: que tu ex elija tu próxima pareja o que tu madre elija tu próximo tatuaje?"
+      "text": "Donar la mitad de la lotería o tener trabajo mediocre seguro"
     },
     {
       "id": "prefer-09",
       "mode": "prefer",
-      "category": "turbio",
+      "category": "chill",
       "intensity": "salvaje",
-      "text": "¿Qué prefieres: saber cuándo vas a morir o saber exactamente cómo va a acabar tu peor relación?"
+      "text": "Viajar gratis incómodo o pagar siempre primera clase"
     },
     {
       "id": "prefer-10",
       "mode": "prefer",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Probar posiciones extremas o experimentar con juguetes nuevos en la cama"
+    },
+    {
+      "id": "prefer-11",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Tener relaciones con la luz encendida viéndose todo o a oscuras totales"
+    },
+    {
+      "id": "prefer-12",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "suave",
+      "text": "Enviar audios sexuales explícitos o fotos íntimas sin rostro"
+    },
+    {
+      "id": "prefer-13",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Hacerlo en un lugar público arriesgándose a ser vistos o en una cama ajena incómoda"
+    },
+    {
+      "id": "prefer-14",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Probar trío con un desconocido o cumplir una fantasía pesada con tu pareja"
+    },
+    {
+      "id": "prefer-15",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "intenso",
+      "text": "Practicar juego de roles extremo o dominación total y sumisión"
+    },
+    {
+      "id": "prefer-16",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Tener relaciones frente a un espejo gigante o grabarlo todo para verlo después"
+    },
+    {
+      "id": "prefer-17",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Ser infiel mentalmente toda la vida o una sola noche de pasión salvaje con un desconocido"
+    },
+    {
+      "id": "prefer-18",
+      "mode": "prefer",
+      "category": "picante",
+      "intensity": "salvaje",
+      "text": "Pasar un año entero de abstinencia total o tener encuentros diarios con alguien que no te atrae"
+    },
+    {
+      "id": "prefer-19",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Vomitar encima de tu jefe en una junta o manchar de excremento tus pantalones favoritos en la calle"
+    },
+    {
+      "id": "prefer-20",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Tener diarrea explosiva en un bus lleno o vomitar en un ascensor abarrotado"
+    },
+    {
+      "id": "prefer-21",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "suave",
+      "text": "Limpiarte con hojas de planta desconocida tras defecar en el campo o usar tus propios calcetines"
+    },
+    {
+      "id": "prefer-22",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Desahogarte sin papel en un baño público y usar las manos o aguantarte tres horas con cólicos horribles"
+    },
+    {
+      "id": "prefer-23",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Comer comida que se cayó al piso de un baño público o beber agua de un charco con barro"
+    },
+    {
+      "id": "prefer-24",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "intenso",
+      "text": "Vomitar en tu propia boca y tragártelo o estornudar mocos espesos directamente en la cara de un cliente"
+    },
+    {
+      "id": "prefer-25",
+      "mode": "prefer",
       "category": "escatologico",
       "intensity": "salvaje",
-      "text": "¿Qué prefieres: que el retrete te salpique siempre o que cada pedo suene como una trompeta?"
+      "text": "Tener un brote de parásitos intestinales visibles o sufrir incontinencia severa en tu boda"
+    },
+    {
+      "id": "prefer-26",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "Bañarte en una piscina llena de aguas residuales o limpiar el vómito de todo un vagón de metro con una servilleta"
+    },
+    {
+      "id": "prefer-27",
+      "mode": "prefer",
+      "category": "escatologico",
+      "intensity": "salvaje",
+      "text": "Consumir un plato de comida mezclado con sudor y caspa de extraños o tragar una bola de pelos de gato con flema"
+    },
+    {
+      "id": "prefer-28",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Mentirle a un amigo sobre una infidelidad para protegerlo o romper su relación diciendo la verdad"
+    },
+    {
+      "id": "prefer-29",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Aceptar un soborno pequeño para falsificar una firma o delatar a un familiar directo por fraude"
+    },
+    {
+      "id": "prefer-30",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "suave",
+      "text": "Robar comida de un supermercado grande por pura necesidad o dejar que un indigente pase hambre enfrente de ti"
+    },
+    {
+      "id": "prefer-31",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Salvar la vida de un criminal peligroso o dejar morir a un desconocido egoísta teniendo la cura en la mano"
+    },
+    {
+      "id": "prefer-32",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Culpar a tu mejor amigo de un grave delito que cometiste tú para no ir a la cárcel"
+    },
+    {
+      "id": "prefer-33",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "intenso",
+      "text": "Traicionar los secretos más íntimos de tu pareja a cambio de limpiar tu propio historial criminal"
+    },
+    {
+      "id": "prefer-34",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Elegir qué miembro de tu familia muere en un accidente o salvarte tú dejando que todos los demás perezcan"
+    },
+    {
+      "id": "prefer-35",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Matar a una persona inocente en secreto o permitir que torturen a diez desconocidos frente a tus ojos"
+    },
+    {
+      "id": "prefer-36",
+      "mode": "prefer",
+      "category": "turbio",
+      "intensity": "salvaje",
+      "text": "Vender las pruebas que liberarían a un inocente condenado a cadena perpetua para asegurar tu propia riqueza"
     }
   ]
 }
